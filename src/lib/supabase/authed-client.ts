@@ -1,11 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const configuredSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const configuredSupabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-if (!supabaseUrl || !supabasePublishableKey) {
+if (!configuredSupabaseUrl || !configuredSupabasePublishableKey) {
   throw new Error("Missing Supabase environment variables.");
 }
+const supabaseUrl: string = configuredSupabaseUrl;
+const supabasePublishableKey: string = configuredSupabasePublishableKey;
 
 export function createAuthedSupabaseClient(accessToken: string) {
   return createClient(supabaseUrl, supabasePublishableKey, {

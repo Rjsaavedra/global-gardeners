@@ -48,8 +48,10 @@ export async function POST(request: Request) {
     premium_trial_started_at?: string;
     premium_trial_ends_at?: string;
     subscription_selected_at: string;
-  } = { subscription: "premium" };
-  updatePayload.subscription_selected_at = new Date().toISOString();
+  } = {
+    subscription: "premium",
+    subscription_selected_at: new Date().toISOString(),
+  };
 
   if (!profile?.premium_trial_started_at) {
     const now = new Date();

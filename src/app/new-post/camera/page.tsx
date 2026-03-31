@@ -56,7 +56,7 @@ function GalleryIcon() {
   );
 }
 
-export default function CameraOnboardingPage() {
+export default function CameraPage() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -67,31 +67,6 @@ export default function CameraOnboardingPage() {
   const [flashOn, setFlashOn] = useState(false);
   const [torchSupported, setTorchSupported] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function checkOnboardingStatus() {
-      const response = await fetch("/api/profile/onboarding-status");
-      if (!response.ok) {
-        return;
-      }
-
-      const status = (await response.json()) as { nextStep?: string };
-      if (!isMounted || !status.nextStep) {
-        return;
-      }
-
-      if (status.nextStep !== "/onboarding") {
-        router.replace(status.nextStep);
-      }
-    }
-
-    void checkOnboardingStatus();
-    return () => {
-      isMounted = false;
-    };
-  }, [router]);
 
   useEffect(() => {
     let cancelled = false;
@@ -232,7 +207,7 @@ export default function CameraOnboardingPage() {
         : [];
       const merged = [...existing, ...dataUrls].slice(0, 5);
       sessionStorage.setItem("ggDraftPostPhotos", JSON.stringify(merged));
-      router.push("/onboarding/new-post");
+      router.push("/new-post");
     } catch {
       setErrorMessage("Unable to load selected photos.");
     }
@@ -264,7 +239,7 @@ export default function CameraOnboardingPage() {
     context.drawImage(video, 0, 0, width, height);
     const capturedDataUrl = canvas.toDataURL("image/jpeg", 0.92);
     sessionStorage.setItem("ggCapturedPhoto", capturedDataUrl);
-    router.push("/onboarding/new-post/confirm");
+    router.push("/new-post/confirm");
   };
 
   const previewOrientationClass = isLandscape
@@ -276,7 +251,7 @@ export default function CameraOnboardingPage() {
       <section className="relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-white shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
         <header className="relative z-10 flex items-center justify-between border-b border-black/10 bg-white p-4">
           <Link
-            href="/onboarding/new-post"
+            href="/new-post"
             aria-label="Close camera"
             className="inline-flex h-10 w-10 items-center justify-center transition"
           >

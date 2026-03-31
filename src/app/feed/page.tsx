@@ -627,7 +627,7 @@ export default function FeedPage() {
 
   const handleCreatePost = () => {
     closeDrawer();
-    router.push("/onboarding/new-post");
+    router.push("/new-post");
   };
 
   return (

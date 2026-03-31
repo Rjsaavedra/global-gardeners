@@ -52,12 +52,14 @@ export async function resolveAuthenticatedRequest(
   if (error || !data.session || !data.user) {
     return null;
   }
+  const session = data.session;
+  const user = data.user;
 
   return {
-    accessToken: data.session.access_token,
-    userId: data.user.id,
+    accessToken: session.access_token,
+    userId: user.id,
     applyRefreshedCookies: (response) => {
-      setAuthCookies(response, data.session, { persistent });
+      setAuthCookies(response, session, { persistent });
     },
   };
 }
