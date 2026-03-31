@@ -66,12 +66,15 @@ export default function CameraPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [flashOn, setFlashOn] = useState(false);
   const [torchSupported, setTorchSupported] = useState(false);
-  const [isLandscape, setIsLandscape] = useState(false);
+  const [facingMode, setFacingMode] = useState<"user" | "environment">("environment");
 
   useEffect(() => {
     let cancelled = false;
 
     const startCamera = async () => {
+      setCameraReady(false);
+      setErrorMessage("");
+
       if (
         typeof navigator === "undefined" ||
         !navigator.mediaDevices ||
@@ -81,9 +84,15 @@ export default function CameraPage() {
         return;
       }
 
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+      trackRef.current = null;
+
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "environment" },
+          video: { facingMode },
           audio: false,
         });
 
@@ -100,7 +109,11 @@ export default function CameraPage() {
           const capabilities = videoTrack.getCapabilities() as MediaTrackCapabilities & {
             torch?: boolean;
           };
-          setTorchSupported(Boolean(capabilities.torch));
+          const canUseTorch = Boolean(capabilities.torch);
+          setTorchSupported(canUseTorch);
+          if (!canUseTorch) {
+            setFlashOn(false);
+          }
         }
 
         if (videoRef.current) {
@@ -124,35 +137,7 @@ export default function CameraPage() {
       trackRef.current = null;
 
     };
-  }, []);
-
-  useEffect(() => {
-    const orientation = (typeof screen !== "undefined"
-      ? screen.orientation
-      : null) as (ScreenOrientation & {
-      lock?: (
-        orientation:
-          | "any"
-          | "natural"
-          | "landscape"
-          | "portrait"
-          | "portrait-primary"
-          | "portrait-secondary"
-          | "landscape-primary"
-          | "landscape-secondary",
-      ) => Promise<void>;
-    }) | null;
-
-    if (!orientation?.lock) {
-      return;
-    }
-
-    void orientation
-      .lock(isLandscape ? "landscape" : "portrait")
-      .catch(() => {
-        // Orientation lock is not available on all devices/browser contexts.
-      });
-  }, [isLandscape]);
+  }, [facingMode]);
 
   useEffect(() => {
     const applyTorch = async () => {
@@ -242,9 +227,9 @@ export default function CameraPage() {
     router.push("/new-post/confirm");
   };
 
-  const previewOrientationClass = isLandscape
-    ? "rotate-90 scale-[1.35]"
-    : "rotate-0 scale-100";
+  const handleSwitchCamera = () => {
+    setFacingMode((current) => (current === "environment" ? "user" : "environment"));
+  };
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 sm:grid sm:place-items-center sm:px-8">
@@ -269,12 +254,8 @@ export default function CameraPage() {
             </button>
             <button
               type="button"
-              onClick={() => setIsLandscape((current) => !current)}
-              aria-label={
-                isLandscape
-                  ? "Switch preview to portrait"
-                  : "Switch preview to landscape"
-              }
+              onClick={handleSwitchCamera}
+              aria-label={facingMode === "environment" ? "Switch to front camera" : "Switch to back camera"}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#f5f5f5] text-[#333333]"
             >
               <SwitchCameraIcon />
@@ -288,7 +269,7 @@ export default function CameraPage() {
             autoPlay
             muted
             playsInline
-            className={`absolute inset-0 block h-full w-full min-h-full min-w-full transition-transform duration-300 ${previewOrientationClass} ${cameraReady ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 block h-full w-full min-h-full min-w-full transition-opacity duration-300 ${cameraReady ? "opacity-100" : "opacity-0"}`}
             style={{ objectFit: "cover" }}
           />
           {!cameraReady ? (
