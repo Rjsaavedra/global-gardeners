@@ -16,16 +16,26 @@ export default function PhotoConfirmationPage() {
   const photoSrc = capturedPhoto || fallbackConfirmationImage;
 
   const handleContinue = () => {
-    if (capturedPhoto) {
-      const rawDraftPhotos = sessionStorage.getItem("ggDraftPostPhotos");
-      const draftPhotos = rawDraftPhotos ? (JSON.parse(rawDraftPhotos) as unknown) : [];
-      const existing = Array.isArray(draftPhotos)
-        ? draftPhotos.filter((value): value is string => typeof value === "string")
-        : [];
-      const merged = [...existing, capturedPhoto].slice(0, 5);
-      sessionStorage.setItem("ggDraftPostPhotos", JSON.stringify(merged));
+    try {
+      if (capturedPhoto) {
+        const rawDraftPhotos = sessionStorage.getItem("ggDraftPostPhotos");
+        let existing: string[] = [];
+
+        if (rawDraftPhotos) {
+          const draftPhotos = JSON.parse(rawDraftPhotos) as unknown;
+          if (Array.isArray(draftPhotos)) {
+            existing = draftPhotos.filter((value): value is string => typeof value === "string");
+          }
+        }
+
+        const merged = [...existing, capturedPhoto].slice(0, 5);
+        sessionStorage.setItem("ggDraftPostPhotos", JSON.stringify(merged));
+      }
+    } catch {
+      // Keep navigation resilient even if storage data is corrupted.
+    } finally {
+      router.push("/new-post");
     }
-    router.push("/new-post");
   };
 
   return (
