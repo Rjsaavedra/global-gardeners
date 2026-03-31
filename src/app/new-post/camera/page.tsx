@@ -165,7 +165,7 @@ export default function CameraPage() {
     setFlashOn((current) => !current);
   };
 
-  const fileToDataUrl = (file: File) =>
+  const readFileAsDataUrl = (file: File) =>
     new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -178,6 +178,37 @@ export default function CameraPage() {
       reader.onerror = () => reject(new Error("Unable to read file."));
       reader.readAsDataURL(file);
     });
+
+  const compressDataUrl = (sourceDataUrl: string) =>
+    new Promise<string>((resolve) => {
+      const image = new window.Image();
+      image.onload = () => {
+        const maxDimension = 1440;
+        const scale = Math.min(1, maxDimension / Math.max(image.width, image.height));
+        const targetWidth = Math.max(1, Math.round(image.width * scale));
+        const targetHeight = Math.max(1, Math.round(image.height * scale));
+
+        const canvas = document.createElement("canvas");
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        const context = canvas.getContext("2d");
+        if (!context) {
+          resolve(sourceDataUrl);
+          return;
+        }
+
+        context.drawImage(image, 0, 0, targetWidth, targetHeight);
+        const compressed = canvas.toDataURL("image/jpeg", 0.8);
+        resolve(compressed);
+      };
+      image.onerror = () => resolve(sourceDataUrl);
+      image.src = sourceDataUrl;
+    });
+
+  const fileToDataUrl = async (file: File) => {
+    const rawDataUrl = await readFileAsDataUrl(file);
+    return compressDataUrl(rawDataUrl);
+  };
 
   const handleGallerySelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files ? Array.from(event.target.files) : [];
