@@ -93,7 +93,7 @@ export default function NewPostPage() {
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17] sm:grid sm:place-items-center sm:px-8">
       <section className="mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
-        <header className="flex items-center border-b border-black/10 bg-white p-4">
+        <header className="sticky top-0 z-10 flex items-center border-b border-black/10 bg-white p-4">
           <Link
             href="/feed"
             aria-label="Back"

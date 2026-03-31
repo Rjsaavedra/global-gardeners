@@ -234,7 +234,7 @@ export default function CameraPage() {
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-white shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
-        <header className="relative z-10 flex items-center justify-between border-b border-black/10 bg-white p-4">
+        <header className="sticky top-0 z-10 flex items-center justify-between border-b border-black/10 bg-white p-4">
           <Link
             href="/new-post"
             aria-label="Close camera"

@@ -632,8 +632,8 @@ export default function FeedPage() {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
-      <section className="relative flex min-h-screen w-full flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
-        <header className="sticky top-0 z-10 flex items-center justify-between border-b border-black/10 bg-white p-4">
+      <section className="relative flex min-h-screen w-full flex-col overflow-x-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
+        <header className="fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-[390px] items-center justify-between border-b border-black/10 bg-white p-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -662,7 +662,7 @@ export default function FeedPage() {
           </div>
         </header>
 
-        <div className="flex flex-col gap-6 px-4 pb-8 pt-4">
+        <div className="flex flex-col gap-6 px-4 pb-8 pt-[88px]">
           {isFeedLoading ? (
             <div className="rounded-[12px] border border-black/10 bg-white p-4 text-[14px] text-[#525252]">Loading feed...</div>
           ) : null}
