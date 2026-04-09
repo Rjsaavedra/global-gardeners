@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const onboardingImage =
-  "https://www.figma.com/api/mcp/asset/88d132ab-ffe2-4234-a9ca-32b1385e1300";
+const onboardingImage = "/images/figma/onboarding-confirmation.png";
 
 function ChevronRightIcon() {
   return (

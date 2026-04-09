@@ -20,6 +20,15 @@ type FeedPost = {
   likedByMe: boolean;
   comments: number;
   publishedAgo: string;
+  score?: number;
+  reason?: string;
+  scoreBreakdown?: {
+    interestScore: number;
+    relationshipScore: number;
+    engagementScore: number;
+    recencyScore: number;
+    contentPreferenceScore: number;
+  };
 };
 
 type DrawerItem = {

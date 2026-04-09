@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const fallbackConfirmationImage =
-  "https://www.figma.com/api/mcp/asset/628cc9d2-a1d5-43e3-95e1-197b36610fb1";
+const fallbackConfirmationImage = "/images/figma/onboarding-confirmation.png";
 
 export default function PhotoConfirmationPage() {
   const router = useRouter();

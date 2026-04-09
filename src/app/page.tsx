@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,8 +26,7 @@ const slides: SlideConfig[] = [
       "An all-in-one platform for plant identification, community, and personalized care.",
     imageAlt:
       "A welcoming arrangement of potted plants, gardening tools, and a watering can.",
-    imageSrc:
-      "https://www.figma.com/api/mcp/asset/d8253a0a-f335-4748-9997-a717ebe4c1b9",
+    imageSrc: "/images/figma/slide-1.png",
     imageClassName:
       "absolute left-1/2 top-0 h-[443px] w-[443px] max-w-none -translate-x-[50.7%] object-cover",
   },
@@ -39,10 +38,9 @@ const slides: SlideConfig[] = [
     descriptionClassName: "max-w-[332px]",
     imageAlt:
       "A phone displaying a plant feed beside a potted plant on a bright tabletop.",
-    imageSrc:
-      "https://www.figma.com/api/mcp/asset/e5e28cff-b906-47b5-9f28-79122b60cb7b",
+    imageSrc: "/images/figma/slide-2.png",
     imageClassName:
-      "absolute left-[-78.5px] top-0 h-[443px] w-[443px] max-w-none object-cover",
+      "absolute inset-0 h-full w-full object-cover",
   },
   {
     eyebrow: "Global Plant ID",
@@ -57,9 +55,9 @@ const slides: SlideConfig[] = [
     imageAlt:
       "A healthy potted plant next to a phone screen showing plant identification details.",
     imageSrc:
-      "https://www.figma.com/api/mcp/asset/2c700f4a-fb99-4477-9dd3-725cd0ae7737",
+      "/images/figma/slide-3.png",
     imageClassName:
-      "absolute left-1/2 top-1/2 h-[515px] w-[515px] max-w-none -translate-x-[51.1%] -translate-y-[54.1%] object-cover",
+      "absolute inset-0 h-full w-full object-cover",
   },
   {
     eyebrow: "MyGrowMate",
@@ -73,8 +71,7 @@ const slides: SlideConfig[] = [
     ],
     imageAlt:
       "Three potted plants with care icons representing sunlight, water, and temperature.",
-    imageSrc:
-      "https://www.figma.com/api/mcp/asset/3f6faf26-f1bb-47e4-89fc-51d72e01e5df",
+    imageSrc: "/images/figma/slide-4.png",
     imageClassName:
       "absolute left-[-62.5px] top-[-28px] h-[471px] w-[471px] max-w-none object-cover",
   },
@@ -90,8 +87,7 @@ const slides: SlideConfig[] = [
     ],
     imageAlt:
       "A collection of indoor plants arranged together in various pots on a bright surface.",
-    imageSrc:
-      "https://www.figma.com/api/mcp/asset/205d2dff-8292-47a4-8a4e-9528b0f69377",
+    imageSrc: "/images/figma/slide-5.png",
     imageClassName: "absolute left-[-80.5px] top-[-68px] h-[451px] w-[451px] max-w-none",
     cardClassName: "h-[383px]",
     primaryActionLabel: "Create Account",
@@ -269,3 +265,4 @@ export default function Home() {
     </main>
   );
 }
+
