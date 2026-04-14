@@ -1,0 +1,438 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
+import { getDrawerItems } from "@/components/drawer-items";
+
+const heroAvatar = "https://www.figma.com/api/mcp/asset/337fb1e2-a054-4c5c-ad8e-fa46ac7f9bb6";
+const heroVideoA = "https://www.figma.com/api/mcp/asset/1c045ae0-d5e0-47f3-a134-fb8328272a98";
+const heroVideoB = "https://www.figma.com/api/mcp/asset/c456af2d-5ec9-4dc6-8074-1601bcec0873";
+const playOverlay = "https://www.figma.com/api/mcp/asset/36e41681-74f3-43f5-bb7a-d19cce586550";
+const dotA = "https://www.figma.com/api/mcp/asset/32d36029-9b0a-441b-817c-092f8b401c32";
+const dotB = "https://www.figma.com/api/mcp/asset/dd887826-61ef-4854-9e3d-5ed0d3b2ca4c";
+const voteAvatar = "https://www.figma.com/api/mcp/asset/3855443a-f999-416e-b602-784b72017231";
+const pastAvatar = "https://www.figma.com/api/mcp/asset/da7557a7-d99d-4af1-821d-b687f638090e";
+const ellipsisIcon = "https://www.figma.com/api/mcp/asset/bd0c8eae-1174-4042-a885-86341a252339";
+const checkIcon = "https://www.figma.com/api/mcp/asset/cb33e494-135d-44a3-b0c9-7580e49cdeca";
+
+function MenuIcon() {
+  return (
+    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path d="M20 11.25C20.4142 11.25 20.75 11.5858 20.75 12C20.75 12.4142 20.4142 12.75 20 12.75H4C3.58579 12.75 3.25 12.4142 3.25 12C3.25 11.5858 3.58579 11.25 4 11.25H20Z" fill="currentColor" />
+      <path d="M20 17.25C20.4142 17.25 20.75 17.5858 20.75 18C20.75 18.4142 20.4142 18.75 20 18.75H4C3.58579 18.75 3.25 18.4142 3.25 18C3.25 17.5858 3.58579 17.25 4 17.25H20Z" fill="currentColor" />
+      <path d="M20 5.25C20.4142 5.25 20.75 5.58579 20.75 6C20.75 6.41421 20.4142 6.75 20 6.75H4C3.58579 6.75 3.25 6.41421 3.25 6C3.25 5.58579 3.58579 5.25 4 5.25H20Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path d="M13.0823 20.625C13.2894 20.2663 13.7481 20.1435 14.1067 20.3506C14.4655 20.5577 14.5883 21.0163 14.3812 21.375C14.1398 21.7929 13.7932 22.1405 13.3753 22.3818C12.9574 22.6231 12.4829 22.7499 12.0003 22.75C11.5178 22.75 11.0432 22.623 10.6253 22.3818C10.2073 22.1405 9.85984 21.793 9.61847 21.375C9.41134 21.0163 9.53418 20.5577 9.89288 20.3506C10.2516 20.1435 10.7102 20.2663 10.9173 20.625C11.027 20.815 11.1853 20.9723 11.3753 21.082C11.5653 21.1917 11.7809 21.25 12.0003 21.25C12.2196 21.2499 12.4354 21.1917 12.6253 21.082C12.8151 20.9724 12.9727 20.8148 13.0823 20.625Z" fill="currentColor" />
+      <path d="M17.2496 8C17.2496 6.60779 16.6969 5.27262 15.7125 4.28809C14.728 3.30352 13.392 2.75 11.9996 2.75C10.6073 2.75007 9.27223 3.30358 8.28772 4.28809C7.30323 5.27264 6.74963 6.60767 6.74963 8C6.74963 10.3279 6.38421 11.9327 5.80628 13.1562C5.2337 14.3683 4.47511 15.1507 3.81604 15.8311L3.776 15.8906C3.76542 15.9124 3.75748 15.9359 3.75354 15.96C3.74582 16.0076 3.75265 16.0564 3.7721 16.1006C3.7916 16.1448 3.82343 16.1825 3.86389 16.209C3.90447 16.2355 3.95216 16.25 4.00061 16.25H20.0006C20.0487 16.2499 20.096 16.2361 20.1364 16.21C20.1769 16.1836 20.2095 16.1458 20.2291 16.1016C20.2487 16.0573 20.2545 16.0078 20.2467 15.96C20.239 15.9122 20.2177 15.8678 20.1852 15.832C19.5247 15.1513 18.7654 14.3687 18.193 13.1572C17.6148 11.9335 17.2496 10.328 17.2496 8ZM18.7496 8C18.7496 10.171 19.0901 11.5444 19.5494 12.5166C20.0095 13.4902 20.6126 14.1188 21.278 14.8047C21.2835 14.8104 21.2892 14.8164 21.2946 14.8223C21.5228 15.0731 21.6728 15.385 21.7272 15.7197C21.7815 16.0545 21.7374 16.3979 21.6002 16.708C21.463 17.0181 21.2389 17.2818 20.9547 17.4668C20.7061 17.6286 20.421 17.7238 20.1266 17.7451L19.9996 17.75H3.99963C3.66057 17.7498 3.32855 17.6511 3.04456 17.4658C2.7605 17.2805 2.53588 17.0164 2.39905 16.7061C2.26226 16.3958 2.21935 16.0524 2.27405 15.7178C2.32882 15.383 2.47903 15.0709 2.70764 14.8203L2.72327 14.8037C3.38742 14.118 3.9908 13.4894 4.45081 12.5156C4.90993 11.5435 5.24963 10.1706 5.24963 8C5.24963 6.20979 5.9613 4.49243 7.22717 3.22656C8.49295 1.96098 10.2097 1.25007 11.9996 1.25C13.7898 1.25 15.5072 1.96077 16.7731 3.22656C18.0389 4.49243 18.7496 6.20979 18.7496 8Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function VideoCard({ image, dot, mutedAgo }: { image: string; dot: string; mutedAgo?: boolean }) {
+  return (
+    <article className="w-[min(265px,calc(100vw-80px))] shrink-0 rounded-[12px] bg-[#f7f7f7] p-4">
+      <div className="relative aspect-[295/166] w-full overflow-hidden rounded-[8px]">
+        <img src={image} alt="" className="h-full w-full rounded-[8px] object-cover" />
+        <div className="absolute right-2 top-2 flex h-[40px] w-[40px] items-center justify-center">
+          <img src={playOverlay} alt="" className="h-[40px] w-[40px]" />
+        </div>
+        <span className="absolute bottom-2 right-2 rounded-[6px] bg-black px-2 py-1 text-[12px] font-medium leading-[1.2] text-white">12:00</span>
+      </div>
+      <div className="mt-4 flex items-start gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-[14px] font-medium leading-[1.2] text-[#333333]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div className="mt-2 flex items-center gap-[6px]">
+            <span className="text-[12px] font-medium leading-4 text-[#333333cc]">3.5k views</span>
+            <img src={dot} alt="" className="h-1 w-1" />
+            <span className={`text-[12px] leading-4 ${mutedAgo ? "font-normal text-[#33333380]" : "font-medium text-[#33333380]"}`}>1 day ago</span>
+          </div>
+        </div>
+        <img src={ellipsisIcon} alt="" className="mt-1 h-4 w-4" />
+      </div>
+    </article>
+  );
+}
+
+export default function InfluencerSpotlightPage() {
+  const router = useRouter();
+  const [selectedCandidateId, setSelectedCandidateId] = useState("2");
+  const [flowState, setFlowState] = useState<"none" | "vote-confirm" | "suggest" | "suggest-confirm">("none");
+  const [suggestText, setSuggestText] = useState("");
+  const [isDrawerMounted, setIsDrawerMounted] = useState(false);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [drawerProfile, setDrawerProfile] = useState<DrawerProfile>({
+    fullName: "Global Gardener",
+    nickname: "@Global Gardener",
+    profilePhotoUrl: null,
+  });
+
+  const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const drawerRef = useRef<HTMLElement | null>(null);
+
+  const drawerItems: DrawerItem[] = getDrawerItems("Influencer Spotlight");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadDrawerProfile() {
+      const response = await fetch("/api/profile/me");
+      if (!response.ok) return;
+
+      const profile = (await response.json()) as Partial<DrawerProfile>;
+      if (!isMounted) return;
+
+      const fullName = typeof profile.fullName === "string" && profile.fullName.trim() ? profile.fullName.trim() : "Global Gardener";
+      const nickname = typeof profile.nickname === "string" && profile.nickname.trim() ? profile.nickname.trim() : `@${fullName}`;
+      const profilePhotoUrl = typeof profile.profilePhotoUrl === "string" && profile.profilePhotoUrl.trim() ? profile.profilePhotoUrl.trim() : null;
+
+      setDrawerProfile({ fullName, nickname, profilePhotoUrl });
+    }
+
+    void loadDrawerProfile();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const openDrawer = () => {
+    if (drawerCloseTimerRef.current) {
+      clearTimeout(drawerCloseTimerRef.current);
+      drawerCloseTimerRef.current = null;
+    }
+    if (isDrawerMounted) return;
+
+    menuTriggerRef.current = document.activeElement as HTMLButtonElement | null;
+    setIsDrawerMounted(true);
+    requestAnimationFrame(() => setIsDrawerVisible(true));
+  };
+
+  const closeDrawer = () => {
+    setIsDrawerVisible(false);
+    drawerCloseTimerRef.current = setTimeout(() => {
+      setIsDrawerMounted(false);
+      menuTriggerRef.current?.focus();
+      drawerCloseTimerRef.current = null;
+    }, 300);
+  };
+
+  useEffect(() => {
+    if (!isDrawerVisible) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeDrawer();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    drawerRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isDrawerVisible]);
+
+  useEffect(() => {
+    if (isDrawerMounted) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+
+    document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isDrawerMounted]);
+
+  const handleCreatePost = () => {
+    closeDrawer();
+    router.push("/new-post");
+  };
+
+  const handleOpenProfile = () => {
+    closeDrawer();
+    router.push("/profile");
+  };
+
+  const handleSelectDrawerItem = (item: DrawerItem) => {
+    closeDrawer();
+    if (item.label === "Stream") {
+      router.push("/feed");
+      return;
+    }
+    if (item.label === "Guides") {
+      router.push("/guides");
+      return;
+    }
+    if (item.label === "Notifications") {
+      router.push("/notifications");
+    }
+  };
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.replace("/login");
+      setIsLoggingOut(false);
+    }
+  };
+
+  const closeFlow = () => {
+    setFlowState("none");
+    setSuggestText("");
+  };
+
+  return (
+    <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
+      <section className="client-shell relative flex min-h-screen w-full flex-col border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
+        <header className="client-header fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between border-b border-black/10 bg-white p-4">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              ref={menuTriggerRef}
+              className="rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
+              aria-label="Open menu"
+              onClick={openDrawer}
+            >
+              <MenuIcon />
+            </button>
+            <h1 className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#31674c]">Global Gardeners</h1>
+          </div>
+
+          <button
+            type="button"
+            className="rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
+            aria-label="Notifications"
+            onClick={() => router.push("/notifications")}
+          >
+            <BellIcon />
+          </button>
+        </header>
+
+        <div className="flex w-full flex-col gap-[64px] px-4 pb-8 pt-[104px]">
+          <section className="w-full rounded-[16px] border border-black/10 bg-white p-6">
+            <div className="mx-auto flex h-[53px] items-center justify-center rounded-[100px] border border-[#d4d4d4] bg-[rgba(255,255,255,0.2)] px-4 py-3">
+              <h2 className="bg-gradient-to-r from-[#182a17] via-[#3c6838] to-[#5fa659] bg-clip-text text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-transparent">
+                Influencer of the Month
+              </h2>
+            </div>
+
+            <div className="mt-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center justify-center gap-3">
+                  <img src={heroAvatar} alt="Influencer" className="h-12 w-12 rounded-full object-cover" />
+                  <div>
+                    <p className="text-[18px] font-semibold leading-[27px] text-[#333333]">Influencer Name</p>
+                    <p className="text-[12px] font-medium leading-4 text-[#333333cc]">Indoor plant specialist</p>
+                  </div>
+                </div>
+                <p className="text-center text-[14px] font-medium leading-5 text-[#333333cc]">
+                  Mario shares practical tips on indoor plant care, propagation, and plant health for beginner and experienced gardeners.
+                </p>
+              </div>
+
+              <div className="mt-6 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex gap-3">
+                  <VideoCard image={heroVideoA} dot={dotA} />
+                  <VideoCard image={heroVideoB} dot={dotB} mutedAgo />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="w-full rounded-[16px] border border-black/10 bg-white p-6">
+            <h3 className="mx-auto w-[244px] text-center text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Who should we feature next month?</h3>
+            <p className="mt-[18px] text-center text-[16px] font-medium leading-6 text-[#333333cc]">Which creator should we feature next?</p>
+
+            <div className="mt-8 flex w-full flex-col gap-3">
+              {[1, 2, 3].map((id) => {
+                const selected = selectedCandidateId === String(id);
+                return (
+                  <div key={id} className="flex h-[68px] gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCandidateId(String(id))}
+                      className={`flex flex-1 items-center rounded-[10px] border p-4 text-left ${selected ? "border-[#171717] bg-[#f8fafc]" : "border-[#e5e5e5] bg-white"}`}
+                    >
+                      <span className={`relative h-4 w-4 rounded-full border ${selected ? "border-[#171717]" : "border-[#d4d4d4]"}`}>
+                        {selected ? <span className="absolute left-[3px] top-[3px] h-2 w-2 rounded-full bg-[#171717]" /> : null}
+                      </span>
+                      <img src={voteAvatar} alt="Influencer" className="ml-3 h-9 w-9 rounded-full object-cover" />
+                      <span className="ml-3">
+                        <p className="text-[14px] font-medium leading-5 text-[#333333]">Influencer Name</p>
+                        <p className="text-[12px] font-medium leading-4 text-[#333333cc]">Indoor plant specialist</p>
+                      </span>
+                    </button>
+                    <button type="button" className="w-[62px] rounded-[10px] bg-[#f7f7f7] p-3 text-[12px] font-medium leading-[1.2] text-black">View profile</button>
+                  </div>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setFlowState("vote-confirm")}
+              className="mt-8 h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+            >
+              Submit vote
+            </button>
+            <p className="mt-3 text-center text-[12px] font-normal leading-4 text-[#333333cc]">A confirmation email will be sent after voting.</p>
+          </section>
+
+          <section className="w-full">
+            <h3 className="text-[20px] font-semibold leading-6 text-[#333333]">Past Spotlight Creators</h3>
+            <div className="mt-6">
+              <div className="flex gap-3 overflow-x-auto pr-4">
+                {[1, 2].map((id) => (
+                  <article key={id} className="w-[min(265px,calc(100vw-64px))] shrink-0 rounded-[16px] border border-black/10 bg-white p-6">
+                    <div className="flex flex-col items-center gap-6">
+                      <div className="flex flex-col items-center gap-3">
+                        <img src={pastAvatar} alt="Past influencer" className="h-16 w-16 rounded-full object-cover" />
+                        <p className="text-[14px] font-semibold leading-5 text-[#182a17]">Influencer Name</p>
+                        <div className="w-full rounded-[100px] border border-[#333333] bg-[rgba(255,255,255,0.2)] px-2 py-1">
+                          <p className="bg-gradient-to-r from-[#182a17] via-[#3c6838] to-[#5fa659] bg-clip-text text-center text-[12px] font-semibold leading-4 text-transparent">March 2025</p>
+                        </div>
+                        <p className="text-center text-[12px] font-medium leading-4 text-[#333333cc]">Mario shares practical tips on indoor plant care, propagation.</p>
+                      </div>
+                      <button type="button" className="h-8 w-full rounded-[100px] bg-[#f5f5f5] text-[14px] font-medium leading-5 text-black">View videos</button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {isDrawerMounted ? (
+          <SideDrawer
+            drawerRef={drawerRef}
+            isLoggingOut={isLoggingOut}
+            isVisible={isDrawerVisible}
+            items={drawerItems}
+            onClose={closeDrawer}
+            onCreatePost={handleCreatePost}
+            onLogout={() => {
+              void handleLogout();
+            }}
+            onOpenProfile={handleOpenProfile}
+            onSelectItem={handleSelectDrawerItem}
+            profile={drawerProfile}
+          />
+        ) : null}
+
+        {flowState !== "none" ? (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#0a0d12]/60 px-4">
+            <section className="flex h-[512px] w-[358px] flex-col rounded-[16px] border border-[#e5e5e5] bg-white px-4 py-6 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
+              {flowState === "vote-confirm" ? (
+                <>
+                  <div className="flex flex-1 flex-col items-center justify-center gap-6">
+                    <div className="relative">
+                      <div className="h-[120px] w-[120px] rounded-full bg-[#edf8ec]" />
+                      <div className="absolute left-4 top-4 flex h-[88px] w-[88px] items-center justify-center rounded-full bg-[#5fa659]">
+                        <img src={checkIcon} alt="" className="h-[37.33px] w-[37.33px]" />
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Thanks for your vote!</p>
+                      <p className="mt-2 text-[16px] font-medium leading-6 text-[#333333cc]">A confirmation email has been sent.</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-center text-[16px] font-medium leading-6 text-[#333333]">Want to suggest a creator for future spotlights?</p>
+                    <button
+                      type="button"
+                      onClick={() => setFlowState("suggest")}
+                      className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+                    >
+                      Suggest a creator
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeFlow}
+                      className="h-[52px] w-full rounded-[100px] bg-[#f7f7f7] text-[14px] font-medium leading-5 text-[#171717]"
+                    >
+                      No, thanks!
+                    </button>
+                  </div>
+                </>
+              ) : null}
+
+              {flowState === "suggest" ? (
+                <>
+                  <div className="flex flex-1 flex-col justify-center gap-6">
+                    <p className="text-center text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Suggest a creator</p>
+                    <div className="space-y-4">
+                      <p className="text-center text-[16px] font-medium leading-6 text-[#333333]">
+                        Know a great gardening creator?
+                        <br />
+                        Suggest them for future spotlights.
+                      </p>
+                      <textarea
+                        value={suggestText}
+                        onChange={(event) => setSuggestText(event.target.value)}
+                        placeholder="Share a creator you'd like to see featured..."
+                        className="h-[120px] w-full resize-none rounded-[8px] border border-[#e5e5e5] p-2 text-[14px] leading-5 text-[#333333] placeholder:text-[#33333380] outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => setFlowState("suggest-confirm")}
+                      className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+                    >
+                      Send
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFlowState("vote-confirm")}
+                      className="h-[52px] w-full rounded-[100px] bg-[#f7f7f7] text-[14px] font-medium leading-5 text-[#171717]"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </>
+              ) : null}
+
+              {flowState === "suggest-confirm" ? (
+                <>
+                  <div className="flex flex-1 flex-col items-center justify-center gap-6">
+                    <div className="relative">
+                      <div className="h-[120px] w-[120px] rounded-full bg-[#edf8ec]" />
+                      <div className="absolute left-4 top-4 flex h-[88px] w-[88px] items-center justify-center rounded-full bg-[#5fa659]">
+                        <img src={checkIcon} alt="" className="h-[37.33px] w-[37.33px]" />
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Thanks for your suggestion!</p>
+                      <p className="mt-2 text-[16px] font-medium leading-6 text-[#333333cc]">Our team will review it for future spotlight features.</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeFlow}
+                    className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+                  >
+                    Back to Influencer Spotlight
+                  </button>
+                </>
+              ) : null}
+            </section>
+          </div>
+        ) : null}
+      </section>
+    </main>
+  );
+}

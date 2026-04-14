@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MAX_PHOTOS = 5;
 
@@ -22,12 +22,55 @@ function PlusIcon() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg aria-hidden="true" className="h-5 w-5 text-[#737373]" fill="none" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="6" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+function XIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" className={className} fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
+type MockPlant = {
+  id: string;
+  name: string;
+  species: string;
+  imageUrl: string;
+  identified: boolean;
+};
+
+const MOCK_PLANTS: MockPlant[] = [
+  { id: "1", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=200&q=80", identified: true },
+  { id: "2", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=200&q=80", identified: true },
+  { id: "3", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=200&q=80", identified: false },
+  { id: "4", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1509423350716-97f2360af9e4?auto=format&fit=crop&w=200&q=80", identified: true },
+  { id: "5", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=200&q=80", identified: false },
+  { id: "6", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=200&q=80", identified: true },
+];
+
 export default function NewPostPage() {
   const router = useRouter();
   const [note, setNote] = useState("");
   const [photoUrls, setPhotoUrls] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [isPlantDrawerOpen, setIsPlantDrawerOpen] = useState(false);
+  const [plantSearch, setPlantSearch] = useState("");
+  const [plantFilter, setPlantFilter] = useState<"all" | "identified" | "unidentified">("all");
+  const [pendingPlantId, setPendingPlantId] = useState<string | null>(null);
+  const [attachedPlants, setAttachedPlants] = useState<MockPlant[]>([]);
+  const [saveToGallery, setSaveToGallery] = useState(true);
+  const [timelineSelections, setTimelineSelections] = useState<Record<string, boolean>>({});
+  const drawerSwipeStartYRef = useRef<number | null>(null);
+  const drawerSwipeEndYRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -91,6 +134,69 @@ export default function NewPostPage() {
   };
 
   const hasPhotos = photoUrls.length > 0;
+  const filteredPlants = MOCK_PLANTS.filter((plant) => {
+    if (plantFilter === "identified" && !plant.identified) return false;
+    if (plantFilter === "unidentified" && plant.identified) return false;
+    const term = plantSearch.trim().toLowerCase();
+    if (!term) return true;
+    return plant.name.toLowerCase().includes(term) || plant.species.toLowerCase().includes(term);
+  });
+
+  const handleAttachPlant = () => {
+    if (!pendingPlantId) return;
+    const match = MOCK_PLANTS.find((plant) => plant.id === pendingPlantId);
+    if (!match) return;
+    if (attachedPlants.some((plant) => plant.id === match.id)) {
+      setIsPlantDrawerOpen(false);
+      return;
+    }
+    if (attachedPlants.length >= 2) {
+      setIsPlantDrawerOpen(false);
+      return;
+    }
+    setAttachedPlants((prev) => [...prev, match]);
+    setTimelineSelections((prev) => ({ ...prev, [match.id]: false }));
+    setPendingPlantId(null);
+    setPlantSearch("");
+    setPlantFilter("all");
+    setIsPlantDrawerOpen(false);
+  };
+
+  const removeAttachedPlant = (plantId: string) => {
+    setAttachedPlants((prev) => prev.filter((plant) => plant.id !== plantId));
+    setTimelineSelections((prev) => {
+      const next = { ...prev };
+      delete next[plantId];
+      return next;
+    });
+    if (pendingPlantId === plantId) setPendingPlantId(null);
+  };
+
+  const handleDrawerSwipeStart = (y: number) => {
+    drawerSwipeStartYRef.current = y;
+    drawerSwipeEndYRef.current = y;
+  };
+
+  const handleDrawerSwipeMove = (y: number) => {
+    if (drawerSwipeStartYRef.current === null) return;
+    drawerSwipeEndYRef.current = y;
+  };
+
+  const handleDrawerSwipeEnd = () => {
+    if (drawerSwipeStartYRef.current === null || drawerSwipeEndYRef.current === null) {
+      drawerSwipeStartYRef.current = null;
+      drawerSwipeEndYRef.current = null;
+      return;
+    }
+
+    const swipeDistance = drawerSwipeEndYRef.current - drawerSwipeStartYRef.current;
+    if (swipeDistance > 56) {
+      setIsPlantDrawerOpen(false);
+    }
+
+    drawerSwipeStartYRef.current = null;
+    drawerSwipeEndYRef.current = null;
+  };
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17] sm:grid sm:place-items-center sm:px-8">
@@ -175,6 +281,73 @@ export default function NewPostPage() {
                 className="h-[76px] w-full resize rounded-lg border border-black/10 bg-white p-2 text-[14px] leading-5 text-[#333333] placeholder:text-[#33333380] shadow-[0_1px_2px_rgba(0,0,0,0.05)] focus:outline-none focus:ring-2 focus:ring-[#457941]"
               />
             </div>
+
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <p className="text-[14px] font-semibold leading-5 text-[#333333]">Identify the plant (optional)</p>
+                <button
+                  type="button"
+                  onClick={() => setIsPlantDrawerOpen(true)}
+                  className="flex h-[40px] w-full items-center justify-center gap-2 rounded-lg bg-[#171717] px-6 text-[14px] font-medium leading-5 text-white"
+                >
+                  <Image src="/icons/attach-plant.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
+                  <span>Attach a plant</span>
+                </button>
+              </div>
+
+              {attachedPlants.map((plant) => (
+                <div
+                  key={plant.id}
+                  className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
+                >
+                  <img src={plant.imageUrl} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[14px] font-medium leading-5 text-[#333333]">{plant.name}</p>
+                    <p className="truncate text-[12px] leading-4 text-[#333333cc]">{plant.species}</p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label={`Remove attached ${plant.name}`}
+                    onClick={() => removeAttachedPlant(plant.id)}
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#525252] transition hover:bg-black/5"
+                  >
+                    <XIcon className="h-5 w-5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-[14px] font-semibold leading-5 text-[#333333]">Save this photo to:</p>
+              <div className="space-y-3">
+                <label className="inline-flex w-fit max-w-full items-center gap-3 rounded-[10px] border border-black/10 bg-white px-3 py-3">
+                  <input
+                    type="checkbox"
+                    checked={saveToGallery}
+                    onChange={(event) => setSaveToGallery(event.target.checked)}
+                    className="h-4 w-4 rounded border-[#d4d4d4] accent-[#31674c]"
+                  />
+                  <span className="text-[14px] font-medium leading-5 text-[#404040]">My Garden Gallery</span>
+                </label>
+
+                {attachedPlants.map((plant) => (
+                  <label key={`timeline-${plant.id}`} className="inline-flex w-fit max-w-full items-center gap-3 rounded-[10px] border border-black/10 bg-white px-3 py-3">
+                    <input
+                      type="checkbox"
+                      checked={Boolean(timelineSelections[plant.id])}
+                      onChange={(event) =>
+                        setTimelineSelections((prev) => ({
+                          ...prev,
+                          [plant.id]: event.target.checked,
+                        }))
+                      }
+                      className="h-4 w-4 rounded border-[#d4d4d4] accent-[#31674c]"
+                    />
+                    <span className="text-[14px] font-medium leading-5 text-[#404040]">{`${plant.name} Growth Timeline`}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -192,6 +365,102 @@ export default function NewPostPage() {
           {submitError ? <p className="mt-2 text-[12px] leading-4 text-[#ef4444]">{submitError}</p> : null}
         </div>
       </section>
+
+      {isPlantDrawerOpen ? (
+        <div className="fixed inset-0 z-40 flex items-end sm:mx-auto sm:max-w-[390px]">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/50"
+            aria-label="Close plant selection"
+            onClick={() => setIsPlantDrawerOpen(false)}
+          />
+          <section className="relative z-10 w-full rounded-t-[24px] border border-[#d4d4d480] bg-[#f8f6f1] px-4 pb-4 pt-6 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)]">
+            <div
+              className="mx-auto mb-6 h-[3px] w-20 rounded-[2px] bg-black/10 touch-none"
+              onTouchStart={(event) => handleDrawerSwipeStart(event.touches[0]?.clientY ?? 0)}
+              onTouchMove={(event) => handleDrawerSwipeMove(event.touches[0]?.clientY ?? 0)}
+              onTouchEnd={handleDrawerSwipeEnd}
+              onPointerDown={(event) => handleDrawerSwipeStart(event.clientY)}
+              onPointerMove={(event) => handleDrawerSwipeMove(event.clientY)}
+              onPointerUp={handleDrawerSwipeEnd}
+            />
+            <h2 className="text-center text-[32px] font-semibold leading-9 tracking-[-1.2px] text-[#182a17]">Select plant</h2>
+
+            <div className="mt-6 space-y-6">
+              <div className="rounded-full border border-black/5 bg-white px-3 py-2">
+                <div className="flex items-center gap-3">
+                  <SearchIcon />
+                  <input
+                    value={plantSearch}
+                    onChange={(event) => setPlantSearch(event.target.value)}
+                    placeholder="Search for a specific plant"
+                    className="w-full bg-transparent text-[14px] leading-5 text-[#333333] placeholder:text-[#33333380] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 overflow-hidden rounded-full border border-black/10">
+                {(["all", "identified", "unidentified"] as const).map((tab) => {
+                  const active = plantFilter === tab;
+                  const label = tab === "all" ? "All" : tab === "identified" ? "Identified" : "Unidentified";
+                  return (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setPlantFilter(tab)}
+                      className={`h-10 text-[14px] font-medium leading-5 ${
+                        active ? "border-[#559550] bg-[#5fa659] text-white" : "bg-white text-[#333333cc]"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="max-h-[370px] overflow-y-auto border-y border-black/10 bg-transparent">
+                {filteredPlants.map((plant) => {
+                  const selected = pendingPlantId === plant.id;
+                  return (
+                    <button
+                      key={plant.id}
+                      type="button"
+                      onClick={() => setPendingPlantId(plant.id)}
+                      className={`flex w-full items-center gap-4 border-b border-black/10 p-3 text-left last:border-b-0 ${
+                        selected ? "bg-black/[0.02]" : "bg-transparent"
+                      }`}
+                    >
+                      <img src={plant.imageUrl} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[14px] font-medium leading-5 text-[#333333]">{plant.name}</p>
+                        <p className="truncate text-[12px] leading-4 text-[#333333cc]">{plant.species}</p>
+                      </div>
+                      <span
+                        className={`inline-flex h-5 w-5 items-center justify-center rounded-full border ${
+                          selected ? "border-[#457941] bg-[#457941] text-white" : "border-[#d4d4d4] bg-white text-transparent"
+                        }`}
+                      >
+                        <svg aria-hidden="true" className="h-3 w-3" fill="none" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.5 6.4L5 9L9.5 3.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                        </svg>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAttachPlant}
+                disabled={!pendingPlantId}
+                className="h-[52px] w-full rounded-full bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa] disabled:opacity-50"
+              >
+                Attach plant
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </main>
   );
 }

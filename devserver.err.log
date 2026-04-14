@@ -1,57 +1,254 @@
-⚠ Slow filesystem detected. The benchmark took 754ms. If D:\Global Gardeners\.next/dev is a network drive, consider moving it to a local folder.
+⚠ Slow filesystem detected. The benchmark took 311ms. If D:\Global Gardeners\.next/dev is a network drive, consider moving it to a local folder.
 See more: https://nextjs.org/docs/app/guides/local-development
-[browser] Uncaught TypeError: onOpenComments is not a function
-    at onClick (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:863:46)
-    at executeDispatch (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10329:13)
+[browser] Uncaught ReferenceError: GridIcon is not defined
+    at ProfilePage (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_profile_page_tsx_0p_l7i3._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Fprofile%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:598:258)
+    at Object.react_stack_bottom_frame (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
     at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
-    at processDispatchQueue (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10355:41)
-    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10633:13)
-    at batchedUpdates$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:2253:44)
-    at dispatchEventForPluginEventSystem (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10431:9)
-    at dispatchEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:13002:37)
-    at dispatchDiscreteEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:12984:64)
-    at button (<anonymous>)
-    at FeedCard (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:861:231)
-    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:1464:249)
-    at Array.map (<anonymous>)
-    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:1464:35)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at flushSyncWork$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9230:86)
+    at Object.scheduleRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:299:13)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:391:33)
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:384:38)
+    at applyUpdate (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:878:31)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:886:13)
     at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_0tt2wve._.js:4461:50)
-[browser] Uncaught TypeError: onOpenComments is not a function
-    at onClick (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:864:46)
-    at executeDispatch (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10329:13)
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-client] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-client] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-client] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/feed/page.tsx:6:1
+Export FeedSideDrawer doesn't exist in target module
+  4 | import { useRouter } from "next/navigation";
+  5 | import { FormEvent, useEffect, useRef, useState } from "react";
+> 6 | import { DrawerItem, DrawerProfile, FeedSideDrawer } from "@/components/feed-side-drawer";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedSource = "you" | "following" | "interest";
+  9 |
+
+The export FeedSideDrawer was not found in module [project]/src/components/feed-side-drawer.tsx [app-ssr] (ecmascript).
+Did you mean to import SideDrawer?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/feed/page.tsx [Client Component Browser]
+    ./src/app/feed/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/feed/page.tsx [Client Component SSR]
+    ./src/app/feed/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/profile/page.tsx:85:24
+Unexpected token `no substitution template literal`. Expected identifier, string literal, numeric literal or [ for the computed key
+  83 |   },
+  84 |   {
+> 85 |     label: "My Garden",`r`n    active: true,
+     |                        ^^^
+  86 |     icon: (
+  87 |       <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
+  88 |         <path
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/profile/page.tsx:85:24
+Unexpected token `no substitution template literal`. Expected identifier, string literal, numeric literal or [ for the computed key
+  83 |   },
+  84 |   {
+> 85 |     label: "My Garden",`r`n    active: true,
+     |                        ^^^
+  86 |     icon: (
+  87 |       <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
+  88 |         <path
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] Uncaught ReferenceError: baseDrawerItems is not defined
+    at getDrawerItems (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~0_l05._.js?id=%255Bproject%255D%252Fsrc%252Fcomponents%252Fdrawer-items.tsx+%255Bapp-client%255D+%2528ecmascript%2529:9:5)
+    at InfluencerSpotlightPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~0_l05._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Finfluencer-spotlight%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:171:184)
+    at Object.react_stack_bottom_frame (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
     at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
-    at processDispatchQueue (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10355:41)
-    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10633:13)
-    at batchedUpdates$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:2253:44)
-    at dispatchEventForPluginEventSystem (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10431:9)
-    at dispatchEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:13002:37)
-    at dispatchDiscreteEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:12984:64)
-    at button (<anonymous>)
-    at FeedCard (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:861:231)
-    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:1466:249)
-    at Array.map (<anonymous>)
-    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js:1466:35)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158)
     at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_0tt2wve._.js:4461:50)
-[browser] Uncaught TypeError: onToggleHeart is not a function
-    at onClick (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:914:46)
-    at executeDispatch (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10329:13)
-    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
-    at processDispatchQueue (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10355:41)
-    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10633:13)
-    at batchedUpdates$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:2253:44)
-    at dispatchEventForPluginEventSystem (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10431:9)
-    at dispatchEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:13002:37)
-    at dispatchDiscreteEvent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:12984:64)
-    at button (<anonymous>)
-    at FeedCard (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:911:231)
-    at eval (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:2284:249)
-    at Array.map (<anonymous>)
-    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:2284:35)
-    at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_0tt2wve._.js:4461:50)
-[browser] Uncaught TypeError: Cannot read properties of undefined (reading 'includes')
-    at eval (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:1268:90)
-    at Array.map (<anonymous>)
-    at CommentsSheet (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:1186:100)
+⨯ ReferenceError: baseDrawerItems is not defined
+    at getDrawerItems (src\components\drawer-items.tsx:6:3)
+    at InfluencerSpotlightPage (src\app\influencer-spotlight\page.tsx:97:51)
+  4 |
+  5 | export function getDrawerItems(activeLabel?: string): DrawerItem[] {
+> 6 |   return baseDrawerItems.map((item) => ({ ...item, active: item.label === activeLabel }));
+    |   ^
+  7 | }
+  8 | {
+  digest: '2162685859'
+}
+[browser] Uncaught ReferenceError: baseDrawerItems is not defined
+    at getDrawerItems (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~0_l05._.js:337:5)
+    at InfluencerSpotlightPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~0_l05._.js:516:184)
     at Object.react_stack_bottom_frame (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
     at renderWithHooks (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
     at updateFunctionComponent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
@@ -63,6 +260,603 @@ See more: https://nextjs.org/docs/app/guides/local-development
     at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
     at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
     at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64)
-    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_app_feed_page_tsx_0q._3ds._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:2648:244)
     at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_0tt2wve._.js:4461:50)
+[browser] ./src/components/drawer-items.tsx:176:1
+Expected '}', got '<eof>'
+  174 |
+  175 | export function getDrawerItems(activeLabel?: string): DrawerItem[] {
+> 176 |
+      | ^
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/components/drawer-items.tsx [Client Component Browser]
+    ./src/app/influencer-spotlight/page.tsx [Client Component Browser]
+    ./src/app/influencer-spotlight/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/drawer-items.tsx [Client Component SSR]
+    ./src/app/influencer-spotlight/page.tsx [Client Component SSR]
+    ./src/app/influencer-spotlight/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/influencer-spotlight/page.tsx:7:1
+Export getDrawerItems doesn't exist in target module
+   5 | import { useEffect, useRef, useState } from "react";
+   6 | import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
+>  7 | import { getDrawerItems } from "@/components/drawer-items";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | type SpotlightCandidate = {
+  10 |   id: string;
+
+The export getDrawerItems was not found in module [project]/src/components/drawer-items.tsx [app-client] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/influencer-spotlight/page.tsx [Client Component Browser]
+    ./src/app/influencer-spotlight/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/influencer-spotlight/page.tsx [Client Component SSR]
+    ./src/app/influencer-spotlight/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/influencer-spotlight/page.tsx:7:1
+Export getDrawerItems doesn't exist in target module
+   5 | import { useEffect, useRef, useState } from "react";
+   6 | import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
+>  7 | import { getDrawerItems } from "@/components/drawer-items";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | type SpotlightCandidate = {
+  10 |   id: string;
+
+The export getDrawerItems was not found in module [project]/src/components/drawer-items.tsx [app-ssr] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/app/influencer-spotlight/page.tsx [Client Component Browser]
+    ./src/app/influencer-spotlight/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/influencer-spotlight/page.tsx [Client Component SSR]
+    ./src/app/influencer-spotlight/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
 ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] Image with src "/icons/notification-bell.svg" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)
+[browser] Image with src "https://www.figma.com/api/mcp/asset/e3b4ee92-cb70-4248-ba23-11f92531948d" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13960:64)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13959:44)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+    at dispatchAppRouterAction (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:916:37)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11800:61)
+    at startTransition (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1279:31)
+    at Object.hmrRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:11799:40)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13983:67)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52)
+[browser] Image with src "https://www.figma.com/api/mcp/asset/e3b4ee92-cb70-4248-ba23-11f92531948d" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)

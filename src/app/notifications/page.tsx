@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type NotificationItem = {
   id: string;
@@ -17,17 +17,6 @@ type NotificationItem = {
 const notifications: NotificationItem[] = [];
 
 const emptyBellIcon = "/icons/notification-bell.svg";
-
-function BackIcon() {
-  return (
-    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
-      <path
-        d="M14.5303 5.46973C14.8232 5.76262 14.8232 6.23738 14.5303 6.53027L9.06055 12L14.5303 17.4697C14.8232 17.7626 14.8232 18.2374 14.5303 18.5303C14.2374 18.8232 13.7626 18.8232 13.4697 18.5303L7.46973 12.5303C7.17684 12.2374 7.17684 11.7626 7.46973 11.4697L13.4697 5.46973C13.7626 5.17684 14.2374 5.17684 14.5303 5.46973Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
 
 function SproutIcon() {
   return (
@@ -66,21 +55,15 @@ function NotificationMedia({ item }: { item: NotificationItem }) {
 }
 
 export default function NotificationsPage() {
-  const router = useRouter();
   const hasNotifications = notifications.length > 0;
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
       <section className="client-shell relative flex min-h-screen w-full flex-col overflow-x-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
         <header className="client-header fixed left-0 right-0 top-0 z-30 flex w-full items-center border-b border-black/10 bg-white p-4">
-          <button
-            type="button"
-            className="rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
-            aria-label="Go back"
-            onClick={() => router.push("/feed")}
-          >
-            <BackIcon />
-          </button>
+          <Link href="/feed" aria-label="Back" className="inline-flex h-10 w-10 items-center justify-center transition">
+            <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={40} height={40} className="h-10 w-10" />
+          </Link>
           <div className="flex min-w-0 flex-1 items-center justify-center pr-10">
             <h1 className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#457941]">Notifications</h1>
           </div>
