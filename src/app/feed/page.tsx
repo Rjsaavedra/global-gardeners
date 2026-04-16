@@ -578,15 +578,17 @@ function ProfileAvatar({
 }) {
   if (profilePhotoUrl) {
     return (
-      <Image
-        alt={fullName}
-        className="rounded-full object-cover"
-        height={size}
-        loader={({ src }) => src}
-        src={profilePhotoUrl}
-        unoptimized
-        width={size}
-      />
+      <div className="relative shrink-0 overflow-hidden rounded-full" style={{ height: size, width: size }}>
+        <Image
+          alt={fullName}
+          className="object-cover"
+          fill
+          loader={({ src }) => src}
+          src={profilePhotoUrl}
+          unoptimized
+          sizes={`${size}px`}
+        />
+      </div>
     );
   }
 
