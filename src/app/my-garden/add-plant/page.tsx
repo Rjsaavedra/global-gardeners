@@ -156,7 +156,7 @@ export default function AddPlantPage() {
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
         <header className="client-header fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between border-b border-black/10 bg-white p-4">
           <CircleButton label="Close add plant camera" onClick={() => router.back()}>
-            <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={24} height={24} className="h-6 w-6" />
+            <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={40} height={40} className="h-10 w-10" />
           </CircleButton>
           <div className="flex items-center gap-4">
             <CircleButton label={flashOn ? "Flash on" : "Flash off"} onClick={() => setFlashOn((current) => !current)}>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 const imgPlant = "https://www.figma.com/api/mcp/asset/3122ca93-4b4a-4191-8c78-37b13080c705";
 const imgRightIcon = "https://www.figma.com/api/mcp/asset/af60a1a8-8bf4-462c-884a-2708b905e87a";
@@ -43,15 +43,14 @@ function ScorePill({ score, tone }: { score: string; tone: MatchOption["scoreTon
   );
 }
 
-export default function IdentifyResultsPage() {
+function IdentifyResultsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isNoMatchState = searchParams.get("state") === "empty";
   const [selectedResult, setSelectedResult] = useState<string>("rattlesnake-high");
-  const [hasExplicitSelection, setHasExplicitSelection] = useState(false);
 
   const handleConfirm = () => {
-    if (!hasExplicitSelection) return;
+    if (!selectedResult) return;
     sessionStorage.setItem("ggPlantIdentifySelection", selectedResult);
     router.push("/my-garden/add-plant/detail");
   };
@@ -120,7 +119,6 @@ export default function IdentifyResultsPage() {
                       type="button"
                       onClick={() => {
                         setSelectedResult(option.id);
-                        setHasExplicitSelection(true);
                       }}
                       className="w-full rounded-[12px] border border-black/10 bg-white p-4 text-left"
                     >
@@ -182,11 +180,11 @@ export default function IdentifyResultsPage() {
         </div>
 
         {!isNoMatchState ? (
-          <div className="absolute bottom-0 left-0 right-0 z-40 border-t border-[#e5e5e5] bg-[#f8f6f1] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
+          <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 border-t border-[#e5e5e5] bg-[#f8f6f1] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
             <button
               type="button"
               onClick={handleConfirm}
-              disabled={!hasExplicitSelection}
+              disabled={!selectedResult}
               className="h-[52px] w-full rounded-[100px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa] disabled:opacity-50"
             >
               Confirm selection
@@ -195,5 +193,21 @@ export default function IdentifyResultsPage() {
         ) : null}
       </section>
     </main>
+  );
+}
+
+export default function IdentifyResultsPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1] pb-[104px]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <IdentifyResultsPageContent />
+    </Suspense>
   );
 }

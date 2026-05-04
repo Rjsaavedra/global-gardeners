@@ -64,6 +64,7 @@ const settingsSections: SettingSection[] = [
 
 export default function SettingsPage() {
   const router = useRouter();
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -92,8 +93,27 @@ export default function SettingsPage() {
       setDrawerProfile({ fullName, nickname, profilePhotoUrl });
     }
     void loadDrawerProfile();
+    const refreshUnreadNotifications = async () => {
+      try {
+        const response = await fetch("/api/notifications", { cache: "no-store" });
+        if (!response.ok || !isMounted) return;
+        const payload = (await response.json()) as { unreadCount?: number };
+        if (!isMounted) return;
+        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
+      } catch {}
+    };
+    void refreshUnreadNotifications();
+    const intervalId = setInterval(() => {
+      void refreshUnreadNotifications();
+    }, 20000);
+    const handleFocus = () => {
+      void refreshUnreadNotifications();
+    };
+    window.addEventListener("focus", handleFocus);
     return () => {
       isMounted = false;
+      clearInterval(intervalId);
+      window.removeEventListener("focus", handleFocus);
     };
   }, []);
 
@@ -160,6 +180,14 @@ export default function SettingsPage() {
       router.push("/my-garden");
       return;
     }
+    if (item.label === "Plant ID") {
+      router.push("/my-garden/add-plant");
+      return;
+    }
+    if (item.label === "MyGrowMate") {
+      router.push("/my-grow-mate");
+      return;
+    }
     if (item.label === "Guides") {
       router.push("/guides");
       return;
@@ -203,11 +231,12 @@ export default function SettingsPage() {
           </div>
           <button
             type="button"
-            className="rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
+            className="relative rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
             aria-label="Notifications"
             onClick={() => router.push("/notifications")}
           >
             <BellIcon />
+            {unreadNotifications > 0 ? <span aria-hidden="true" className="absolute right-0 top-0 h-2.5 w-2.5 -translate-y-1/4 translate-x-1/4 rounded-full bg-[#ef4444] ring-2 ring-white" /> : null}
           </button>
         </header>
 
@@ -298,3 +327,5 @@ export default function SettingsPage() {
     </main>
   );
 }
+
+

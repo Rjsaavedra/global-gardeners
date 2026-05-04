@@ -326,8 +326,18 @@ export async function POST(request: Request, context: Params) {
       .select("full_name, nickname, profile_photo_url")
       .eq("user_id", auth.userId)
       .maybeSingle(),
-    supabase.from("posts").select("comment_count").eq("id", normalizedPostId).maybeSingle(),
+    supabase.from("posts").select("comment_count, user_id").eq("id", normalizedPostId).maybeSingle(),
   ]);
+
+  if (post?.user_id && post.user_id !== auth.userId) {
+    await supabase.from("user_notifications").insert({
+      user_id: post.user_id,
+      actor_user_id: auth.userId,
+      post_id: normalizedPostId,
+      comment_id: createdComment.id,
+      type: "post_comment",
+    });
+  }
 
   const fullName = profile?.full_name?.trim() || "";
   const resolvedFullName = fullName || ownFallbackFullName;

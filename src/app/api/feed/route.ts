@@ -30,12 +30,28 @@ type PostCommentRow = {
   comment_text: string;
 };
 
+type UserFollowRow = {
+  followed_user_id: string;
+};
+type FollowerRow = {
+  follower_user_id: string;
+};
+
 type OwnProfileRow = {
   user_id?: string;
   full_name: string | null;
   nickname: string | null;
   profile_photo_url: string | null;
   interests?: string[] | null;
+  user_settings?: {
+    experience?: {
+      challenges?: string[];
+      climate?: string;
+      growingZone?: {
+        value?: string;
+      };
+    };
+  } | null;
 };
 
 type FeedSource = "you" | "following" | "interest";
@@ -155,6 +171,11 @@ function hoursSince(timestamp: string) {
 
 function normalizeTag(raw: string) {
   return raw.trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+}
+
+function normalizeValue(raw: string | null | undefined) {
+  if (!raw) return "";
+  return raw.trim().toLowerCase();
 }
 
 function extractTagsFromPost(caption: string, interests: Set<string>) {
@@ -405,12 +426,76 @@ function injectRecommendedCadence(ranked: RankedPost[]) {
   return output;
 }
 
-function buildFeed(posts: FeedPostModel[], user: PersonalizedUserProfile) {
-  const candidatePool = buildCandidatePool(posts, user);
-  const ranked = candidatePool.map((post) => scorePost(user, post)).sort((a, b) => b.score - a.score);
-  const diversified = enforceDiversity(ranked);
-  const withCadence = injectRecommendedCadence(diversified);
-  return withCadence.slice(0, FINAL_FEED_LIMIT);
+function buildFeed(
+  posts: FeedPostModel[],
+  user: PersonalizedUserProfile,
+  context: {
+    ownInterests: Set<string>;
+    ownChallenges: Set<string>;
+    ownZone: string;
+    ownClimate: string;
+    profilesByUserId: Map<string, OwnProfileRow>;
+  },
+) {
+  const nowSorted = posts.slice().sort((a, b) => {
+    const timeDelta = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    if (timeDelta !== 0) return timeDelta;
+    return b.id - a.id;
+  });
+
+  const bucketed = nowSorted
+    .map((post) => {
+      const author = context.profilesByUserId.get(post.authorId);
+      const authorInterests = new Set((author?.interests ?? []).map(normalizeTag).filter(Boolean));
+      const authorChallenges = new Set((author?.user_settings?.experience?.challenges ?? []).map(normalizeTag).filter(Boolean));
+      const authorZone = normalizeValue(author?.user_settings?.experience?.growingZone?.value);
+      const authorClimate = normalizeValue(author?.user_settings?.experience?.climate);
+
+      const hasSameInterests = Array.from(authorInterests).some((item) => context.ownInterests.has(item));
+      const hasSameChallenges = Array.from(authorChallenges).some((item) => context.ownChallenges.has(item));
+      const hasSameZone = Boolean(context.ownZone) && context.ownZone === authorZone;
+      const hasSameClimate = Boolean(context.ownClimate) && context.ownClimate === authorClimate;
+
+      let priority = 2;
+      let reason = "Other posts.";
+      const matchesPreferredGroup = user.followingIds.has(post.authorId) || hasSameInterests || hasSameChallenges || hasSameZone || hasSameClimate;
+      if (user.followingIds.has(post.authorId)) {
+        reason = "From users you follow.";
+      } else if (hasSameInterests) {
+        reason = "From users with similar interests.";
+      } else if (hasSameChallenges) {
+        reason = "From users with similar challenges.";
+      } else if (hasSameZone) {
+        reason = "From users in the same growing zone.";
+      } else if (hasSameClimate) {
+        reason = "From users in the same climate.";
+      } else {
+        reason = "Other posts.";
+      }
+      priority = matchesPreferredGroup ? 1 : 2;
+
+      return { post, priority, reason };
+    })
+    .sort((a, b) => {
+      if (a.priority !== b.priority) return a.priority - b.priority;
+      const timeDelta = new Date(b.post.createdAt).getTime() - new Date(a.post.createdAt).getTime();
+      if (timeDelta !== 0) return timeDelta;
+      return b.post.id - a.post.id;
+    })
+    .slice(0, FINAL_FEED_LIMIT);
+
+  return bucketed.map((entry) => ({
+    post: entry.post,
+    score: 0,
+    breakdown: {
+      interestScore: 0,
+      relationshipScore: 0,
+      engagementScore: 0,
+      recencyScore: 0,
+      contentPreferenceScore: 0,
+    },
+    reason: entry.reason,
+  }));
 }
 
 export async function GET(request: Request) {
@@ -459,19 +544,23 @@ export async function GET(request: Request) {
     ownProfileResult,
     ownLikedHeartsResult,
     ownCommentsResult,
+    followingResult,
+    followersResult,
   ] = await Promise.all([
     postIds.length
       ? supabase.from("post_photos").select("post_id, photo_url, sort_order").in("post_id", postIds).order("sort_order", { ascending: true })
       : Promise.resolve({ data: [] as PostPhotoRow[] }),
     postUserIds.length
-      ? supabase.from("profiles").select("user_id, full_name, nickname, profile_photo_url").in("user_id", postUserIds)
+      ? supabase.from("profiles").select("user_id, full_name, nickname, profile_photo_url, interests, user_settings").in("user_id", postUserIds)
       : Promise.resolve({ data: [] as OwnProfileRow[] }),
     postIds.length ? supabase.from("post_comments").select("post_id, user_id, created_at, comment_text").in("post_id", postIds) : Promise.resolve({ data: [] as PostCommentRow[] }),
     postIds.length ? supabase.from("post_hearts").select("post_id, user_id").in("post_id", postIds) : Promise.resolve({ data: [] as PostHeartRow[] }),
     supabase.auth.getUser(),
-    supabase.from("profiles").select("user_id, full_name, nickname, profile_photo_url, interests").eq("user_id", auth.userId).maybeSingle(),
+    supabase.from("profiles").select("user_id, full_name, nickname, profile_photo_url, interests, user_settings").eq("user_id", auth.userId).maybeSingle(),
     supabase.from("post_hearts").select("post_id").eq("user_id", auth.userId),
     supabase.from("post_comments").select("post_id").eq("user_id", auth.userId),
+    supabase.from("user_follows").select("followed_user_id").eq("follower_user_id", auth.userId),
+    supabase.from("user_follows").select("follower_user_id").eq("followed_user_id", auth.userId),
   ]);
 
   const photosByPostId = new Map<number, PostPhotoRow[]>();
@@ -546,11 +635,12 @@ export async function GET(request: Request) {
     };
   });
 
-  const followedAuthorIds = new Set<string>();
-  for (const post of feedModels) {
-    const engagement = commentsByAuthorId.get(post.authorId) ?? 0;
-    if (engagement >= 2) followedAuthorIds.add(post.authorId);
-  }
+  const followedAuthorIds = new Set<string>(
+    ((followingResult.data ?? []) as UserFollowRow[]).map((row) => row.followed_user_id).filter(Boolean),
+  );
+  const followerAuthorIds = new Set<string>(
+    ((followersResult.data ?? []) as FollowerRow[]).map((row) => row.follower_user_id).filter(Boolean),
+  );
 
   const likedPosts = feedModels.filter((post) => likedPostIdsByMe.has(post.id));
   const commentedPosts = feedModels.filter((post) => commentedPostIdsByMe.has(post.id));
@@ -572,7 +662,18 @@ export async function GET(request: Request) {
     }
   }
 
-  const rankedFeed = buildFeed(feedModels, userProfile);
+  const ownInterests = new Set((ownProfileRow?.interests ?? []).map(normalizeTag).filter(Boolean));
+  const ownChallenges = new Set((ownProfileRow?.user_settings?.experience?.challenges ?? []).map(normalizeTag).filter(Boolean));
+  const ownZone = normalizeValue(ownProfileRow?.user_settings?.experience?.growingZone?.value);
+  const ownClimate = normalizeValue(ownProfileRow?.user_settings?.experience?.climate);
+
+  const rankedFeed = buildFeed(feedModels, userProfile, {
+    ownInterests,
+    ownChallenges,
+    ownZone,
+    ownClimate,
+    profilesByUserId,
+  });
 
   const feed = rankedFeed.map((entry) => {
     const post = entry.post;
@@ -591,6 +692,9 @@ export async function GET(request: Request) {
       authorName,
       username: authorNickname ? authorNickname.replace(/^@/, "") : usernameFromUserId(post.authorId),
       avatarUrl: authorProfilePhotoUrl,
+      authorId: post.authorId,
+      followedByMe: userProfile.followingIds.has(post.authorId),
+      followsMe: followerAuthorIds.has(post.authorId),
       speciesName: undefined,
       mediaUrl: firstPhoto,
       mediaUrls: post.mediaUrls,

@@ -38,7 +38,7 @@ export async function POST(request: Request, context: Params) {
   }
 
   const supabase = createAuthedSupabaseClient(auth.accessToken);
-  const { data: post } = await supabase.from("posts").select("id").eq("id", normalizedPostId).maybeSingle();
+  const { data: post } = await supabase.from("posts").select("id, user_id").eq("id", normalizedPostId).maybeSingle();
   if (!post) {
     return NextResponse.json({ error: "Post not found." }, { status: 404 });
   }
@@ -49,6 +49,15 @@ export async function POST(request: Request, context: Params) {
   });
   if (insertError && insertError.code !== "23505") {
     return NextResponse.json({ error: insertError.message }, { status: 400 });
+  }
+
+  if (!insertError && post.user_id && post.user_id !== auth.userId) {
+    await supabase.from("user_notifications").insert({
+      user_id: post.user_id,
+      actor_user_id: auth.userId,
+      post_id: normalizedPostId,
+      type: "post_like",
+    });
   }
 
   const response = NextResponse.json({

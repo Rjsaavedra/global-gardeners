@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 
 type FeedSource = "you" | "following" | "interest";
@@ -10,9 +10,12 @@ type FeedSource = "you" | "following" | "interest";
 type FeedPost = {
   id: string;
   source: FeedSource;
+  authorId: string;
   authorName: string;
   username: string;
   avatarUrl: string | null;
+  followedByMe?: boolean;
+  followsMe?: boolean;
   speciesName?: string;
   mediaUrl?: string;
   mediaUrls?: string[];
@@ -56,6 +59,7 @@ type CommentThread = {
   author: CommentAuthor;
   replies: CommentReply[];
 };
+type ReportReasonOption = "spam" | "inappropriate content" | "misinformation";
 
 const RECENT_SEARCHES_KEY = "feedRecentSearches";
 const MAX_RECENT_SEARCHES = 6;
@@ -407,12 +411,18 @@ function FeedCard({
   onToggleHeart,
   isHeartPending,
   onOpenProfile,
+  onOpenPostActions,
+  onFollow,
+  isFollowPending,
 }: {
   post: FeedPost;
   onOpenComments: (post: FeedPost) => void;
   onToggleHeart: (postId: string) => void;
   isHeartPending: boolean;
   onOpenProfile: (post: FeedPost) => void;
+  onOpenPostActions: (post: FeedPost) => void;
+  onFollow: (post: FeedPost) => void;
+  isFollowPending: boolean;
 }) {
   const mediaScrollRef = useRef<HTMLDivElement | null>(null);
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
@@ -472,12 +482,14 @@ function FeedCard({
           {post.source !== "you" ? (
             <button
               type="button"
-              className="rounded-lg bg-[#171717] px-3 py-2 text-[12px] font-semibold leading-4 text-[#fafafa]"
+              className="rounded-lg bg-[#171717] px-3 py-2 text-[12px] font-semibold leading-4 text-[#fafafa] disabled:opacity-60"
+              onClick={() => onFollow(post)}
+              disabled={Boolean(post.followedByMe) || isFollowPending}
             >
-              Follow
+              {post.followedByMe ? "Following" : post.followsMe ? "Follow back" : "Follow"}
             </button>
           ) : null}
-          <button type="button" className="text-[#666666]" aria-label="More options">
+          <button type="button" className="text-[#666666]" aria-label="More options" onClick={() => onOpenPostActions(post)}>
             <EllipsisVerticalIcon />
           </button>
         </div>
@@ -825,16 +837,112 @@ function CommentsSheet({
   );
 }
 
-export default function FeedPage() {
+function PostActionsSheet({
+  isVisible,
+  onClose,
+  onHidePost,
+  onReportPost,
+}: {
+  isVisible: boolean;
+  onClose: () => void;
+  onHidePost: () => void;
+  onReportPost: () => void;
+}) {
+  return (
+    <>
+      <button type="button" aria-label="Close post actions" className={`fixed inset-0 z-40 bg-[#17171780] transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`} onClick={onClose} />
+      <section className={`fixed bottom-0 left-0 right-0 z-50 rounded-t-[24px] border border-[#d4d4d480] bg-[#f8f6f1] px-4 pb-5 pt-6 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] transition-transform duration-300 ${isVisible ? "translate-y-0" : "translate-y-full"}`}>
+        <div className="absolute left-1/2 top-[7px] h-[3px] w-20 -translate-x-1/2 rounded-[2px] bg-[#d4d4d480]" />
+        <div className="space-y-2 pt-5">
+          <button type="button" className="h-[52px] w-full rounded-[100px] bg-white px-6 text-center text-[14px] font-medium leading-5 text-[#171717]" onClick={onHidePost}>Hide post</button>
+          <button type="button" className="h-[52px] w-full rounded-[100px] bg-[#ef4444] px-6 text-center text-[14px] font-medium leading-5 text-white" onClick={onReportPost}>Report post</button>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function ReportReasonSheet({
+  isVisible,
+  selectedReason,
+  onClose,
+  onSelectReason,
+  onSubmit,
+}: {
+  isVisible: boolean;
+  selectedReason: ReportReasonOption | null;
+  onClose: () => void;
+  onSelectReason: (reason: ReportReasonOption) => void;
+  onSubmit: () => void;
+}) {
+  const reasons: ReportReasonOption[] = ["spam", "inappropriate content", "misinformation"];
+  return (
+    <>
+      <button type="button" aria-label="Close report options" className={`fixed inset-0 z-50 bg-[#17171780] transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`} onClick={onClose} />
+      <section className={`fixed bottom-0 left-0 right-0 z-[60] rounded-t-[24px] border border-[#d4d4d480] bg-[#f8f6f1] px-4 pb-5 pt-6 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] transition-transform duration-300 ${isVisible ? "translate-y-0" : "translate-y-full"}`}>
+        <div className="absolute left-1/2 top-[7px] h-[3px] w-20 -translate-x-1/2 rounded-[2px] bg-[#d4d4d480]" />
+        <p className="pb-8 pt-5 text-center text-[20px] font-semibold leading-6 tracking-[0px] text-[#182a17]">Why are you reporting this post?</p>
+        <div className="space-y-0 rounded-2xl border border-[#e5e5e5] bg-white px-4 py-6">
+          {reasons.map((reason) => {
+            const active = selectedReason === reason;
+            return (
+              <button key={reason} type="button" className="flex w-full items-center gap-4 py-3 text-left" onClick={() => onSelectReason(reason)}>
+                <span className={`relative h-4 w-4 rounded-full border ${active ? "border-[#171717]" : "border-[#d4d4d4]"}`}>{active ? <span className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#171717]" /> : null}</span>
+                <span className="text-[14px] font-medium capitalize leading-5 tracking-[0px] text-[#333333]">{reason}</span>
+              </button>
+            );
+          })}
+        </div>
+        <button type="button" disabled={!selectedReason} className="mt-8 h-[52px] w-full rounded-[100px] bg-[#ef4444] px-6 text-[14px] font-medium text-white disabled:cursor-not-allowed disabled:opacity-50" onClick={onSubmit}>
+          Report post
+        </button>
+        <button type="button" className="mt-2 h-[52px] w-full rounded-[100px] bg-white px-6 text-[14px] font-medium text-[#171717]" onClick={onClose}>Cancel</button>
+      </section>
+    </>
+  );
+}
+
+function ReportConfirmationSheet({ isVisible, onDone }: { isVisible: boolean; onDone: () => void }) {
+  return (
+    <>
+      <button type="button" aria-label="Close report confirmation" className={`fixed inset-0 z-[60] bg-[#17171780] transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`} onClick={onDone} />
+      <section className={`fixed bottom-0 left-0 right-0 z-[70] rounded-t-[24px] border border-[#d4d4d480] bg-[#f8f6f1] px-4 pb-5 pt-6 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] transition-transform duration-300 ${isVisible ? "translate-y-0" : "translate-y-full"}`}>
+        <div className="absolute left-1/2 top-[7px] h-[3px] w-20 -translate-x-1/2 rounded-[2px] bg-[#d4d4d480]" />
+        <div className="mx-auto mt-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#eaf4e7]">
+          <div className="flex h-[58px] w-[58px] items-center justify-center rounded-full bg-[#6db065] text-[28px] text-white">✓</div>
+        </div>
+        <p className="mt-4 text-center text-[20px] font-semibold leading-6 tracking-[0px] text-[#182a17]">Thanks for your report</p>
+        <p className="mt-2 text-center text-[14px] font-medium leading-5 tracking-[0px] text-[#333333cc]">We’ll review it shortly.</p>
+        <button type="button" className="mt-8 h-[52px] w-full rounded-[100px] bg-white px-6 text-[14px] font-medium text-[#171717]" onClick={onDone}>
+          Done
+        </button>
+      </section>
+    </>
+  );
+}
+
+function FeedPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]);
   const [postHeartPendingIds, setPostHeartPendingIds] = useState<string[]>([]);
+  const [followPendingAuthorIds, setFollowPendingAuthorIds] = useState<string[]>([]);
   const [isFeedLoading, setIsFeedLoading] = useState(true);
+  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [pendingOpenCommentsPostId, setPendingOpenCommentsPostId] = useState<string | null>(null);
   const [isCommentsSheetMounted, setIsCommentsSheetMounted] = useState(false);
   const [isCommentsSheetVisible, setIsCommentsSheetVisible] = useState(false);
+  const [isPostActionsSheetMounted, setIsPostActionsSheetMounted] = useState(false);
+  const [isPostActionsSheetVisible, setIsPostActionsSheetVisible] = useState(false);
+  const [isReportReasonSheetMounted, setIsReportReasonSheetMounted] = useState(false);
+  const [isReportReasonSheetVisible, setIsReportReasonSheetVisible] = useState(false);
+  const [isReportConfirmationSheetMounted, setIsReportConfirmationSheetMounted] = useState(false);
+  const [isReportConfirmationSheetVisible, setIsReportConfirmationSheetVisible] = useState(false);
+  const [activePostActionsPost, setActivePostActionsPost] = useState<FeedPost | null>(null);
+  const [selectedReportReason, setSelectedReportReason] = useState<ReportReasonOption | null>(null);
   const [activeCommentsPost, setActiveCommentsPost] = useState<FeedPost | null>(null);
   const [commentsLoading, setCommentsLoading] = useState(false);
   const [commentsError, setCommentsError] = useState<string | null>(null);
@@ -849,6 +957,7 @@ export default function FeedPage() {
   const [searchValue, setSearchValue] = useState("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isSearchBarVisible, setIsSearchBarVisible] = useState(true);
   const [drawerProfile, setDrawerProfile] = useState<DrawerProfile>({
     fullName: "Global Gardener",
     nickname: "@Global Gardener",
@@ -856,6 +965,9 @@ export default function FeedPage() {
   });
   const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const commentsSheetCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const postActionsSheetCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reportReasonSheetCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reportConfirmationSheetCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLElement | null>(null);
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
@@ -898,19 +1010,45 @@ export default function FeedPage() {
   useEffect(() => {
     let isMounted = true;
 
+    const refreshUnreadNotifications = async () => {
+      try {
+        const response = await fetch("/api/notifications", { cache: "no-store" });
+        if (!response.ok || !isMounted) return;
+        const payload = (await response.json()) as { unreadCount?: number };
+        if (!isMounted) return;
+        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
+      } catch {
+        // Ignore unread refresh errors to avoid interrupting feed UX.
+      }
+    };
+
     async function loadFeed() {
       setIsFeedLoading(true);
       try {
-        const response = await fetch("/api/feed");
-        if (!response.ok) {
+        const [feedResponse, hiddenResponse, notificationsResponse] = await Promise.all([
+          fetch("/api/feed"),
+          fetch("/api/profile/hidden-posts"),
+          fetch("/api/notifications", { cache: "no-store" }),
+        ]);
+        if (!feedResponse.ok || !hiddenResponse.ok) {
           return;
         }
 
-        const result = (await response.json()) as { posts?: FeedPost[] };
+        const result = (await feedResponse.json()) as { posts?: FeedPost[] };
+        const hiddenResult = (await hiddenResponse.json()) as { hiddenPostIds?: string[] };
+        const notificationsResult = notificationsResponse.ok
+          ? ((await notificationsResponse.json()) as { unreadCount?: number })
+          : {};
         if (!isMounted) {
           return;
         }
-        setFeedPosts((result.posts ?? []).map((post) => ({ ...post, likedByMe: Boolean(post.likedByMe) })));
+        setUnreadNotifications(Math.max(0, notificationsResult.unreadCount ?? 0));
+        const hiddenPostIds = new Set((hiddenResult.hiddenPostIds ?? []).filter((value): value is string => typeof value === "string" && value.trim().length > 0));
+        setFeedPosts(
+          (result.posts ?? [])
+            .map((post) => ({ ...post, likedByMe: Boolean(post.likedByMe) }))
+            .filter((post) => !hiddenPostIds.has(post.id)),
+        );
       } finally {
         if (isMounted) {
           setIsFeedLoading(false);
@@ -919,10 +1057,30 @@ export default function FeedPage() {
     }
 
     void loadFeed();
+    const intervalId = setInterval(() => {
+      void refreshUnreadNotifications();
+    }, 20000);
+    const handleFocus = () => {
+      void refreshUnreadNotifications();
+    };
+    window.addEventListener("focus", handleFocus);
+
     return () => {
       isMounted = false;
+      clearInterval(intervalId);
+      window.removeEventListener("focus", handleFocus);
     };
   }, []);
+
+  useEffect(() => {
+    const postId = searchParams.get("postId");
+    const shouldOpenComments = searchParams.get("openComments") === "1";
+    if (!postId || !shouldOpenComments) {
+      setPendingOpenCommentsPostId(null);
+      return;
+    }
+    setPendingOpenCommentsPostId(postId);
+  }, [searchParams]);
 
   useEffect(() => {
     try {
@@ -944,6 +1102,18 @@ export default function FeedPage() {
     } catch {
       setRecentSearches([]);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSearchBarVisible(window.scrollY <= 8);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -1024,7 +1194,7 @@ export default function FeedPage() {
   };
 
   useEffect(() => {
-    if (isDrawerMounted || isCommentsSheetMounted) {
+    if (isDrawerMounted || isCommentsSheetMounted || isPostActionsSheetMounted || isReportReasonSheetMounted || isReportConfirmationSheetMounted) {
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = "";
@@ -1035,7 +1205,7 @@ export default function FeedPage() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [isDrawerMounted, isCommentsSheetMounted]);
+  }, [isDrawerMounted, isCommentsSheetMounted, isPostActionsSheetMounted, isReportReasonSheetMounted, isReportConfirmationSheetMounted]);
 
   useEffect(() => {
     if (!isDrawerVisible) {
@@ -1080,6 +1250,15 @@ export default function FeedPage() {
       }
       if (commentsSheetCloseTimerRef.current) {
         clearTimeout(commentsSheetCloseTimerRef.current);
+      }
+      if (postActionsSheetCloseTimerRef.current) {
+        clearTimeout(postActionsSheetCloseTimerRef.current);
+      }
+      if (reportReasonSheetCloseTimerRef.current) {
+        clearTimeout(reportReasonSheetCloseTimerRef.current);
+      }
+      if (reportConfirmationSheetCloseTimerRef.current) {
+        clearTimeout(reportConfirmationSheetCloseTimerRef.current);
       }
     };
   }, []);
@@ -1131,7 +1310,7 @@ export default function FeedPage() {
     );
   };
 
-  const loadPostComments = async (post: FeedPost) => {
+  const loadPostComments = useCallback(async (post: FeedPost) => {
     const numericPostId = parseNumericPostId(post.id);
     if (!numericPostId) {
       setCommentsError("Unable to load comments for this post.");
@@ -1158,7 +1337,7 @@ export default function FeedPage() {
     } finally {
       setCommentsLoading(false);
     }
-  };
+  }, [updatePostCommentCount]);
 
   const openCommentsSheet = (post: FeedPost) => {
     if (commentsSheetCloseTimerRef.current) {
@@ -1177,6 +1356,32 @@ export default function FeedPage() {
     void loadPostComments(post);
   };
 
+  useEffect(() => {
+    if (!pendingOpenCommentsPostId || feedPosts.length === 0) {
+      return;
+    }
+
+    const targetPost = feedPosts.find((post) => post.id === pendingOpenCommentsPostId);
+    if (!targetPost) {
+      return;
+    }
+
+    if (commentsSheetCloseTimerRef.current) {
+      clearTimeout(commentsSheetCloseTimerRef.current);
+      commentsSheetCloseTimerRef.current = null;
+    }
+    setActiveCommentsPost(targetPost);
+    setCommentDraft("");
+    setReplyingToThreadId(null);
+    setReplyingToLabel(null);
+    setCommentThreads([]);
+    setCommentsError(null);
+    setIsCommentsSheetMounted(true);
+    requestAnimationFrame(() => setIsCommentsSheetVisible(true));
+    void loadPostComments(targetPost);
+    setPendingOpenCommentsPostId(null);
+  }, [feedPosts, loadPostComments, pendingOpenCommentsPostId]);
+
   const closeCommentsSheet = () => {
     setIsCommentsSheetVisible(false);
     commentsSheetCloseTimerRef.current = setTimeout(() => {
@@ -1188,6 +1393,81 @@ export default function FeedPage() {
       setReplyingToLabel(null);
       commentsSheetCloseTimerRef.current = null;
     }, 300);
+  };
+
+  const openPostActionsSheet = (post: FeedPost) => {
+    if (postActionsSheetCloseTimerRef.current) {
+      clearTimeout(postActionsSheetCloseTimerRef.current);
+      postActionsSheetCloseTimerRef.current = null;
+    }
+    setActivePostActionsPost(post);
+    setIsPostActionsSheetMounted(true);
+    requestAnimationFrame(() => setIsPostActionsSheetVisible(true));
+  };
+
+  const closePostActionsSheet = () => {
+    setIsPostActionsSheetVisible(false);
+    postActionsSheetCloseTimerRef.current = setTimeout(() => {
+      setIsPostActionsSheetMounted(false);
+      setActivePostActionsPost(null);
+      postActionsSheetCloseTimerRef.current = null;
+    }, 300);
+  };
+
+  const openReportReasonSheet = () => {
+    setSelectedReportReason(null);
+    setIsReportReasonSheetMounted(true);
+    requestAnimationFrame(() => setIsReportReasonSheetVisible(true));
+  };
+
+  const closeReportReasonSheet = () => {
+    setIsReportReasonSheetVisible(false);
+    reportReasonSheetCloseTimerRef.current = setTimeout(() => {
+      setIsReportReasonSheetMounted(false);
+      setSelectedReportReason(null);
+      reportReasonSheetCloseTimerRef.current = null;
+    }, 300);
+  };
+
+  const openReportConfirmationSheet = () => {
+    setIsReportConfirmationSheetMounted(true);
+    requestAnimationFrame(() => setIsReportConfirmationSheetVisible(true));
+  };
+
+  const closeReportConfirmationSheet = () => {
+    setIsReportConfirmationSheetVisible(false);
+    reportConfirmationSheetCloseTimerRef.current = setTimeout(() => {
+      setIsReportConfirmationSheetMounted(false);
+      reportConfirmationSheetCloseTimerRef.current = null;
+    }, 300);
+  };
+
+  const handleHidePost = () => {
+    if (!activePostActionsPost) return;
+    void fetch("/api/profile/hidden-posts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId: activePostActionsPost.id }),
+    });
+    setFeedPosts((previousPosts) => previousPosts.filter((post) => post.id !== activePostActionsPost.id));
+    closePostActionsSheet();
+  };
+
+  const handleStartReportPost = () => {
+    closePostActionsSheet();
+    openReportReasonSheet();
+  };
+
+  const handleSubmitReportPost = () => {
+    if (!selectedReportReason) return;
+    closeReportReasonSheet();
+    openReportConfirmationSheet();
+  };
+
+  const handleDoneReportFlow = () => {
+    closeReportConfirmationSheet();
+    setActivePostActionsPost(null);
+    setSelectedReportReason(null);
   };
 
   const handleSubmitComment = async (event: FormEvent<HTMLFormElement>) => {
@@ -1313,6 +1593,16 @@ export default function FeedPage() {
       router.push("/my-garden");
       return;
     }
+    if (item.label === "Plant ID") {
+      closeDrawer();
+      router.push("/my-garden/add-plant");
+      return;
+    }
+    if (item.label === "MyGrowMate") {
+      closeDrawer();
+      router.push("/my-grow-mate");
+      return;
+    }
     if (item.label === "Guides") {
       closeDrawer();
       router.push("/guides");
@@ -1421,6 +1711,64 @@ export default function FeedPage() {
     }
   };
 
+  const handleFollow = async (post: FeedPost) => {
+    if (post.source === "you" || post.followedByMe || followPendingAuthorIds.includes(post.authorId)) {
+      return;
+    }
+
+    setFeedPosts((previousPosts) =>
+      previousPosts.map((existingPost) =>
+        existingPost.authorId === post.authorId
+          ? {
+              ...existingPost,
+              followedByMe: true,
+              source: existingPost.source === "you" ? "you" : "following",
+            }
+          : existingPost,
+      ),
+    );
+
+    setFollowPendingAuthorIds((previousIds) => [...previousIds, post.authorId]);
+    try {
+      const response = await fetch("/api/follows", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: post.authorId }),
+      });
+
+      if (!response.ok) {
+        setFeedPosts((previousPosts) =>
+          previousPosts.map((existingPost) =>
+            existingPost.authorId === post.authorId
+              ? {
+                  ...existingPost,
+                  followedByMe: false,
+                  source: existingPost.source === "you" ? "you" : "interest",
+                }
+              : existingPost,
+          ),
+        );
+        return;
+      }
+    } catch {
+      setFeedPosts((previousPosts) =>
+        previousPosts.map((existingPost) =>
+          existingPost.authorId === post.authorId
+            ? {
+                ...existingPost,
+                followedByMe: false,
+                source: existingPost.source === "you" ? "you" : "interest",
+              }
+            : existingPost,
+        ),
+      );
+    } finally {
+      setFollowPendingAuthorIds((previousIds) =>
+        previousIds.filter((existingAuthorId) => existingAuthorId !== post.authorId),
+      );
+    }
+  };
+
   const handleToggleCommentHeart = async (commentId: string) => {
     if (commentHeartPendingIds.includes(commentId)) {
       return;
@@ -1510,16 +1858,22 @@ export default function FeedPage() {
             </button>
             <button
               type="button"
-              className="rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
+              className="relative rounded-full bg-[#f5f5f5] p-2 text-[#7a7a7a]"
               aria-label="Notifications"
               onClick={() => router.push("/notifications")}
             >
               <BellIcon />
+                {unreadNotifications > 0 ? <span aria-hidden="true" className="absolute right-0 top-0 h-2.5 w-2.5 -translate-y-1/4 translate-x-1/4 rounded-full bg-[#ef4444] ring-2 ring-white" /> : null}
             </button>
           </div>
         </header>
 
-        <div ref={searchContainerRef} className="fixed left-0 right-0 top-[72px] z-20 mx-auto w-full px-4 pt-4">
+        <div
+          ref={searchContainerRef}
+          className={`fixed left-0 right-0 top-[72px] z-20 mx-auto w-full px-4 pt-4 transition-all duration-300 ease-in-out ${
+            isSearchBarVisible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0 pointer-events-none"
+          }`}
+        >
           <form
             className="mx-auto w-full max-w-[640px] rounded-[100px] border border-black/5 bg-white px-3 py-2"
             onSubmit={handleSearchSubmit}
@@ -1598,6 +1952,9 @@ export default function FeedPage() {
               onOpenComments={openCommentsSheet}
               onToggleHeart={handleTogglePostHeart}
               onOpenProfile={handleOpenProfile}
+              onOpenPostActions={openPostActionsSheet}
+              onFollow={handleFollow}
+              isFollowPending={followPendingAuthorIds.includes(post.authorId)}
               post={post}
             />
           ))}
@@ -1642,7 +1999,44 @@ export default function FeedPage() {
             replyingToLabel={replyingToLabel}
           />
         ) : null}
+        {isPostActionsSheetMounted ? (
+          <PostActionsSheet
+            isVisible={isPostActionsSheetVisible}
+            onClose={closePostActionsSheet}
+            onHidePost={handleHidePost}
+            onReportPost={handleStartReportPost}
+          />
+        ) : null}
+        {isReportReasonSheetMounted ? (
+          <ReportReasonSheet
+            isVisible={isReportReasonSheetVisible}
+            selectedReason={selectedReportReason}
+            onClose={closeReportReasonSheet}
+            onSelectReason={setSelectedReportReason}
+            onSubmit={handleSubmitReportPost}
+          />
+        ) : null}
+        {isReportConfirmationSheetMounted ? <ReportConfirmationSheet isVisible={isReportConfirmationSheetVisible} onDone={handleDoneReportFlow} /> : null}
       </section>
     </main>
   );
 }
+
+export default function FeedPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
+          <section className="client-shell relative flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1] px-4 shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
+            <p className="text-[14px] text-[#525252]">Loading feed...</p>
+          </section>
+        </main>
+      }
+    >
+      <FeedPageContent />
+    </Suspense>
+  );
+}
+
+
+

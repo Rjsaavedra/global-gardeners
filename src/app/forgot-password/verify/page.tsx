@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 function maskEmail(email: string) {
   const [local, domain] = email.split("@");
@@ -14,7 +14,7 @@ function maskEmail(email: string) {
   return `${visible}${masked}@${domain}`;
 }
 
-export default function ForgotPasswordVerifyPage() {
+function ForgotPasswordVerifyPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email")?.trim().toLowerCase() ?? "";
@@ -194,5 +194,21 @@ export default function ForgotPasswordVerifyPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function ForgotPasswordVerifyPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-4 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell mx-auto flex min-h-screen w-full max-w-[390px] items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1] px-4 py-10 shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <ForgotPasswordVerifyPageContent />
+    </Suspense>
   );
 }

@@ -2,19 +2,22 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type NotificationItem = {
   id: string;
   name: string;
   time: string;
   message: string;
+  type?: "follow" | "post_like" | "post_comment";
+  actorUserId?: string;
+  postId?: string;
   avatarUrl?: string;
   thumbnailUrl?: string;
   isGrowMate?: boolean;
   canFollowBack?: boolean;
+  isRead?: boolean;
 };
-
-const notifications: NotificationItem[] = [];
 
 const emptyBellIcon = "/icons/notification-bell.svg";
 
@@ -42,10 +45,25 @@ function NotificationMedia({ item }: { item: NotificationItem }) {
     return <Image alt="" src={item.thumbnailUrl} width={40} height={40} unoptimized className="h-10 w-10 rounded-lg object-cover" />;
   }
 
+  if (!item.avatarUrl) {
+    const initials = item.name
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? "")
+      .join("") || "GG";
+    return (
+      <div aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-full bg-[#e7e0d2] text-[12px] font-semibold text-[#5e5a50]">
+        {initials}
+      </div>
+    );
+  }
+
   return (
     <Image
       alt=""
-      src={item.avatarUrl ?? ""}
+      src={item.avatarUrl}
       width={40}
       height={40}
       unoptimized
@@ -56,7 +74,77 @@ function NotificationMedia({ item }: { item: NotificationItem }) {
 
 export default function NotificationsPage() {
   const router = useRouter();
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [followBackPendingIds, setFollowBackPendingIds] = useState<string[]>([]);
+  const [followedActorIds, setFollowedActorIds] = useState<string[]>([]);
   const hasNotifications = notifications.length > 0;
+
+  useEffect(() => {
+    const loadNotifications = async () => {
+      try {
+        setErrorMessage(null);
+        const response = await fetch("/api/notifications", { method: "GET", cache: "no-store" });
+        const payload = (await response.json()) as {
+          error?: string;
+          notifications?: NotificationItem[];
+        };
+
+        if (!response.ok || !payload.notifications) {
+          throw new Error(payload.error ?? "Unable to load notifications.");
+        }
+        setNotifications(payload.notifications);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unable to load notifications.";
+        setErrorMessage(message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void loadNotifications();
+  }, []);
+
+  const handleNotificationClick = (item: NotificationItem) => {
+    if (!item.isRead) {
+      setNotifications((current) => current.map((entry) => (entry.id === item.id ? { ...entry, isRead: true } : entry)));
+      void fetch("/api/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notificationId: item.id }),
+      });
+    }
+
+    if (item.postId) {
+      const openComments = item.type === "post_comment" ? "&openComments=1" : "";
+      router.push(`/feed?postId=${encodeURIComponent(item.postId)}${openComments}`);
+      return;
+    }
+    if (item.type === "follow" && item.actorUserId) {
+      router.push("/feed");
+    }
+  };
+
+  const handleFollowBack = async (item: NotificationItem) => {
+    if (!item.actorUserId || followBackPendingIds.includes(item.id) || followedActorIds.includes(item.actorUserId)) {
+      return;
+    }
+
+    setFollowBackPendingIds((current) => [...current, item.id]);
+    try {
+      const response = await fetch("/api/follows", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: item.actorUserId }),
+      });
+      if (response.ok) {
+        setFollowedActorIds((current) => [...current, item.actorUserId as string]);
+      }
+    } finally {
+      setFollowBackPendingIds((current) => current.filter((id) => id !== item.id));
+    }
+  };
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
@@ -70,25 +158,42 @@ export default function NotificationsPage() {
           </div>
         </header>
 
-        {hasNotifications ? (
+        {isLoading ? (
+          <div className="px-4 pb-8 pt-[92px] text-[14px] text-[#5c5c5c]">Loading notifications...</div>
+        ) : errorMessage ? (
+          <div className="px-4 pb-8 pt-[92px] text-[14px] text-[#b42318]">{errorMessage}</div>
+        ) : hasNotifications ? (
           <div className="flex flex-col gap-2 px-4 pb-8 pt-[92px]">
             {notifications.map((item) => (
-              <article key={item.id} className="flex items-center gap-3 py-3">
+              <article
+                key={item.id}
+                className={`flex items-center gap-3 py-3 ${item.postId || item.type === "follow" ? "cursor-pointer" : ""}`}
+                onClick={() => handleNotificationClick(item)}
+              >
                 <NotificationMedia item={item} />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <p className="truncate text-[14px] font-semibold leading-5 text-[#333333]">{item.name}</p>
                     <p className="shrink-0 text-[14px] leading-5 text-[#333333cc]">{item.time}</p>
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-[#457941]" />
+                    {!item.isRead ? <span className="h-2 w-2 shrink-0 rounded-full bg-[#457941]" /> : null}
                   </div>
                   <p className="truncate text-[14px] font-medium leading-5 text-[#333333cc]">{item.message}</p>
                 </div>
                 {item.canFollowBack ? (
                   <button
                     type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      void handleFollowBack(item);
+                    }}
+                    disabled={!item.actorUserId || followBackPendingIds.includes(item.id) || followedActorIds.includes(item.actorUserId)}
                     className="shrink-0 rounded-lg bg-[#171717] px-3 py-2 text-[12px] font-semibold leading-4 text-[#fafafa]"
                   >
-                    Follow back
+                    {item.actorUserId && followedActorIds.includes(item.actorUserId)
+                      ? "Following"
+                      : followBackPendingIds.includes(item.id)
+                        ? "Following..."
+                        : "Follow back"}
                   </button>
                 ) : null}
               </article>

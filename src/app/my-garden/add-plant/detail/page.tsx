@@ -1,19 +1,20 @@
 ﻿"use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const heroImage = "https://www.figma.com/api/mcp/asset/fa0e8278-4443-43c0-bc5d-1d6f10152dae";
 const pagerDots = "https://www.figma.com/api/mcp/asset/64ba5c7c-1dd5-47a5-912a-361402dd6eae";
-const closeIcon = "https://www.figma.com/api/mcp/asset/0e047919-5926-40b4-851c-d117eb1a32b8";
-const moreIcon = "https://www.figma.com/api/mcp/asset/7eed89d7-c79f-4b0f-8090-57c4082ee0fd";
+const closeIcon = "/icons/new-plant/x.svg";
+const moreIcon = "/icons/new-plant/ellipsis-vertical.svg";
 const leafIcon = "https://www.figma.com/api/mcp/asset/73bcf24a-c2a1-4db3-95b2-9025b5d79bf9";
 const rightIcon = "https://www.figma.com/api/mcp/asset/0c3a4b8f-8cb1-45b9-bc7d-6e70d61a9e9c";
-const sunIcon = "https://www.figma.com/api/mcp/asset/c070ddb8-9f54-4211-8a8d-8165e70366e2";
-const dropletIcon = "https://www.figma.com/api/mcp/asset/235f98d7-abc6-43d9-8024-b45a95ec1440";
-const thermoIcon = "https://www.figma.com/api/mcp/asset/3100a8fc-3e27-4cdc-a75b-b77bb38c709c";
-const cloudyIcon = "https://www.figma.com/api/mcp/asset/4f89f694-8c7a-4476-99d7-be6a9ebe2d71";
-const chevronUpIcon = "https://www.figma.com/api/mcp/asset/4da4cfbd-361e-40af-be4b-8a56ba6d8bbc";
-const chevronDownIcon = "https://www.figma.com/api/mcp/asset/6eda77c8-e773-4950-9751-5269ae0235d0";
+const sunIcon = "/icons/new-plant/sun.svg";
+const dropletIcon = "/icons/new-plant/droplet.svg";
+const thermoIcon = "/icons/new-plant/thermometer.svg";
+const cloudyIcon = "/icons/new-plant/cloudy.svg";
+const chevronUpIcon = "/icons/new-plant/chevron-up.svg";
+const chevronDownIcon = "/icons/new-plant/chevron-down.svg";
 
 function DetailTile({ label, value, icon, tone }: { label: string; value: string; icon: string; tone: "yellow" | "blue" | "orange" | "teal" }) {
   const toneClass =
@@ -38,26 +39,37 @@ function DetailTile({ label, value, icon, tone }: { label: string; value: string
   );
 }
 
-function AccordionRow({ title, expanded = false }: { title: string; expanded?: boolean }) {
+function AccordionRow({
+  title,
+  expanded,
+  onToggle,
+  children,
+}: {
+  title: string;
+  expanded: boolean;
+  onToggle: () => void;
+  children?: React.ReactNode;
+}) {
   return (
-    <>
-      <div className="flex items-center justify-between border-b border-black/10 py-4">
+    <div className="border-t border-black/10">
+      <button type="button" onClick={onToggle} className="flex w-full items-center justify-between py-4 text-left">
         <p className="text-[14px] font-medium leading-5 text-[#333333]">{title}</p>
         <img src={expanded ? chevronUpIcon : chevronDownIcon} alt="" aria-hidden="true" className="h-4 w-4" />
-      </div>
-      {expanded ? (
-        <div className="border-b border-black/10 pb-4">
-          <p className="text-[14px] font-medium leading-5 text-[#333333cc]">
-            Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.
-          </p>
-        </div>
-      ) : null}
-    </>
+      </button>
+      {expanded ? <div className="pb-4">{children}</div> : null}
+    </div>
   );
 }
 
 export default function PlantDetailPage() {
   const router = useRouter();
+  const [openAccordion, setOpenAccordion] = useState("Watering & Moisture");
+  const loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+  const toggleAccordion = (title: string) => {
+    setOpenAccordion((current) => (current === title ? "" : title));
+  };
 
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
@@ -119,17 +131,33 @@ export default function PlantDetailPage() {
           </div>
 
           <div className="mt-8 bg-[#f8f6f1]">
-            <AccordionRow title="Watering & Moisture" expanded />
-            <AccordionRow title="Light" />
-            <AccordionRow title="Temperature" />
-            <AccordionRow title="Humidity" />
-            <AccordionRow title="Fertilizing" />
-            <AccordionRow title="Repotting" />
-            <AccordionRow title="Soil" />
+            <AccordionRow title="Watering & Moisture" expanded={openAccordion === "Watering & Moisture"} onToggle={() => toggleAccordion("Watering & Moisture")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">
+                Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.
+              </p>
+            </AccordionRow>
+            <AccordionRow title="Light" expanded={openAccordion === "Light"} onToggle={() => toggleAccordion("Light")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Temperature" expanded={openAccordion === "Temperature"} onToggle={() => toggleAccordion("Temperature")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Humidity" expanded={openAccordion === "Humidity"} onToggle={() => toggleAccordion("Humidity")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Fertilizing" expanded={openAccordion === "Fertilizing"} onToggle={() => toggleAccordion("Fertilizing")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Repotting" expanded={openAccordion === "Repotting"} onToggle={() => toggleAccordion("Repotting")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Soil" expanded={openAccordion === "Soil"} onToggle={() => toggleAccordion("Soil")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 z-40 bg-[#f8f6f1] px-4 pb-4 pt-5">
+        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button type="button" className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]">
             Add to My Garden
           </button>
@@ -138,4 +166,3 @@ export default function PlantDetailPage() {
     </main>
   );
 }
-

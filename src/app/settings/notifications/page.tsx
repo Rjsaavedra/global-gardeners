@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ToggleRow = {
   key: string;
@@ -85,6 +85,9 @@ function Toggle({
 export default function NotificationSettingsPage() {
   const router = useRouter();
   const [allNotifications, setAllNotifications] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [toggles, setToggles] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const section of sections) {
@@ -94,6 +97,81 @@ export default function NotificationSettingsPage() {
     }
     return initial;
   });
+  const allToggleKeys = useMemo(() => Object.keys(toggles), [toggles]);
+
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        setErrorMessage(null);
+        const response = await fetch("/api/profile/notifications", { method: "GET" });
+        const payload = (await response.json()) as {
+          error?: string;
+          notificationPreferences?: Record<string, boolean>;
+        };
+        if (!response.ok || !payload.notificationPreferences) {
+          throw new Error(payload.error ?? "Unable to load notification preferences.");
+        }
+
+        setToggles((current) => ({ ...current, ...payload.notificationPreferences }));
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unable to load notification preferences.";
+        setErrorMessage(message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    void loadPreferences();
+  }, []);
+
+  useEffect(() => {
+    if (allToggleKeys.length === 0) return;
+    setAllNotifications(allToggleKeys.every((key) => toggles[key]));
+  }, [allToggleKeys, toggles]);
+
+  const savePreferences = async (nextToggles: Record<string, boolean>) => {
+    try {
+      setIsSaving(true);
+      setErrorMessage(null);
+      const response = await fetch("/api/profile/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ notificationPreferences: nextToggles }),
+      });
+
+      const payload = (await response.json()) as {
+        error?: string;
+        notificationPreferences?: Record<string, boolean>;
+      };
+
+      if (!response.ok || !payload.notificationPreferences) {
+        throw new Error(payload.error ?? "Unable to save notification preferences.");
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to save notification preferences.";
+      setErrorMessage(message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleToggleChange = (key: string) => {
+    setToggles((current) => {
+      const nextToggles = { ...current, [key]: !current[key] };
+      void savePreferences(nextToggles);
+      return nextToggles;
+    });
+  };
+
+  const handleToggleAll = () => {
+    const targetValue = !allNotifications;
+    setAllNotifications(targetValue);
+    setToggles((current) => {
+      const nextToggles = Object.fromEntries(Object.keys(current).map((key) => [key, targetValue]));
+      void savePreferences(nextToggles);
+      return nextToggles;
+    });
+  };
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17] sm:grid sm:place-items-center sm:px-8">
@@ -107,9 +185,12 @@ export default function NotificationSettingsPage() {
 
         <div className="flex flex-1 flex-col px-4 pb-8 pt-8">
           <div className="flex h-6 items-center gap-2">
-            <Toggle checked={allNotifications} onClick={() => setAllNotifications((current) => !current)} ariaLabel="Toggle all notifications" />
+            <Toggle checked={allNotifications} onClick={handleToggleAll} ariaLabel="Toggle all notifications" />
             <p className="text-[16px] font-semibold leading-6 tracking-[0px] text-[#333333]">All notifications</p>
           </div>
+          {isLoading ? <p className="mt-2 text-[12px] text-[#5c5c5c]">Loading preferences...</p> : null}
+          {isSaving ? <p className="mt-2 text-[12px] text-[#5c5c5c]">Saving changes...</p> : null}
+          {errorMessage ? <p className="mt-2 text-[12px] text-[#b42318]">{errorMessage}</p> : null}
 
           <div className="mt-8 h-px w-full bg-[#e5e5e5]" />
 
@@ -122,7 +203,7 @@ export default function NotificationSettingsPage() {
                     <div key={row.key} className="flex h-6 items-center gap-2">
                       <Toggle
                         checked={toggles[row.key]}
-                        onClick={() => setToggles((current) => ({ ...current, [row.key]: !current[row.key] }))}
+                        onClick={() => handleToggleChange(row.key)}
                         ariaLabel={`Toggle ${row.label}`}
                       />
                       <p className="text-[14px] font-normal leading-5 tracking-[0px] text-[#404040]">{row.label}</p>
