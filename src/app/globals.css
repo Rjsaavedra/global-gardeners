@@ -19,6 +19,12 @@ body {
   font-family: var(--font-geist-sans), sans-serif;
 }
 
+/* Ensure links consistently show affordance across all pages */
+a[href],
+[role="link"] {
+  cursor: pointer;
+}
+
 /* Client-first semantic class namespace */
 .client-main {}
 

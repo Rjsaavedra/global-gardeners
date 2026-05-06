@@ -1,2 +1,2010 @@
-⚠ Slow filesystem detected. The benchmark took 321ms. If D:\Global Gardeners\.next/dev is a network drive, consider moving it to a local folder.
+⚠ Slow filesystem detected. The benchmark took 229ms. If D:\Global Gardeners\.next/dev is a network drive, consider moving it to a local folder.
 See more: https://nextjs.org/docs/app/guides/local-development
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4133:225)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at flushSyncWork$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9230:86)
+    at Object.scheduleRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:299:13)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:391:33)
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:384:38)
+    at applyUpdate (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:878:31)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:886:13) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4133:225)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at flushSyncWork$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9230:86)
+    at Object.scheduleRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:299:13)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:391:33)
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:384:38)
+    at applyUpdate (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:878:31)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:886:13) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+⨯ ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+
+[browser] Uncaught Error: ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/my-garden/add-plant/detail/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <InnerScrollAndFocusHandlerOld focusAndScrollRef={{scrollRef:null, ...}} cacheNode={{rsc:{...}, ...}}>
+      <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+        <LoadingBoundary name="1778067159..." loading={null}>
+          <HTTPAccessFallbackBoundary notFound={undefined} forbidden={undefined} unauthorized={undefined}>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/plant/gro..." tree={[...]} params={{id:"177806..."}} ...>
+                  <SegmentViewNode type="page" pagePath="plant/grow...">
+                    <SegmentTrieNode>
+                    <ClientPageRoot Component={function TimelineUpdateDetailPage} serverProvidedParams={{...}}>
+                      <TimelineUpdateDetailPage params={Promise} searchParams={Promise}>
+                        <main className="client-mai...">
+                          <section className="client-she...">
+                            <header>
+                            <div className="flex-1 ove...">
+                              <div
++                               className="relative w-full"
+-                               className="px-4 pt-6"
+                              >
++                               <div className="relative h-[285px] w-full overflow-hidden">
+-                               <h2 className="text-[30px] font-semibold leading-[30px] tracking-[-1px] text-[#182a17]">
+                                ...
+                              ...
+                            ...
+                  ...
+                ...
+      ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at throwOnHydrationMismatch (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:3318:56)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6758:918)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64)
+    at div (<anonymous>)
+    at TimelineUpdateDetailPage (file://D:/Global Gardeners/.next/dev/static/chunks/_0xn4-pt._.js:112:235)
+    at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_0tt2wve._.js:4461:50)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/add-update/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 5211
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/add-update/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/plant/growth-timeline/[id]/edit/page.tsx
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 6065
+
+Import traces:
+  Client Component Browser:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component Browser]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Client Component SSR]
+    ./src/app/plant/growth-timeline/[id]/edit/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)

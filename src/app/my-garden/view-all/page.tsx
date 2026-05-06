@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-const imgFrame1111 = "https://www.figma.com/api/mcp/asset/c0f24121-2f60-4507-810a-2ce2573e59ed";
-const imgFrame1112 = "https://www.figma.com/api/mcp/asset/c35b9456-92fa-48a0-93ed-f849c0d9af34";
-const imgFrame1113 = "https://www.figma.com/api/mcp/asset/3c360107-4c37-4d3e-9afe-2643419e6b78";
-const imgFrame1114 = "https://www.figma.com/api/mcp/asset/6a07ee9f-fc35-4de9-bc13-4ecd2b5f63f4";
-const imgFrame1115 = "https://www.figma.com/api/mcp/asset/c57d60c9-f285-4524-ab25-af947d36bfda";
-const imgFrame1116 = "https://www.figma.com/api/mcp/asset/cf1375b6-fbf2-40cf-a72e-b84b1fc2fbd4";
+const imgFrame1111 = "/images/figma/placeholder-expired.png";
+const imgFrame1112 = "/images/figma/placeholder-expired.png";
+const imgFrame1113 = "/images/figma/placeholder-expired.png";
+const imgFrame1114 = "/images/figma/placeholder-expired.png";
+const imgFrame1115 = "/images/figma/placeholder-expired.png";
+const imgFrame1116 = "/images/figma/placeholder-expired.png";
 
 type PlantStatus = "identified" | "unidentified";
 

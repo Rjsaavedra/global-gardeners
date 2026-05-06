@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const heroImage = "/images/figma/placeholder-expired.png";
-const pagerDots = "/icons/new-plant/chevron-down.svg";
 const closeIcon = "/icons/new-plant/x.svg";
 const moreIcon = "/icons/new-plant/ellipsis-vertical.svg";
 const leafIcon = "/icons/logs/leaf.svg";
@@ -78,7 +77,11 @@ export default function PlantDetailPage() {
           <img src={heroImage} alt="Rattlesnake Plant" className="h-full w-full object-cover" />
 
           <div className="absolute left-1/2 top-[325px] -translate-x-1/2 rounded-[999px] bg-[#f4f1e8] px-2 py-1.5">
-            <img src={pagerDots} alt="" aria-hidden="true" className="h-2 w-[56px]" />
+            <div aria-hidden="true" className="flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#d7d2c8]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#182a17]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#d7d2c8]" />
+            </div>
           </div>
 
           <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
@@ -101,7 +104,11 @@ export default function PlantDetailPage() {
           </div>
 
           <div className="mt-8 flex flex-col gap-3">
-            <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
+            <button
+              type="button"
+              onClick={() => router.push("/plant/growth-timeline")}
+              className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]"
+            >
               View growth timeline
               <img src={rightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
             </button>

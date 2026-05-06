@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const topicRows = [
   ["My plant looks sick", "Help me propagate", "Design my garden"],
@@ -10,24 +11,24 @@ const topicRows = [
 ];
 
 const plants = [
-  { id: 1, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/e59d1acd-0ef3-43b4-ac09-d766cc2d896e" },
-  { id: 2, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/03d4da00-731d-4859-9964-d7ad72a11162" },
-  { id: 3, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/0b5c9081-9850-49fb-be1e-429a6fc647a1" },
-  { id: 4, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/6e362d65-177d-4410-8318-a707199c3dfd" },
-  { id: 5, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/8f69de07-d0e2-4cc4-821c-d67c560ce525" },
-  { id: 6, name: "Plant Name Here", species: "Species name", image: "https://www.figma.com/api/mcp/asset/e68c0f2b-0464-4935-886b-50c278ee55e7" },
+  { id: 1, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
+  { id: 2, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
+  { id: 3, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
+  { id: 4, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
+  { id: 5, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
+  { id: 6, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
 ];
 
 const identifiedPlants = [
-  { id: 101, name: "Monstera Deliciosa", species: "Identified · Aroid", image: "https://www.figma.com/api/mcp/asset/e59d1acd-0ef3-43b4-ac09-d766cc2d896e" },
-  { id: 102, name: "Lavender", species: "Identified · Lamiaceae", image: "https://www.figma.com/api/mcp/asset/03d4da00-731d-4859-9964-d7ad72a11162" },
-  { id: 103, name: "Snake Plant", species: "Identified · Dracaena", image: "https://www.figma.com/api/mcp/asset/0b5c9081-9850-49fb-be1e-429a6fc647a1" },
+  { id: 101, name: "Monstera Deliciosa", species: "Identified · Aroid", image: "/images/figma/placeholder-expired.png" },
+  { id: 102, name: "Lavender", species: "Identified · Lamiaceae", image: "/images/figma/placeholder-expired.png" },
+  { id: 103, name: "Snake Plant", species: "Identified · Dracaena", image: "/images/figma/placeholder-expired.png" },
 ];
 
 const unidentifiedPlants = [
-  { id: 201, name: "Unknown Leaf 01", species: "Unidentified specimen", image: "https://www.figma.com/api/mcp/asset/6e362d65-177d-4410-8318-a707199c3dfd" },
-  { id: 202, name: "Unknown Flower 02", species: "Unidentified specimen", image: "https://www.figma.com/api/mcp/asset/8f69de07-d0e2-4cc4-821c-d67c560ce525" },
-  { id: 203, name: "Unknown Vine 03", species: "Unidentified specimen", image: "https://www.figma.com/api/mcp/asset/e68c0f2b-0464-4935-886b-50c278ee55e7" },
+  { id: 201, name: "Unknown Leaf 01", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
+  { id: 202, name: "Unknown Flower 02", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
+  { id: 203, name: "Unknown Vine 03", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
 ];
 
 function PlusIcon() {
@@ -56,6 +57,7 @@ function SearchIcon() {
 }
 
 export default function MyGrowMateChatPage() {
+  const searchParams = useSearchParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isConfirmDrawerOpen, setIsConfirmDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "identified" | "unidentified">("all");
@@ -72,6 +74,9 @@ export default function MyGrowMateChatPage() {
   const [isRenameDrawerOpen, setIsRenameDrawerOpen] = useState(false);
   const [conversationName, setConversationName] = useState("Global Gardeners");
   const [renameValue, setRenameValue] = useState("Global Gardeners");
+  const [isConversationStarted, setIsConversationStarted] = useState(false);
+  const [didHydrateFromLog, setDidHydrateFromLog] = useState(false);
+  const [didHydrateFromConversation, setDidHydrateFromConversation] = useState(false);
   const activePlants = activeTab === "all" ? plants : activeTab === "identified" ? identifiedPlants : unidentifiedPlants;
   const selectedPlant = [...plants, ...identifiedPlants, ...unidentifiedPlants].find((plant) => plant.id === selectedPlantId);
   const handleSend = () => {
@@ -79,12 +84,37 @@ export default function MyGrowMateChatPage() {
     if (!trimmed) return;
     setLastSentMessage(trimmed);
     setHasSentMessage(true);
+    setIsConversationStarted(true);
     setShowAssistantResponse(false);
     setMessageText("");
     setTimeout(() => {
       setShowAssistantResponse(true);
     }, 2200);
   };
+
+  useEffect(() => {
+    const fromLog = searchParams.get("fromLog");
+    if (!fromLog || didHydrateFromLog) return;
+    setDidHydrateFromLog(true);
+    setIsConversationStarted(true);
+    setHasSentMessage(true);
+    setLastSentMessage("Can you summarize this saved log?");
+    setShowAssistantResponse(true);
+    setConversationName("Global Gardeners");
+    setAttachedPlantName(fromLog === "2" || fromLog === "5" ? "Monstera" : "Plant name");
+  }, [searchParams, didHydrateFromLog]);
+
+  useEffect(() => {
+    const fromConversation = searchParams.get("fromConversation");
+    if (!fromConversation || didHydrateFromConversation) return;
+    setDidHydrateFromConversation(true);
+    setIsConversationStarted(true);
+    setHasSentMessage(true);
+    setLastSentMessage("hello");
+    setShowAssistantResponse(true);
+    setConversationName("Title of conversation");
+    setAttachedPlantName(fromConversation === "1" || fromConversation === "3" ? "Monstera" : "Unidentified");
+  }, [searchParams, didHydrateFromConversation]);
 
   return (
     <main className="client-main h-dvh w-full overflow-x-hidden bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] text-[#182a17]">
@@ -110,12 +140,21 @@ export default function MyGrowMateChatPage() {
             <Link href="/my-grow-mate" aria-label="Back" className="shrink-0">
               <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={40} height={40} className="h-10 w-10" />
             </Link>
-            <div className="flex items-center px-2">
-              <div className="flex flex-col items-center justify-center gap-[2px]">
-                <p className="text-[18px] font-semibold leading-[27px] text-[#31674c]">{conversationName}</p>
-                <p className="whitespace-nowrap text-[14px] font-medium leading-5 text-[#333333cc]">Plant: {attachedPlantName}</p>
+            {!isConversationStarted ? (
+              <div className="flex items-center gap-2 px-2">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#f0fdf4] p-[6px]">
+                  <Image src="/icons/chat-menus/leaf.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
+                </span>
+                <p className="whitespace-nowrap text-[16px] font-medium leading-6 text-black">Plant: None Selected</p>
               </div>
-            </div>
+            ) : (
+              <div className="flex items-center px-2">
+                <div className="flex flex-col items-center justify-center gap-[2px]">
+                  <p className="text-[18px] font-semibold leading-[27px] text-[#31674c]">{conversationName}</p>
+                  <p className="whitespace-nowrap text-[14px] font-medium leading-5 text-[#333333cc]">Plant: {attachedPlantName}</p>
+                </div>
+              </div>
+            )}
             <button
               type="button"
               aria-label="More options"
@@ -161,7 +200,7 @@ export default function MyGrowMateChatPage() {
             </div>
           ) : null}
 
-          {!hasSentMessage ? (
+          {!isConversationStarted ? (
           <div className="absolute left-1/2 top-[136px] flex w-[212px] -translate-x-1/2 flex-col items-center gap-8 max-[360px]:w-[198px]">
             <h1 className="min-w-full text-center text-[30px] font-semibold leading-[1.2] tracking-[-1px]">
               <span className="block text-[#182a17]">Hello, Mario</span>
@@ -184,7 +223,7 @@ export default function MyGrowMateChatPage() {
           </div>
           ) : null}
 
-          {!hasSentMessage ? (
+          {!isConversationStarted ? (
           <div className="absolute left-0 top-[404px] flex w-full flex-col gap-4">
             <div className="px-4 pb-2">
               <div className="border-b border-black/5 pb-2">
@@ -242,7 +281,7 @@ export default function MyGrowMateChatPage() {
             </>
           ) : null}
 
-          <div className="absolute left-4 right-4 flex items-center gap-3" style={{ top: 760 }}>
+          <div className="absolute bottom-[max(16px,env(safe-area-inset-bottom))] left-4 right-4 z-10 flex items-center gap-3">
             <button
               type="button"
               aria-label="Add"
@@ -535,6 +574,11 @@ export default function MyGrowMateChatPage() {
                     if (selectedPlant) {
                       setAttachedPlantName(selectedPlant.name);
                     }
+                    setHasSentMessage(false);
+                    setLastSentMessage("");
+                    setShowAssistantResponse(false);
+                    setMessageText("");
+                    setIsConversationStarted(true);
                     setIsConfirmDrawerOpen(false);
                     setSelectedPlantId(null);
                   }}

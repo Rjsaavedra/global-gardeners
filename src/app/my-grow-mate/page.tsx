@@ -18,11 +18,13 @@ type QuickAction = {
 };
 
 type Conversation = {
+  id: number;
   title: string;
   excerpt: string;
 };
 
 type SavedLog = {
+  id: number;
   title: string;
   plant: string;
   topic: string;
@@ -79,16 +81,19 @@ const quickActions: QuickAction[] = [
 
 const conversations: Conversation[] = [
   {
+    id: 1,
     title: "Title of conversation",
     excerpt:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
   },
   {
+    id: 2,
     title: "Title of conversation",
     excerpt:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
   },
   {
+    id: 3,
     title: "Title of conversation",
     excerpt:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
@@ -96,9 +101,9 @@ const conversations: Conversation[] = [
 ];
 
 const savedLogs: SavedLog[] = [
-  { title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
-  { title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: iconSparkles },
-  { title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
+  { id: 1, title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
+  { id: 5, title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: iconSparkles },
+  { id: 3, title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
 ];
 
 function MenuIcon() {
@@ -137,11 +142,11 @@ function BellButton({ unreadNotifications, onClick }: { unreadNotifications: num
   );
 }
 
-function SectionHeader({ title }: { title: string }) {
+function SectionHeader({ title, onViewAll }: { title: string; onViewAll?: () => void }) {
   return (
     <div className="flex h-6 w-full items-center justify-between gap-3">
       <h2 className="min-w-0 flex-1 text-[14px] font-medium leading-5 tracking-[0] text-[#333333]">{title}</h2>
-      <button type="button" className="flex shrink-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      <button type="button" onClick={onViewAll} className="flex shrink-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
         <span className="text-[14px] font-medium leading-5 text-[#737373]">View&nbsp; all</span>
         <img src={iconChevronRight} alt="" aria-hidden="true" className="h-6 w-6" />
       </button>
@@ -190,10 +195,11 @@ function QuickActionCard({ action }: { action: QuickAction }) {
   );
 }
 
-function ConversationRow({ conversation, compact }: { conversation: Conversation; compact?: boolean }) {
+function ConversationRow({ conversation, compact, onClick }: { conversation: Conversation; compact?: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
+      onClick={onClick}
       className={`flex w-full items-center gap-4 overflow-hidden rounded-full border border-black/10 bg-white py-4 pl-6 pr-4 text-left ${
         compact ? "h-[70px]" : "h-[72px]"
       }`}
@@ -207,9 +213,9 @@ function ConversationRow({ conversation, compact }: { conversation: Conversation
   );
 }
 
-function SavedLogRow({ log }: { log: SavedLog }) {
+function SavedLogRow({ log, onClick }: { log: SavedLog; onClick: () => void }) {
   return (
-    <button type="button" className="flex h-[72px] w-full items-center gap-4 overflow-hidden rounded-full border border-black/10 bg-white p-4 text-left">
+    <button type="button" onClick={onClick} className="flex h-[72px] w-full items-center gap-4 overflow-hidden rounded-full border border-black/10 bg-white p-4 text-left">
       <span className="flex min-w-0 flex-1 items-center gap-3">
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#f0fdf4cc] p-2">
           <img src={log.icon} alt="" aria-hidden="true" className="h-6 w-6" />
@@ -440,19 +446,19 @@ export default function MyGrowMatePage() {
           </section>
 
           <section className="flex w-full flex-col">
-            <SectionHeader title="Recent Conversations" />
+            <SectionHeader title="Recent Conversations" onViewAll={() => router.push("/my-grow-mate/recent-conversations")} />
             <div className="mt-6 flex w-full flex-col gap-3 pt-3">
               {conversations.map((conversation, index) => (
-                <ConversationRow key={`${conversation.title}-${index}`} conversation={conversation} compact={index === 0} />
+                <ConversationRow key={`${conversation.title}-${index}`} conversation={conversation} compact={index === 0} onClick={() => router.push(`/my-grow-mate/chat?fromConversation=${conversation.id}`)} />
               ))}
             </div>
           </section>
 
           <section className="flex w-full flex-col">
-            <SectionHeader title="Your Saved Logs" />
+            <SectionHeader title="Your Saved Logs" onViewAll={() => router.push("/my-grow-mate/logs")} />
             <div className="mt-6 flex w-full flex-col gap-3 pt-3">
               {savedLogs.map((log, index) => (
-                <SavedLogRow key={`${log.title}-${log.plant}-${index}`} log={log} />
+                <SavedLogRow key={`${log.title}-${log.plant}-${index}`} log={log} onClick={() => router.push(`/my-grow-mate/logs/log-detail-${log.id}`)} />
               ))}
             </div>
           </section>

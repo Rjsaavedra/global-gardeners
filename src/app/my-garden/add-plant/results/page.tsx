@@ -4,14 +4,13 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
-const imgPlant = "https://www.figma.com/api/mcp/asset/3122ca93-4b4a-4191-8c78-37b13080c705";
-const imgRightIcon = "https://www.figma.com/api/mcp/asset/af60a1a8-8bf4-462c-884a-2708b905e87a";
-const imgSliderDots = "https://www.figma.com/api/mcp/asset/3eb5ee4c-11cb-4eae-8b76-8deccf4394b7";
-const imgCheckRing = "https://www.figma.com/api/mcp/asset/5aedf625-371c-4076-aa85-6dce330463e8";
-const imgCheck = "https://www.figma.com/api/mcp/asset/29f8e773-9c0d-4968-bb15-0639450c19bb";
-const imgLeaf = "https://www.figma.com/api/mcp/asset/39f1608b-e01f-430a-b50c-02d10f0f9f65";
-const imgCircle = "https://www.figma.com/api/mcp/asset/1fb23558-3e85-41df-99bf-9fb83530dbed";
-const imgSprout = "https://www.figma.com/api/mcp/asset/8deba637-ea7a-400a-8f0b-edba5a765b18";
+const imgPlant = "/images/figma/placeholder-expired.png";
+const imgRightIcon = "/icons/my-garden-chevron-right.svg";
+const imgSliderDots = "/icons/new-plant/chevron-down.svg";
+const imgCheck = "/icons/onboarding-check.svg";
+const imgLeaf = "/icons/logs/leaf.svg";
+const imgCircle = "/icons/layout-grid-inactive.svg";
+const imgSprout = "/icons/sprout-active.svg";
 
 type MatchOption = {
   id: string;
@@ -128,7 +127,7 @@ function IdentifyResultsPageContent() {
                           <div className="absolute right-2 top-2 h-8 w-8">
                             {isSelected ? (
                               <>
-                                <img src={imgCheckRing} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+                                <span aria-hidden="true" className="absolute inset-0 rounded-full border-2 border-[#5fa659] bg-white" />
                                 <img src={imgCheck} alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
                               </>
                             ) : (

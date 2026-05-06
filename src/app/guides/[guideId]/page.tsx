@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const detailHeroImage = "https://www.figma.com/api/mcp/asset/27088c29-69b2-4900-b14b-a95560a1aa61";
+const detailHeroImage = "/images/figma/placeholder-expired.png";
 
 const guideDetailBody = [
   "This little guide was created to bring gardeners together - beginners, experts, and everyone in between. Gardening is a shared journey, shaped by the people who teach us, inspire us, and remind us to slow down and notice the small, beautiful things. Global Gardeners was built with that spirit in mind: a place where knowledge is shared freely, where stories matter, and where community comes first.",

@@ -5,16 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 import { getDrawerItems } from "@/components/drawer-items";
 
-const heroAvatar = "https://www.figma.com/api/mcp/asset/337fb1e2-a054-4c5c-ad8e-fa46ac7f9bb6";
-const heroVideoA = "https://www.figma.com/api/mcp/asset/1c045ae0-d5e0-47f3-a134-fb8328272a98";
-const heroVideoB = "https://www.figma.com/api/mcp/asset/c456af2d-5ec9-4dc6-8074-1601bcec0873";
-const playOverlay = "https://www.figma.com/api/mcp/asset/36e41681-74f3-43f5-bb7a-d19cce586550";
-const dotA = "https://www.figma.com/api/mcp/asset/32d36029-9b0a-441b-817c-092f8b401c32";
-const dotB = "https://www.figma.com/api/mcp/asset/dd887826-61ef-4854-9e3d-5ed0d3b2ca4c";
-const voteAvatar = "https://www.figma.com/api/mcp/asset/3855443a-f999-416e-b602-784b72017231";
-const pastAvatar = "https://www.figma.com/api/mcp/asset/da7557a7-d99d-4af1-821d-b687f638090e";
-const ellipsisIcon = "https://www.figma.com/api/mcp/asset/bd0c8eae-1174-4042-a885-86341a252339";
-const checkIcon = "https://www.figma.com/api/mcp/asset/cb33e494-135d-44a3-b0c9-7580e49cdeca";
+const heroAvatar = "/images/figma/placeholder-expired.png";
+const heroVideoA = "/images/figma/placeholder-expired.png";
+const heroVideoB = "/images/figma/placeholder-expired.png";
+const playOverlay = "/icons/gallery.svg";
+const voteAvatar = "/images/figma/placeholder-expired.png";
+const pastAvatar = "/images/figma/placeholder-expired.png";
+const ellipsisIcon = "/icons/new-plant/ellipsis-vertical.svg";
+const checkIcon = "/icons/onboarding-check.svg";
 
 function MenuIcon() {
   return (
@@ -35,7 +33,7 @@ function BellIcon() {
   );
 }
 
-function VideoCard({ image, dot, mutedAgo }: { image: string; dot: string; mutedAgo?: boolean }) {
+function VideoCard({ image, mutedAgo }: { image: string; mutedAgo?: boolean }) {
   return (
     <article className="w-[min(265px,calc(100vw-80px))] shrink-0 rounded-[12px] bg-[#f7f7f7] p-4">
       <div className="relative aspect-[295/166] w-full overflow-hidden rounded-[8px]">
@@ -50,7 +48,7 @@ function VideoCard({ image, dot, mutedAgo }: { image: string; dot: string; muted
           <p className="text-[14px] font-medium leading-[1.2] text-[#333333]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
           <div className="mt-2 flex items-center gap-[6px]">
             <span className="text-[12px] font-medium leading-4 text-[#333333cc]">3.5k views</span>
-            <img src={dot} alt="" className="h-1 w-1" />
+            <span aria-hidden="true" className="inline-block h-1 w-1 rounded-full bg-[#33333380]" />
             <span className={`text-[12px] leading-4 ${mutedAgo ? "font-normal text-[#33333380]" : "font-medium text-[#33333380]"}`}>1 day ago</span>
           </div>
         </div>
@@ -282,8 +280,8 @@ export default function InfluencerSpotlightPage() {
 
               <div className="mt-6 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex gap-3">
-                  <VideoCard image={heroVideoA} dot={dotA} />
-                  <VideoCard image={heroVideoB} dot={dotB} mutedAgo />
+                  <VideoCard image={heroVideoA} />
+                  <VideoCard image={heroVideoB} mutedAgo />
                 </div>
               </div>
             </div>

@@ -5,10 +5,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getDrawerItems } from "@/components/drawer-items";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 
-const imgFrame1111 = "https://www.figma.com/api/mcp/asset/d544851d-ef84-403c-8dfa-a33c51b4757e";
-const imgFrame1112 = "https://www.figma.com/api/mcp/asset/eb86298f-0501-46d5-9c15-6207e6a7cb0c";
-const imgFrame1113 = "https://www.figma.com/api/mcp/asset/5f717f9a-cdbe-4044-bcac-0f39ee5c7f44";
-const imgFrame1114 = "https://www.figma.com/api/mcp/asset/5e394c37-c5d6-4d9f-97e8-1aa520e4dec5";
+const imgFrame1111 = "/images/figma/placeholder-expired.png";
+const imgFrame1112 = "/images/figma/placeholder-expired.png";
+const imgFrame1113 = "/images/figma/placeholder-expired.png";
+const imgFrame1114 = "/images/figma/placeholder-expired.png";
 const imgSproutIcon = "/icons/my-garden-plants.svg";
 const imgSpeciesIcon = "/icons/my-garden-species.svg";
 const imgLogsIcon = "/icons/my-garden-care-logs.svg";
@@ -16,7 +16,7 @@ const imgCameraIcon = "/icons/my-garden-posts.svg";
 const imgCloseIcon = "/icons/my-garden-x.svg";
 const imgChevronRight = "/icons/my-garden-chevron-right.svg";
 const imgAddIcon = "/icons/my-garden-plus.svg";
-const imgDot = "https://www.figma.com/api/mcp/asset/29583c8f-6042-4080-b80f-a95f40bc13ad";
+const imgDot = "/images/figma/placeholder-expired.png";
 const imgCareIcon = "/icons/my-garden-care-logs.svg";
 
 function MenuIcon() {

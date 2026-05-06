@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
-const imgFrame1111 = "https://www.figma.com/api/mcp/asset/315577a5-3910-4626-a6b4-0793a34ba109";
-const imgFrame1112 = "https://www.figma.com/api/mcp/asset/d5fc7849-0a23-40c0-9693-67de541aa323";
-const imgFrame1113 = "https://www.figma.com/api/mcp/asset/7c0de4b5-5a48-4266-86d4-f6e655636cb3";
-const imgFrame1114 = "https://www.figma.com/api/mcp/asset/7b3154fb-36de-40ed-8e99-79937445f922";
-const imgFrame1115 = "https://www.figma.com/api/mcp/asset/3c9d6263-62e2-4ffb-a16f-6345c37b48ec";
-const imgFrame1116 = "https://www.figma.com/api/mcp/asset/8b847c4b-7ad3-411b-ad91-4f11028a7e5f";
+const imgFrame1111 = "/images/figma/placeholder-expired.png";
+const imgFrame1112 = "/images/figma/placeholder-expired.png";
+const imgFrame1113 = "/images/figma/placeholder-expired.png";
+const imgFrame1114 = "/images/figma/placeholder-expired.png";
+const imgFrame1115 = "/images/figma/placeholder-expired.png";
+const imgFrame1116 = "/images/figma/placeholder-expired.png";
 
 type GalleryStatus = "identified" | "unidentified";
 

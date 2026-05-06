@@ -6,8 +6,8 @@ import Image from "next/image";
 import { getDrawerItems } from "@/components/drawer-items";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 
-const guideImageBase = "https://www.figma.com/api/mcp/asset/e3b4ee92-cb70-4248-ba23-11f92531948d";
-const guideImageOverlay = "https://www.figma.com/api/mcp/asset/89e2f865-ffd7-40a1-ade8-5d5230daa98c";
+const guideImageBase = "/images/figma/placeholder-expired.png";
+const guideImageOverlay = "/images/figma/placeholder-expired.png";
 
 type GuideCard = {
   id: string;

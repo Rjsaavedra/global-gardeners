@@ -2,10 +2,9 @@
 
 import { useRouter } from "next/navigation";
 
-const creatorAvatar = "https://www.figma.com/api/mcp/asset/3740bb3b-ad5f-4702-86a2-ac4048a11461";
-const creatorVideo = "https://www.figma.com/api/mcp/asset/cd2a928f-5245-44a6-9282-151989ecb7dc";
-const playOverlay = "https://www.figma.com/api/mcp/asset/221fa340-1e37-480e-a43d-e2ba7ee91f90";
-const dot = "https://www.figma.com/api/mcp/asset/648d65ee-7f16-4e8d-88d1-d4b0ab3b114b";
+const creatorAvatar = "/images/figma/placeholder-expired.png";
+const creatorVideo = "/images/figma/placeholder-expired.png";
+const playOverlay = "/icons/gallery.svg";
 
 function ArrowLeftIcon() {
   return (
@@ -30,7 +29,7 @@ function VideoCard() {
         <p className="text-[14px] font-medium leading-[1.2] text-[#333333]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <div className="mt-2 flex items-center gap-[6px]">
           <span className="text-[12px] font-medium leading-4 text-[#333333cc]">3.5k views</span>
-          <img src={dot} alt="" className="h-1 w-1" />
+          <span aria-hidden="true" className="inline-block h-1 w-1 rounded-full bg-[#33333380]" />
           <span className="text-[12px] font-medium leading-4 text-[#33333380]">1 day ago</span>
         </div>
       </div>

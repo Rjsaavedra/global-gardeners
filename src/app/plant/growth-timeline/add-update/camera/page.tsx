@@ -27,17 +27,7 @@ function CircleButton({
   );
 }
 
-function HelpIcon() {
-  return (
-    <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
-      <path d="M9.8 9.4C10.05 8.33 10.95 7.6 12.12 7.6C13.47 7.6 14.4 8.47 14.4 9.66C14.4 10.54 13.97 11.1 13.08 11.67C12.25 12.2 11.96 12.64 11.96 13.6" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
-      <circle cx="12" cy="16.8" r="0.9" fill="currentColor" />
-    </svg>
-  );
-}
-
-export default function AddPlantPage() {
+export default function AddUpdateCameraPage() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -98,30 +88,43 @@ export default function AddPlantPage() {
     };
   }, [facingMode]);
 
-  const identifyWithImage = (imageDataUrl: string) => {
-    sessionStorage.setItem("ggPlantIdentifyPhoto", imageDataUrl);
-    router.push("/my-garden/add-plant/identifying");
+  const finishWithImage = (imageDataUrl: string) => {
+    const raw = sessionStorage.getItem("ggPlantUpdatePhotos");
+    const existing = raw ? (JSON.parse(raw) as string[]) : [];
+    const next = Array.from(new Set([...existing, imageDataUrl]));
+    sessionStorage.setItem("ggPlantUpdatePhotos", JSON.stringify(next));
+    sessionStorage.setItem("ggPlantUpdatePhoto", imageDataUrl);
+    router.push("/plant/growth-timeline/add-update/camera/confirm");
   };
 
   const handleGallerySelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+    const files = event.target.files;
+    if (!files?.length) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === "string") {
-        setSelectedImage(reader.result);
-        setErrorMessage("");
-      }
-    };
-    reader.onerror = () => setErrorMessage("Unable to load selected image.");
-    reader.readAsDataURL(file);
+    const readAsDataUrl = (file: File) =>
+      new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => (typeof reader.result === "string" ? resolve(reader.result) : reject(new Error("invalid image")));
+        reader.onerror = () => reject(new Error("Unable to load selected image."));
+        reader.readAsDataURL(file);
+      });
+
+    Promise.all(Array.from(files).map(readAsDataUrl))
+      .then((images) => {
+        const raw = sessionStorage.getItem("ggPlantUpdatePhotos");
+        const existing = raw ? (JSON.parse(raw) as string[]) : [];
+        const next = Array.from(new Set([...existing, ...images]));
+        sessionStorage.setItem("ggPlantUpdatePhotos", JSON.stringify(next));
+        sessionStorage.setItem("ggPlantUpdatePhoto", images[images.length - 1]);
+        router.push("/plant/growth-timeline/add-update/camera/confirm");
+      })
+      .catch(() => setErrorMessage("Unable to load selected image."));
     event.target.value = "";
   };
 
-  const handleIdentifyPlant = () => {
+  const handleCapture = () => {
     if (selectedImage) {
-      identifyWithImage(selectedImage);
+      finishWithImage(selectedImage);
       return;
     }
 
@@ -148,14 +151,14 @@ export default function AddPlantPage() {
     }
 
     context.drawImage(video, 0, 0, width, height);
-    identifyWithImage(canvas.toDataURL("image/jpeg", 0.92));
+    finishWithImage(canvas.toDataURL("image/jpeg", 0.92));
   };
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
         <header className="client-header fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between border-b border-black/10 bg-white p-4">
-          <CircleButton label="Close add plant camera" onClick={() => router.back()}>
+          <CircleButton label="Close camera" onClick={() => router.back()}>
             <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={40} height={40} className="h-10 w-10" />
           </CircleButton>
           <div className="flex items-center gap-4">
@@ -173,9 +176,7 @@ export default function AddPlantPage() {
 
         <div className="relative flex-1 bg-black pt-[72px]">
           <img src={backgroundImage} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
-          {selectedImage ? (
-            <img src={selectedImage} alt="Selected plant" className="absolute inset-0 h-full w-full object-cover" />
-          ) : null}
+          {selectedImage ? <img src={selectedImage} alt="Selected plant update" className="absolute inset-0 h-full w-full object-cover" /> : null}
           <video
             ref={videoRef}
             autoPlay
@@ -189,42 +190,25 @@ export default function AddPlantPage() {
             </div>
           ) : null}
 
-          <div className="absolute bottom-[158px] left-1/2 -translate-x-1/2 rounded-lg border border-black/10 bg-white px-4 py-3 text-center text-[14px] font-medium leading-5 text-[#333333] shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)]">
-            Make sure the plant is clearly visible.
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-lg border border-black/10 bg-white px-4 py-3 text-center text-[14px] font-medium leading-5 text-[#333333] shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)]">
+            Take or choose a photo.
           </div>
         </div>
 
         <footer className="relative z-10 h-32 border-t border-[#e5e5e5] bg-white px-4 py-3 shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)]">
-          <p className="pb-3 text-center text-[16px] font-medium leading-6 text-[#457941]">Identify plant</p>
+          <p className="pb-3 text-center text-[16px] font-medium leading-6 text-[#457941]">Add update</p>
           <div className="grid h-[52px] grid-cols-3 items-center">
-            <button
-              type="button"
-              className="justify-self-start rounded-lg px-1 py-1 text-[#333333]"
-              onClick={() => galleryInputRef.current?.click()}
-            >
+            <button type="button" className="justify-self-start rounded-lg px-1 py-1 text-[#333333]" onClick={() => galleryInputRef.current?.click()}>
               <span className="flex flex-col items-center gap-1 text-[12px] font-medium leading-4">
                 <Image src="/icons/gallery.svg" alt="" aria-hidden="true" width={24} height={24} className="h-6 w-6" />
                 Gallery
               </span>
             </button>
-            <input
-              ref={galleryInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleGallerySelect}
-              className="hidden"
-            />
+            <input ref={galleryInputRef} type="file" accept="image/*" multiple onChange={handleGallerySelect} className="hidden" />
 
-            <button type="button" aria-label="Identify plant" className="justify-self-center" onClick={handleIdentifyPlant}>
+            <button type="button" aria-label="Capture photo" className="justify-self-center" onClick={handleCapture}>
               <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#457941] ring-4 ring-[#e9efe8]">
                 <span className="h-[52px] w-[52px] rounded-full border-[3px] border-[#d7ead9]" />
-              </span>
-            </button>
-
-            <button type="button" className="justify-self-end rounded-lg px-1 py-1 text-[#333333]">
-              <span className="flex flex-col items-center gap-1 text-[12px] font-medium leading-4">
-                <HelpIcon />
-                How to use
               </span>
             </button>
           </div>
