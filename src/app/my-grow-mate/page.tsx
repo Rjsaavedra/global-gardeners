@@ -3,6 +3,7 @@
 import { Bean, Bug, Droplets, Flower2, FlaskRound, GraduationCap, Hammer, Recycle, UsersRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ComponentType, SVGProps, useEffect, useRef, useState } from "react";
+import { useDrawerProfileData, useNotificationsData } from "@/lib/swr-hooks";
 import { getDrawerItems } from "@/components/drawer-items";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 
@@ -236,10 +237,12 @@ function SavedLogRow({ log, onClick }: { log: SavedLog; onClick: () => void }) {
 
 export default function MyGrowMatePage() {
   const router = useRouter();
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const { data: notificationsData } = useNotificationsData();
+  const unreadNotifications = Math.max(0, notificationsData?.unreadCount ?? 0);
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const { data: drawerProfileData } = useDrawerProfileData();
   const [drawerProfile, setDrawerProfile] = useState<DrawerProfile>({
     fullName: "Global Gardener",
     nickname: "@Global Gardener",
@@ -250,51 +253,12 @@ export default function MyGrowMatePage() {
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLElement | null>(null);
 
-  const drawerItems: DrawerItem[] = getDrawerItems("MyGrowMate");
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadDrawerProfile() {
-      const response = await fetch("/api/profile/me");
-      if (!response.ok) return;
-
-      const profile = (await response.json()) as Partial<DrawerProfile>;
-      if (!isMounted) return;
-
-      const fullName = typeof profile.fullName === "string" && profile.fullName.trim() ? profile.fullName.trim() : "Global Gardener";
-      const nickname = typeof profile.nickname === "string" && profile.nickname.trim() ? profile.nickname.trim() : `@${fullName}`;
-      const profilePhotoUrl = typeof profile.profilePhotoUrl === "string" && profile.profilePhotoUrl.trim() ? profile.profilePhotoUrl.trim() : null;
-      setDrawerProfile({ fullName, nickname, profilePhotoUrl });
-    }
-
-    void loadDrawerProfile();
-
-    const refreshUnreadNotifications = async () => {
-      try {
-        const response = await fetch("/api/notifications", { cache: "no-store" });
-        if (!response.ok || !isMounted) return;
-        const payload = (await response.json()) as { unreadCount?: number };
-        if (!isMounted) return;
-        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
-      } catch {}
-    };
-
-    void refreshUnreadNotifications();
-    const intervalId = setInterval(() => {
-      void refreshUnreadNotifications();
-    }, 20000);
-    const handleFocus = () => {
-      void refreshUnreadNotifications();
-    };
-    window.addEventListener("focus", handleFocus);
-
-    return () => {
-      isMounted = false;
-      clearInterval(intervalId);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, []);
+  const drawerItems: DrawerItem[] = getDrawerItems("MyGrowMate");  useEffect(() => {
+    const fullName = typeof drawerProfileData?.fullName === "string" && drawerProfileData.fullName.trim() ? drawerProfileData.fullName.trim() : "Global Gardener";
+    const nickname = typeof drawerProfileData?.nickname === "string" && drawerProfileData.nickname.trim() ? drawerProfileData.nickname.trim() : `@${fullName}`;
+    const profilePhotoUrl = typeof drawerProfileData?.profilePhotoUrl === "string" && drawerProfileData.profilePhotoUrl.trim() ? drawerProfileData.profilePhotoUrl.trim() : null;
+    setDrawerProfile({ fullName, nickname, profilePhotoUrl });
+  }, [drawerProfileData]);
 
   const openDrawer = () => {
     if (drawerCloseTimerRef.current) {
@@ -484,3 +448,5 @@ export default function MyGrowMatePage() {
     </main>
   );
 }
+
+

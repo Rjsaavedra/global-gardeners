@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useDrawerProfileData, useNotificationsData } from "@/lib/swr-hooks";
 import { getDrawerItems } from "@/components/drawer-items";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 
@@ -35,11 +36,13 @@ function BellIcon() {
 
 export default function MyGardenPage() {
   const router = useRouter();
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const { data: notificationsData } = useNotificationsData();
+  const unreadNotifications = Math.max(0, notificationsData?.unreadCount ?? 0);
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isBuildGardenDismissed, setIsBuildGardenDismissed] = useState(false);
+  const { data: drawerProfileData } = useDrawerProfileData();
   const [drawerProfile, setDrawerProfile] = useState<DrawerProfile>({
     fullName: "Global Gardener",
     nickname: "@Global Gardener",
@@ -56,48 +59,12 @@ export default function MyGardenPage() {
     const trimmed = drawerProfile.fullName.trim();
     if (!trimmed) return "Mario";
     return trimmed.split(/\s+/)[0] || "Mario";
-  }, [drawerProfile.fullName]);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadDrawerProfile() {
-      const response = await fetch("/api/profile/me");
-      if (!response.ok) return;
-
-      const profile = (await response.json()) as Partial<DrawerProfile>;
-      if (!isMounted) return;
-
-      const fullName = typeof profile.fullName === "string" && profile.fullName.trim() ? profile.fullName.trim() : "Global Gardener";
-      const nickname = typeof profile.nickname === "string" && profile.nickname.trim() ? profile.nickname.trim() : `@${fullName}`;
-      const profilePhotoUrl = typeof profile.profilePhotoUrl === "string" && profile.profilePhotoUrl.trim() ? profile.profilePhotoUrl.trim() : null;
-      setDrawerProfile({ fullName, nickname, profilePhotoUrl });
-    }
-
-    void loadDrawerProfile();
-    const refreshUnreadNotifications = async () => {
-      try {
-        const response = await fetch("/api/notifications", { cache: "no-store" });
-        if (!response.ok || !isMounted) return;
-        const payload = (await response.json()) as { unreadCount?: number };
-        if (!isMounted) return;
-        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
-      } catch {}
-    };
-    void refreshUnreadNotifications();
-    const intervalId = setInterval(() => {
-      void refreshUnreadNotifications();
-    }, 20000);
-    const handleFocus = () => {
-      void refreshUnreadNotifications();
-    };
-    window.addEventListener("focus", handleFocus);
-    return () => {
-      isMounted = false;
-      clearInterval(intervalId);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, []);
+  }, [drawerProfile.fullName]);  useEffect(() => {
+    const fullName = typeof drawerProfileData?.fullName === "string" && drawerProfileData.fullName.trim() ? drawerProfileData.fullName.trim() : "Global Gardener";
+    const nickname = typeof drawerProfileData?.nickname === "string" && drawerProfileData.nickname.trim() ? drawerProfileData.nickname.trim() : `@${fullName}`;
+    const profilePhotoUrl = typeof drawerProfileData?.profilePhotoUrl === "string" && drawerProfileData.profilePhotoUrl.trim() ? drawerProfileData.profilePhotoUrl.trim() : null;
+    setDrawerProfile({ fullName, nickname, profilePhotoUrl });
+  }, [drawerProfileData]);
 
   const openDrawer = () => {
     if (drawerCloseTimerRef.current) {
@@ -324,8 +291,8 @@ export default function MyGardenPage() {
                 </div>
               </article>
 
-              {[imgFrame1111, imgFrame1112].map((image) => (
-                <article key={image} className="flex h-[231px] w-[171px] shrink-0 flex-col">
+              {[imgFrame1111, imgFrame1112].map((image, index) => (
+                <article key={`${image}-${index}`} className="flex h-[231px] w-[171px] shrink-0 flex-col">
                   <img src={image} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
                     <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
@@ -393,8 +360,8 @@ export default function MyGardenPage() {
                 </div>
               </article>
 
-              {[imgFrame1113, imgFrame1114].map((image) => (
-                <article key={image} className="flex h-[231px] w-[171px] shrink-0 flex-col">
+              {[imgFrame1113, imgFrame1114].map((image, index) => (
+                <article key={`${image}-${index}`} className="flex h-[231px] w-[171px] shrink-0 flex-col">
                   <img src={image} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
                     <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
@@ -453,5 +420,7 @@ export default function MyGardenPage() {
     </main>
   );
 }
+
+
 
 

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { mutate } from "swr";
+import { useNotificationsData } from "@/lib/swr-hooks";
 
 type NotificationItem = {
   id: string;
@@ -74,37 +76,16 @@ function NotificationMedia({ item }: { item: NotificationItem }) {
 
 export default function NotificationsPage() {
   const router = useRouter();
+  const { data, error, isLoading } = useNotificationsData();
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [followBackPendingIds, setFollowBackPendingIds] = useState<string[]>([]);
   const [followedActorIds, setFollowedActorIds] = useState<string[]>([]);
+  const errorMessage = error instanceof Error ? error.message : null;
   const hasNotifications = notifications.length > 0;
 
   useEffect(() => {
-    const loadNotifications = async () => {
-      try {
-        setErrorMessage(null);
-        const response = await fetch("/api/notifications", { method: "GET", cache: "no-store" });
-        const payload = (await response.json()) as {
-          error?: string;
-          notifications?: NotificationItem[];
-        };
-
-        if (!response.ok || !payload.notifications) {
-          throw new Error(payload.error ?? "Unable to load notifications.");
-        }
-        setNotifications(payload.notifications);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : "Unable to load notifications.";
-        setErrorMessage(message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    void loadNotifications();
-  }, []);
+    setNotifications((data?.notifications ?? []) as NotificationItem[]);
+  }, [data]);
 
   const handleNotificationClick = (item: NotificationItem) => {
     if (!item.isRead) {
@@ -114,6 +95,7 @@ export default function NotificationsPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notificationId: item.id }),
       });
+      void mutate("/api/notifications");
     }
 
     if (item.postId) {
@@ -140,6 +122,7 @@ export default function NotificationsPage() {
       });
       if (response.ok) {
         setFollowedActorIds((current) => [...current, item.actorUserId as string]);
+        void mutate("/api/feed");
       }
     } finally {
       setFollowBackPendingIds((current) => current.filter((id) => id !== item.id));

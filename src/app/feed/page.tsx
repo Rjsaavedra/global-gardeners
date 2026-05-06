@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
+import { useFeedData, useNotificationsData } from "@/lib/swr-hooks";
 
 type FeedSource = "you" | "following" | "interest";
 
@@ -932,6 +933,8 @@ function FeedPageContent() {
   const [followPendingAuthorIds, setFollowPendingAuthorIds] = useState<string[]>([]);
   const [isFeedLoading, setIsFeedLoading] = useState(true);
   const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const { data: feedData, isLoading: isFeedDataLoading } = useFeedData();
+  const { data: notificationsData } = useNotificationsData();
   const [pendingOpenCommentsPostId, setPendingOpenCommentsPostId] = useState<string | null>(null);
   const [isCommentsSheetMounted, setIsCommentsSheetMounted] = useState(false);
   const [isCommentsSheetVisible, setIsCommentsSheetVisible] = useState(false);
@@ -1010,42 +1013,25 @@ function FeedPageContent() {
   useEffect(() => {
     let isMounted = true;
 
-    const refreshUnreadNotifications = async () => {
-      try {
-        const response = await fetch("/api/notifications", { cache: "no-store" });
-        if (!response.ok || !isMounted) return;
-        const payload = (await response.json()) as { unreadCount?: number };
-        if (!isMounted) return;
-        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
-      } catch {
-        // Ignore unread refresh errors to avoid interrupting feed UX.
-      }
-    };
-
     async function loadFeed() {
+      const posts = (feedData?.posts ?? []) as FeedPost[];
+      if (posts.length === 0) {
+        return;
+      }
+
       setIsFeedLoading(true);
       try {
-        const [feedResponse, hiddenResponse, notificationsResponse] = await Promise.all([
-          fetch("/api/feed"),
-          fetch("/api/profile/hidden-posts"),
-          fetch("/api/notifications", { cache: "no-store" }),
-        ]);
-        if (!feedResponse.ok || !hiddenResponse.ok) {
+        const hiddenResponse = await fetch("/api/profile/hidden-posts");
+        if (!hiddenResponse.ok) {
           return;
         }
-
-        const result = (await feedResponse.json()) as { posts?: FeedPost[] };
         const hiddenResult = (await hiddenResponse.json()) as { hiddenPostIds?: string[] };
-        const notificationsResult = notificationsResponse.ok
-          ? ((await notificationsResponse.json()) as { unreadCount?: number })
-          : {};
         if (!isMounted) {
           return;
         }
-        setUnreadNotifications(Math.max(0, notificationsResult.unreadCount ?? 0));
         const hiddenPostIds = new Set((hiddenResult.hiddenPostIds ?? []).filter((value): value is string => typeof value === "string" && value.trim().length > 0));
         setFeedPosts(
-          (result.posts ?? [])
+          posts
             .map((post) => ({ ...post, likedByMe: Boolean(post.likedByMe) }))
             .filter((post) => !hiddenPostIds.has(post.id)),
         );
@@ -1057,20 +1043,22 @@ function FeedPageContent() {
     }
 
     void loadFeed();
-    const intervalId = setInterval(() => {
-      void refreshUnreadNotifications();
-    }, 20000);
-    const handleFocus = () => {
-      void refreshUnreadNotifications();
-    };
-    window.addEventListener("focus", handleFocus);
 
     return () => {
       isMounted = false;
-      clearInterval(intervalId);
-      window.removeEventListener("focus", handleFocus);
     };
-  }, []);
+  }, [feedData]);
+
+  useEffect(() => {
+    setUnreadNotifications(Math.max(0, notificationsData?.unreadCount ?? 0));
+  }, [notificationsData?.unreadCount]);
+
+  useEffect(() => {
+    if (feedData?.posts) {
+      return;
+    }
+    setIsFeedLoading(isFeedDataLoading);
+  }, [feedData?.posts, isFeedDataLoading]);
 
   useEffect(() => {
     const postId = searchParams.get("postId");

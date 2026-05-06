@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AppSWRProvider } from "@/components/swr-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,7 +39,7 @@ export default function RootLayout({
         </section>
 
         <div className="w-full md:hidden [&>main]:!px-0 [&>main>section]:max-w-none [&>main>section]:w-full">
-          {children}
+          <AppSWRProvider>{children}</AppSWRProvider>
         </div>
       </body>
     </html>

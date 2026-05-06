@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
+import { useDrawerProfileData, useFeedData, useNotificationsData, useOnboardingStatusData } from "@/lib/swr-hooks";
 
 type ProfileMeResponse = {
   fullName: string;
@@ -225,8 +226,11 @@ const drawerItems: DrawerItem[] = [
 
 export default function ProfilePage() {
   const router = useRouter();
+  const { data: profileData, error: profileError, isLoading: isProfileLoading } = useDrawerProfileData();
+  const { data: feedData } = useFeedData();
+  const { data: onboardingData } = useOnboardingStatusData();
+  const { data: notificationsData } = useNotificationsData();
   const [isLoading, setIsLoading] = useState(true);
-  const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [loadError, setLoadError] = useState("");
   const [profile, setProfile] = useState<ProfileMeResponse | null>(null);
   const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]);
@@ -241,78 +245,33 @@ export default function ProfilePage() {
   const drawerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    let cancelled = false;
-
-    const refreshUnreadNotifications = async () => {
-      try {
-        const response = await fetch("/api/notifications", { cache: "no-store" });
-        if (!response.ok || cancelled) return;
-        const payload = (await response.json()) as { unreadCount?: number };
-        if (cancelled) return;
-        setUnreadNotifications(Math.max(0, payload.unreadCount ?? 0));
-      } catch {
-        // Ignore unread refresh errors to avoid interrupting profile UX.
-      }
-    };
-
-    const load = async () => {
-      setIsLoading(true);
+    setProfile(
+      profileData
+        ? {
+            fullName: profileData.fullName?.trim() || "Global Gardener",
+            nickname: profileData.nickname?.trim() || "@globalgardener",
+            profilePhotoUrl: profileData.profilePhotoUrl ?? null,
+          }
+        : null,
+    );
+    if (profileError) {
+      setLoadError("Unable to load profile.");
+    } else {
       setLoadError("");
+    }
+  }, [profileData, profileError]);
 
-      try {
-        const [profileResponse, feedResponse, onboardingResponse, notificationsResponse] = await Promise.all([
-          fetch("/api/profile/me"),
-          fetch("/api/feed"),
-          fetch("/api/profile/onboarding-status"),
-          fetch("/api/notifications", { cache: "no-store" }),
-        ]);
+  useEffect(() => {
+    setFeedPosts(Array.isArray(feedData?.posts) ? (feedData.posts as FeedPost[]) : []);
+  }, [feedData]);
 
-        if (profileResponse.status === 401 || feedResponse.status === 401) {
-          router.push("/login");
-          return;
-        }
+  useEffect(() => {
+    setOnboardingStatus(onboardingData ?? null);
+  }, [onboardingData]);
 
-        if (!profileResponse.ok || !feedResponse.ok || !onboardingResponse.ok) {
-          setLoadError("Unable to load profile.");
-          return;
-        }
-
-        const profileResult = (await profileResponse.json()) as ProfileMeResponse;
-        const feedResult = (await feedResponse.json()) as { posts?: FeedPost[] };
-        const onboardingResult = (await onboardingResponse.json()) as OnboardingStatus;
-        const notificationsResult = notificationsResponse.ok
-          ? ((await notificationsResponse.json()) as { unreadCount?: number })
-          : {};
-
-        if (cancelled) return;
-
-        setProfile(profileResult);
-        setFeedPosts(Array.isArray(feedResult.posts) ? feedResult.posts : []);
-        setOnboardingStatus(onboardingResult);
-        setUnreadNotifications(Math.max(0, notificationsResult.unreadCount ?? 0));
-      } catch {
-        if (!cancelled) {
-          setLoadError("Unable to load profile.");
-        }
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-
-    void load();
-    const intervalId = setInterval(() => {
-      void refreshUnreadNotifications();
-    }, 20000);
-    const handleFocus = () => {
-      void refreshUnreadNotifications();
-    };
-    window.addEventListener("focus", handleFocus);
-    return () => {
-      cancelled = true;
-      clearInterval(intervalId);
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, [router]);
+  useEffect(() => {
+    setIsLoading(isProfileLoading && !profile);
+  }, [isProfileLoading, profile]);
 
   const myPosts = useMemo(() => feedPosts.filter((post) => post.source === "you"), [feedPosts]);
 
@@ -343,6 +302,7 @@ export default function ProfilePage() {
     nickname: profile?.nickname || "@globalgardener",
     profilePhotoUrl: profile?.profilePhotoUrl ?? null,
   };
+  const unreadNotifications = Math.max(0, notificationsData?.unreadCount ?? 0);
 
   const openDrawer = () => {
     if (drawerCloseTimerRef.current) {

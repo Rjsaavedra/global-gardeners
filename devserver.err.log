@@ -2008,3 +2008,773 @@ Import traces:
     at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
     at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
     at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Uncaught Error: ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+
+    at <unknown> (Error: ./src/app/my-garden/page.tsx:38:63)
+    at <unknown> (Error: (./src/app/my-garden/page.tsx:38:63)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] Uncaught Error: ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+
+    at <unknown> (Error: ./src/app/my-grow-mate/page.tsx:149:111)
+    at <unknown> (Error: (./src/app/my-grow-mate/page.tsx:149:111)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:38:63
+Expected ';', '}' or <eof>
+  36 | ...tion MyGardenPage() {
+  37 | ...eRouter();
+> 38 | ...ificationsData } = useNotificationsData();`n  const unreadNotifications = Math.max(0, n...
+     |                                               ^
+  39 | ...unted, setIsDrawerMounted] = useState(false);
+  40 | ...sible, setIsDrawerVisible] = useState(false);
+  41 | ...ut, setIsLoggingOut] = useState(false);
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:149:111
+Expected ';', '}' or <eof>
+  147 | ...3">
+  148 | ... tracking-[0] text-[#333333]">{title}</h2>
+> 149 | ...k-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+      |                                             ^^^^
+  150 | ...373]">View&nbsp; all</span>
+  151 | ...me="h-6 w-6" />
+  152 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:62:55
+Expected ';', '}' or <eof>
+  60 | ...immed) return "Mario";
+  61 | ...trimmed.split(/\s+/)[0] || "Mario";
+> 62 | ...rProfile.fullName]);
+     |                        ^
+  63 | ...ct(() => {`n    const fullName = typeof drawerProfileData?.fullName === "string" && dra...
+  64 | ...
+  65 | ...nDrawer = () => {
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:256:88
+Expected ';', '}' or <eof>
+  254 | ...l>(null);
+  255 | ...
+> 256 | ...rItems("MyGrowMate");`n  useEffect(() => {`n    const fullName = typeof drawerProfileD...
+      |                                               ^
+  257 | ...
+  258 | ...
+  259 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:62:55
+Expected ';', '}' or <eof>
+  60 | ...immed) return "Mario";
+  61 | ...trimmed.split(/\s+/)[0] || "Mario";
+> 62 | ...rProfile.fullName]);
+     |                        ^
+  63 | ...ct(() => {`n    const fullName = typeof drawerProfileData?.fullName === "string" && dra...
+  64 | ...
+  65 | ...nDrawer = () => {
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] Uncaught Error: ./src/app/my-grow-mate/page.tsx:256:88
+Expected ';', '}' or <eof>
+  254 | ...l>(null);
+  255 | ...
+> 256 | ...rItems("MyGrowMate");`n  useEffect(() => {`n    const fullName = typeof drawerProfileD...
+      |                                               ^
+  257 | ...
+  258 | ...
+  259 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+
+    at <unknown> (Error: ./src/app/my-grow-mate/page.tsx:256:88)
+    at <unknown> (Error: (./src/app/my-grow-mate/page.tsx:256:88)
+[browser] ./src/app/my-grow-mate/page.tsx:256:88
+Expected ';', '}' or <eof>
+  254 | ...l>(null);
+  255 | ...
+> 256 | ...rItems("MyGrowMate");`n  useEffect(() => {`n    const fullName = typeof drawerProfileD...
+      |                                               ^
+  257 | ...
+  258 | ...
+  259 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:62:55
+Expected ';', '}' or <eof>
+  60 | ...immed) return "Mario";
+  61 | ...trimmed.split(/\s+/)[0] || "Mario";
+> 62 | ...rProfile.fullName]);
+     |                        ^
+  63 | ...ct(() => {`n    const fullName = typeof drawerProfileData?.fullName === "string" && dra...
+  64 | ...
+  65 | ...nDrawer = () => {
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-grow-mate/page.tsx:256:88
+Expected ';', '}' or <eof>
+  254 | ...l>(null);
+  255 | ...
+> 256 | ...rItems("MyGrowMate");`n  useEffect(() => {`n    const fullName = typeof drawerProfileD...
+      |                                               ^
+  257 | ...
+  258 | ...
+  259 | ...
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-grow-mate/page.tsx [Client Component Browser]
+    ./src/app/my-grow-mate/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-grow-mate/page.tsx [Client Component SSR]
+    ./src/app/my-grow-mate/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/my-garden/page.tsx:62:55
+Expected ';', '}' or <eof>
+  60 | ...immed) return "Mario";
+  61 | ...trimmed.split(/\s+/)[0] || "Mario";
+> 62 | ...rProfile.fullName]);
+     |                        ^
+  63 | ...ct(() => {`n    const fullName = typeof drawerProfileData?.fullName === "string" && dra...
+  64 | ...
+  65 | ...nDrawer = () => {
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/my-garden/page.tsx [Client Component Browser]
+    ./src/app/my-garden/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/my-garden/page.tsx [Client Component SSR]
+    ./src/app/my-garden/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] NotAllowedError: Failed to execute 'writeText' on 'Clipboard': Write permission denied.
+NotAllowedError: Failed to execute 'writeText' on 'Clipboard': Write permission denied. (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4129:160)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:51)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopConcurrentByScheduler (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9551:58)
+    at renderRootConcurrent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9534:71)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:150)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+[browser] Encountered two children with the same key, `/images/figma/placeholder-expired.png`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. 
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at warnOnInvalidKey (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4103:21)
+    at reconcileChildrenArray (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4120:29)
+    at reconcileChildFibersImpl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4236:51)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4261:39)
+    at reconcileChildren (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5898:119)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6768:101)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9061:186)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4104:33)

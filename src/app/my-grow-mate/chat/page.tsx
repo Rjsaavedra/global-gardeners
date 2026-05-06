@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const topicRows = [
@@ -56,7 +56,7 @@ function SearchIcon() {
   );
 }
 
-export default function MyGrowMateChatPage() {
+function MyGrowMateChatPageContent() {
   const searchParams = useSearchParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isConfirmDrawerOpen, setIsConfirmDrawerOpen] = useState(false);
@@ -599,5 +599,21 @@ export default function MyGrowMateChatPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function MyGrowMateChatPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main h-dvh w-full overflow-x-hidden bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] text-[#182a17]">
+          <section className="client-shell mx-auto flex h-dvh w-full max-w-[390px] items-center justify-center overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] shadow-[0_24px_80px_rgba(56,71,45,0.12)]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <MyGrowMateChatPageContent />
+    </Suspense>
   );
 }
