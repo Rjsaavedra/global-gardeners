@@ -84,8 +84,8 @@ export default function PlantDetailPage() {
             </div>
           </div>
 
-          <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
-            <button type="button" onClick={() => router.back()} className="flex min-h-10 min-w-10 items-center justify-center rounded-full border-[1.111px] border-[rgba(146,146,146,0.24)] bg-white p-[8.889px]">
+          <div className="absolute left-0 right-0 top-0 flex items-center justify-between p-4">
+            <button type="button" onClick={() => router.push("/my-garden")} className="flex min-h-10 min-w-10 items-center justify-center rounded-full border-[1.111px] border-[rgba(146,146,146,0.24)] bg-white p-[8.889px]">
               <img src={closeIcon} alt="" aria-hidden="true" className="h-6 w-6" />
             </button>
             <button type="button" className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-black/10 bg-white p-[8.889px]">
@@ -106,7 +106,7 @@ export default function PlantDetailPage() {
           <div className="mt-8 flex flex-col gap-3">
             <button
               type="button"
-              onClick={() => router.push("/plant/growth-timeline")}
+              onClick={() => router.push("/plant/growth-timeline?returnTo=/plant")}
               className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]"
             >
               View growth timeline

@@ -1,14 +1,16 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
 const backIcon = "/icons/back-button.svg";
 const sproutIcon = "/icons/sprout-inactive.svg";
 
-export default function PlantGrowthTimelinePage() {
+function PlantGrowthTimelinePageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [posts, setPosts] = useState<Array<{ id: string; photo: string; note: string; date: string }>>([]);
+  const returnTo = searchParams.get("returnTo");
 
   useEffect(() => {
     const raw = localStorage.getItem("ggPlantUpdates");
@@ -47,7 +49,13 @@ export default function PlantGrowthTimelinePage() {
         <header className="flex items-center border-b border-black/10 bg-white p-4">
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={() => {
+              if (returnTo) {
+                router.push(returnTo);
+                return;
+              }
+              router.back();
+            }}
             className="inline-flex h-10 w-10 items-center justify-center"
             aria-label="Go back"
           >
@@ -62,12 +70,12 @@ export default function PlantGrowthTimelinePage() {
           {timelineItems.length > 0 ? (
             <div className="pt-7">
               <p className="mx-auto w-[270px] text-center text-[20px] font-semibold leading-6 text-[#182a17]">Track your plant&apos;s growth over time</p>
-              <div className="relative mt-8 pb-10">
+              <div className="relative mt-8 min-h-[calc(100vh-280px)] pb-10">
                 <div className="absolute left-[65px] top-0 bottom-0 z-0 w-[4px] bg-[#e5e5e5]" />
-                {timelineItems.length > 1 ? (
+                {timelineItems.length > 0 ? (
                   <div
                     className="absolute left-[65px] top-0 z-10 w-[4px] bg-[#1f3b1f]"
-                    style={{ height: `${90 + (timelineItems.length - 1) * 222}px` }}
+                    style={{ height: `${Math.max(90, 90 + (timelineItems.length - 1) * 222)}px` }}
                   />
                 ) : null}
                 {timelineItems.map((item, index) => {
@@ -109,7 +117,7 @@ export default function PlantGrowthTimelinePage() {
               </div>
             </div>
           ) : (
-            <div className="flex h-full flex-col justify-center">
+            <div className="flex min-h-[calc(100vh-73px-120px)] flex-col justify-center">
               <div className="flex flex-col items-center gap-4">
                 <div className="rounded-full bg-[#fefce8] p-3">
                   <img src={sproutIcon} alt="" aria-hidden="true" className="h-10 w-10" />
@@ -123,7 +131,7 @@ export default function PlantGrowthTimelinePage() {
           )}
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-5">
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button
             type="button"
             onClick={() => router.push("/plant/growth-timeline/add-update")}
@@ -134,5 +142,21 @@ export default function PlantGrowthTimelinePage() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function PlantGrowthTimelinePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1]">
+            <p className="text-[14px] text-[#525252]">Loading timeline...</p>
+          </section>
+        </main>
+      }
+    >
+      <PlantGrowthTimelinePageContent />
+    </Suspense>
   );
 }

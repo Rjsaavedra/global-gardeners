@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
 import { useFeedData, useNotificationsData } from "@/lib/swr-hooks";
 
@@ -958,6 +958,7 @@ function FeedPageContent() {
   const [isSubmittingComment, setIsSubmittingComment] = useState(false);
   const [commentHeartPendingIds, setCommentHeartPendingIds] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [activeSearchQuery, setActiveSearchQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isSearchBarVisible, setIsSearchBarVisible] = useState(true);
@@ -1345,11 +1346,21 @@ function FeedPageContent() {
   };
 
   useEffect(() => {
-    if (!pendingOpenCommentsPostId || feedPosts.length === 0) {
+    if (!pendingOpenCommentsPostId || feedPosts.length === 0 || isFeedLoading) {
       return;
     }
 
-    const targetPost = feedPosts.find((post) => post.id === pendingOpenCommentsPostId);
+    const pendingPostNumericId = parseNumericPostId(pendingOpenCommentsPostId);
+    const targetPost = feedPosts.find((post) => {
+      if (post.id === pendingOpenCommentsPostId) {
+        return true;
+      }
+      if (!pendingPostNumericId) {
+        return false;
+      }
+      const postNumericId = parseNumericPostId(post.id);
+      return postNumericId === pendingPostNumericId;
+    });
     if (!targetPost) {
       return;
     }
@@ -1368,7 +1379,7 @@ function FeedPageContent() {
     requestAnimationFrame(() => setIsCommentsSheetVisible(true));
     void loadPostComments(targetPost);
     setPendingOpenCommentsPostId(null);
-  }, [feedPosts, loadPostComments, pendingOpenCommentsPostId]);
+  }, [feedPosts, isFeedLoading, loadPostComments, pendingOpenCommentsPostId]);
 
   const closeCommentsSheet = () => {
     setIsCommentsSheetVisible(false);
@@ -1635,10 +1646,12 @@ function FeedPageContent() {
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!searchValue.trim()) {
+    const normalizedSearch = searchValue.trim();
+    if (!normalizedSearch) {
       return;
     }
-    saveRecentSearch(searchValue);
+    saveRecentSearch(normalizedSearch);
+    setActiveSearchQuery(normalizedSearch);
     setIsSearchFocused(false);
   };
 
@@ -1646,6 +1659,23 @@ function FeedPageContent() {
     const nextRecentSearches = recentSearches.filter((item) => item !== valueToRemove);
     persistRecentSearches(nextRecentSearches);
   };
+
+  const filteredFeedPosts = useMemo(() => {
+    const normalizedQuery = activeSearchQuery.trim().toLowerCase();
+    if (!normalizedQuery) {
+      return feedPosts;
+    }
+
+    return feedPosts.filter((post) => {
+      const searchableFields = [
+        post.caption,
+        post.speciesName ?? "",
+        post.authorName,
+        post.username,
+      ];
+      return searchableFields.some((field) => field.toLowerCase().includes(normalizedQuery));
+    });
+  }, [activeSearchQuery, feedPosts]);
 
   const handleToggleReplies = (threadId: string) => {
     setExpandedReplyThreadIds((previousThreadIds) =>
@@ -1884,7 +1914,11 @@ function FeedPageContent() {
                   type="button"
                   className="rounded-full p-1 text-[#737373]"
                   aria-label="Clear search"
-                  onClick={() => setSearchValue("")}
+                  onClick={() => {
+                    setSearchValue("");
+                    setActiveSearchQuery("");
+                    setIsSearchFocused(false);
+                  }}
                 >
                   <SmallXIcon />
                 </button>
@@ -1904,6 +1938,7 @@ function FeedPageContent() {
                       onClick={() => {
                         setSearchValue(recentSearch);
                         saveRecentSearch(recentSearch);
+                        setActiveSearchQuery(recentSearch);
                         setIsSearchFocused(false);
                       }}
                     >
@@ -1928,12 +1963,12 @@ function FeedPageContent() {
           {isFeedLoading ? (
             <div className="rounded-[12px] border border-black/10 bg-white p-4 text-[14px] text-[#525252]">Loading feed...</div>
           ) : null}
-          {!isFeedLoading && feedPosts.length === 0 ? (
+          {!isFeedLoading && filteredFeedPosts.length === 0 ? (
             <div className="rounded-[12px] border border-black/10 bg-white p-4 text-[14px] text-[#525252]">
-              No posts yet. Create the first one.
+              {activeSearchQuery ? `No posts found for "${activeSearchQuery}".` : "No posts yet. Create the first one."}
             </div>
           ) : null}
-          {feedPosts.map((post) => (
+          {filteredFeedPosts.map((post) => (
             <FeedCard
               key={post.id}
               isHeartPending={postHeartPendingIds.includes(post.id)}

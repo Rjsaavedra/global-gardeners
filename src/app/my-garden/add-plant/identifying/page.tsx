@@ -18,7 +18,7 @@ export default function IdentifyLoadingPage() {
 
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
-      <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
+      <section className="client-shell relative mx-auto flex min-h-screen w-full flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
         <div className="absolute left-1/2 top-[calc(50%-69px)] flex w-[358px] -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-10">
           <div className="relative h-[120px] w-[120px] overflow-hidden">
             <Lottie animationData={loaderAnimation} autoplay loop />
@@ -31,7 +31,7 @@ export default function IdentifyLoadingPage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] p-4">
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-4">
           <button
             type="button"
             onClick={() => router.push("/my-garden/add-plant")}

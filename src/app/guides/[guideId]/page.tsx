@@ -101,7 +101,7 @@ export default function GuideDetailPage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-[390px] bg-[#f8f6f1] px-4 pb-4 pt-5">
+        <div className="fixed bottom-0 left-0 right-0 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button
             type="button"
             className="inline-flex h-[52px] w-full items-center justify-center gap-[6px] rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"

@@ -9,7 +9,6 @@ const imgRightIcon = "/icons/my-garden-chevron-right.svg";
 const imgSliderDots = "/icons/new-plant/chevron-down.svg";
 const imgCheck = "/icons/onboarding-check.svg";
 const imgLeaf = "/icons/logs/leaf.svg";
-const imgCircle = "/icons/layout-grid-inactive.svg";
 const imgSprout = "/icons/sprout-active.svg";
 
 type MatchOption = {
@@ -51,12 +50,12 @@ function IdentifyResultsPageContent() {
   const handleConfirm = () => {
     if (!selectedResult) return;
     sessionStorage.setItem("ggPlantIdentifySelection", selectedResult);
-    router.push("/my-garden/add-plant/detail");
+    router.push("/plant");
   };
 
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
-      <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] pb-[104px]">
+      <section className="client-shell relative mx-auto flex min-h-screen w-full flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1] pb-[104px]">
         <header className="client-header fixed left-0 right-0 top-0 z-30 flex w-full items-center border-b border-black/10 bg-white p-4">
           <button
             type="button"
@@ -126,12 +125,11 @@ function IdentifyResultsPageContent() {
                           <img src={imgPlant} alt="Rattlesnake Plant" className="absolute inset-0 h-full w-full rounded-[8px] object-cover" />
                           <div className="absolute right-2 top-2 h-8 w-8">
                             {isSelected ? (
-                              <>
-                                <span aria-hidden="true" className="absolute inset-0 rounded-full border-2 border-[#5fa659] bg-white" />
-                                <img src={imgCheck} alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2" />
-                              </>
+                              <span aria-hidden="true" className="absolute inset-0 inline-flex items-center justify-center rounded-full border border-white bg-[#5fa659]">
+                                <img src={imgCheck} alt="" className="h-[21.33px] w-[21.33px]" />
+                              </span>
                             ) : (
-                              <img src={imgCircle} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full" />
+                              <span aria-hidden="true" className="absolute inset-0 rounded-full border-[1.5px] border-white/80 bg-white/50" />
                             )}
                           </div>
                           <div className="absolute left-1/2 top-[126px] -translate-x-1/2 rounded-[999px] bg-[#f4f1e8] p-1">
@@ -179,7 +177,7 @@ function IdentifyResultsPageContent() {
         </div>
 
         {!isNoMatchState ? (
-          <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 border-t border-[#e5e5e5] bg-[#f8f6f1] p-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
+          <div className="fixed bottom-0 left-0 right-0 z-40 w-full border-t border-[#e5e5e5] bg-[#f8f6f1] px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-4 shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]">
             <button
               type="button"
               onClick={handleConfirm}
@@ -200,7 +198,7 @@ export default function IdentifyResultsPage() {
     <Suspense
       fallback={
         <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
-          <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1] pb-[104px]">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1] pb-[104px]">
             <p className="text-[14px] text-[#525252]">Loading...</p>
           </section>
         </main>

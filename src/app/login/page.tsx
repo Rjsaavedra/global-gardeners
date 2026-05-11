@@ -122,7 +122,9 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   const [submitError, setSubmitError] = useState("");
+  const [ssoError, setSsoError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSsoSubmitting, setIsSsoSubmitting] = useState(false);
   const [keepSignedIn, setKeepSignedIn] = useState(false);
 
   const validateField = (name: "email" | "password", value: string) => {
@@ -181,6 +183,34 @@ export default function LoginPage() {
       setSubmitError("Unexpected error while logging in.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    if (isSsoSubmitting) return;
+    setSsoError("");
+    setIsSsoSubmitting(true);
+
+    try {
+      const response = await fetch("/api/auth/oauth/facebook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ keepSignedIn }),
+      });
+
+      const result = (await response.json()) as { error?: string; url?: string };
+      if (!response.ok || !result.url) {
+        setSsoError(result.error ?? "Unable to start Facebook login.");
+        setIsSsoSubmitting(false);
+        return;
+      }
+
+      window.location.href = result.url;
+    } catch {
+      setSsoError("Unexpected error while starting Facebook login.");
+      setIsSsoSubmitting(false);
     }
   };
 
@@ -271,7 +301,13 @@ export default function LoginPage() {
           </div>
 
           <div className="flex items-center justify-center gap-6">
-            <button type="button" className="grid h-12 w-12 place-items-center rounded-full bg-white">
+            <button
+              type="button"
+              onClick={handleFacebookSignIn}
+              disabled={isSsoSubmitting}
+              aria-label="Continue with Facebook"
+              className="grid h-12 w-12 place-items-center rounded-full bg-white disabled:cursor-not-allowed disabled:opacity-60"
+            >
               <FacebookIcon />
             </button>
             <button type="button" className="grid h-12 w-12 place-items-center rounded-full bg-white">
@@ -281,6 +317,7 @@ export default function LoginPage() {
               <AppleIcon />
             </button>
           </div>
+          {ssoError ? <p className="text-[12px] leading-4 text-[#ef4444]">{ssoError}</p> : null}
 
           <p className="text-center text-[16px] font-medium leading-6 text-[#333333cc]">
             Don&apos;t have an account yet?{" "}

@@ -74,9 +74,9 @@ export default function AddPlantUpdatePage() {
   const canPost = note.trim().length > 0;
 
   return (
-    <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
-      <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
-        <header className="flex items-center border-b border-black/10 bg-white p-4">
+    <main className="client-main h-screen overflow-hidden bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+      <section className="client-shell relative mx-auto flex h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
+        <header className="fixed left-0 right-0 top-0 z-30 flex items-center border-b border-black/10 bg-white p-4">
           <button type="button" onClick={() => router.back()} className="inline-flex h-10 w-10 items-center justify-center" aria-label="Go back">
             <img src={backIcon} alt="" aria-hidden="true" className="h-10 w-10" />
           </button>
@@ -85,7 +85,7 @@ export default function AddPlantUpdatePage() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto px-4 pb-[120px] pt-8">
+        <div className="flex-1 overflow-y-auto px-4 pb-[120px] pt-[104px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="space-y-6">
             <div className="space-y-2">
               <p className="text-[14px] font-semibold leading-5 tracking-[0px] text-[#333333]">Add a photo</p>
@@ -93,7 +93,9 @@ export default function AddPlantUpdatePage() {
                 <button
                   type="button"
                   onClick={() => router.push("/plant/growth-timeline/add-update/camera")}
-                  className="relative flex aspect-square w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-[8px] border border-dashed border-[#d4d4d4] bg-[rgba(255,255,255,0.1)] px-6 py-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]"
+                  className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-[8px] border border-dashed border-[#d4d4d4] bg-[rgba(255,255,255,0.1)] px-6 py-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] ${
+                    selectedPhotos.length === 0 ? "col-span-2 min-h-[254px]" : "aspect-square"
+                  }`}
                 >
                   <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-[110px] bg-[#31674c]">
                     <span className="text-[24px] leading-none text-white">+</span>
@@ -178,7 +180,7 @@ export default function AddPlantUpdatePage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-5">
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button
             type="button"
             onClick={() => {

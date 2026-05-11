@@ -98,9 +98,13 @@ export default function NotificationsPage() {
       void mutate("/api/notifications");
     }
 
-    if (item.postId) {
-      const openComments = item.type === "post_comment" ? "&openComments=1" : "";
-      router.push(`/feed?postId=${encodeURIComponent(item.postId)}${openComments}`);
+    if (item.type === "post_like" || item.type === "post_comment") {
+      if (item.postId) {
+        const openComments = item.type === "post_comment" ? "&openComments=1" : "";
+        router.push(`/feed?postId=${encodeURIComponent(item.postId)}${openComments}`);
+        return;
+      }
+      router.push("/feed");
       return;
     }
     if (item.type === "follow" && item.actorUserId) {

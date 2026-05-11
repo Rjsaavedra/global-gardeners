@@ -292,7 +292,19 @@ export default function MyGardenPage() {
               </article>
 
               {[imgFrame1111, imgFrame1112].map((image, index) => (
-                <article key={`${image}-${index}`} className="flex h-[231px] w-[171px] shrink-0 flex-col">
+                <article
+                  key={`${image}-${index}`}
+                  className="flex h-[231px] w-[171px] shrink-0 cursor-pointer flex-col"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => router.push("/plant")}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      router.push("/plant");
+                    }
+                  }}
+                >
                   <img src={image} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
                     <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
@@ -309,18 +321,30 @@ export default function MyGardenPage() {
                 <p className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">MyGrowMate Logs</p>
                 <p className="text-[16px] font-medium leading-6 text-[#333333cc]">AI care insights for your plants</p>
               </div>
-              <button type="button" className="flex items-center gap-[2px]">
+              <button type="button" className="flex items-center gap-[2px]" onClick={() => router.push("/my-grow-mate/logs")}>
                 <span className="text-[14px] font-medium leading-5 text-[#737373]">View all</span>
                 <img src={imgChevronRight} alt="" className="h-6 w-6" />
               </button>
             </div>
             <div className="flex flex-col gap-3">
               {[
-                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon },
-                { title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: imgCareIcon },
-                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon },
+                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon, slug: "title-of-log-1" },
+                { title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: imgCareIcon, slug: "montera-care-plan" },
+                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon, slug: "title-of-log-2" },
               ].map((row, index) => (
-                <article key={`${row.title}-${row.plant}-${index}`} className="flex w-full items-center gap-4 rounded-full border border-black/10 bg-white p-4">
+                <article
+                  key={`${row.title}-${row.plant}-${index}`}
+                  className="flex w-full cursor-pointer items-center gap-4 rounded-full border border-black/10 bg-white p-4"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => router.push(`/my-grow-mate/logs/${row.slug}`)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      router.push(`/my-grow-mate/logs/${row.slug}`);
+                    }
+                  }}
+                >
                   <div className="flex min-w-0 flex-1 items-center gap-3">
                     <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={row.icon} alt="" className="h-6 w-6" /></div>
                     <div className="min-w-0">

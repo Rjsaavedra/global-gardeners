@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -31,14 +31,22 @@ export default function EditPlantUpdatePage() {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [viewYear, setViewYear] = useState(new Date().getFullYear());
   const [viewMonth, setViewMonth] = useState(new Date().getMonth());
+  const [hasKnownUpdate, setHasKnownUpdate] = useState(true);
 
   useEffect(() => {
     const raw = localStorage.getItem("ggPlantUpdates");
-    if (!raw) return;
+    if (!raw) {
+      setHasKnownUpdate(false);
+      return;
+    }
     try {
       const list = JSON.parse(raw) as PlantUpdate[];
       const found = list.find((item) => item.id === params.id);
-      if (!found) return;
+      if (!found) {
+        setHasKnownUpdate(false);
+        return;
+      }
+      setHasKnownUpdate(true);
       setNote(found.note ?? "");
       const seededPhotos = Array.isArray(found.photos) && found.photos.length > 0 ? found.photos : (found.photo?.trim() ? [found.photo] : []);
       setSelectedPhotos(seededPhotos);
@@ -47,7 +55,7 @@ export default function EditPlantUpdatePage() {
       setViewYear(dt.getFullYear());
       setViewMonth(dt.getMonth());
     } catch {
-      // no-op
+      setHasKnownUpdate(false);
     }
   }, [params.id, todayIso]);
 
@@ -58,7 +66,7 @@ export default function EditPlantUpdatePage() {
         const photos = JSON.parse(storedBatch) as string[];
         setSelectedPhotos(Array.isArray(photos) ? photos : []);
       } catch {
-        // no-op
+        setHasKnownUpdate(false);
       }
       sessionStorage.removeItem("ggPlantUpdatePhotos");
       sessionStorage.removeItem("ggPlantUpdatePhoto");
@@ -103,11 +111,19 @@ export default function EditPlantUpdatePage() {
 
   const canSave = note.trim().length > 0;
 
+  const handleBack = () => {
+    if (!hasKnownUpdate) {
+      router.push("/plant/growth-timeline");
+      return;
+    }
+    router.back();
+  };
+
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
         <header className="flex items-center border-b border-black/10 bg-white p-4">
-          <button type="button" onClick={() => router.back()} className="inline-flex h-10 w-10 items-center justify-center" aria-label="Go back">
+          <button type="button" onClick={handleBack} className="inline-flex h-10 w-10 items-center justify-center" aria-label="Go back">
             <img src={backIcon} alt="" aria-hidden="true" className="h-10 w-10" />
           </button>
           <div className="min-w-0 flex-1 pr-10 text-center">
@@ -143,7 +159,7 @@ export default function EditPlantUpdatePage() {
                       onClick={() => setSelectedPhotos((prev) => prev.filter((_, i) => i !== index))}
                       className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/30 text-white"
                     >
-                      <span className="text-[16px] leading-none">×</span>
+                      <span className="text-[16px] leading-none">Ã—</span>
                     </button>
                   </div>
                 ))}
@@ -208,7 +224,7 @@ export default function EditPlantUpdatePage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-5">
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button
             type="button"
             onClick={() => {
@@ -227,7 +243,7 @@ export default function EditPlantUpdatePage() {
                 );
                 localStorage.setItem("ggPlantUpdates", JSON.stringify(next));
               } catch {
-                // no-op
+                setHasKnownUpdate(false);
               }
               router.push(`/plant/growth-timeline/${params.id}`);
             }}
@@ -240,4 +256,5 @@ export default function EditPlantUpdatePage() {
     </main>
   );
 }
+
 

@@ -19,6 +19,14 @@ export default function TimelineUpdateDetailPage() {
   const [update, setUpdate] = useState<PlantUpdate | null>(null);
   const [isDeleteDrawerOpen, setIsDeleteDrawerOpen] = useState(false);
 
+  const handleBack = () => {
+    if (!update) {
+      router.push("/plant/growth-timeline");
+      return;
+    }
+    router.back();
+  };
+
   useEffect(() => {
     const raw = localStorage.getItem("ggPlantUpdates");
     if (!raw) return;
@@ -107,8 +115,8 @@ export default function TimelineUpdateDetailPage() {
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
-        <header className="fixed left-1/2 top-0 z-30 flex w-full max-w-[390px] -translate-x-1/2 items-center border-b border-black/10 bg-white p-4">
-          <button type="button" onClick={() => router.back()} className="inline-flex h-10 w-10 items-center justify-center" aria-label="Go back">
+        <header className="fixed left-0 right-0 top-0 z-30 flex w-full items-center border-b border-black/10 bg-white p-4">
+          <button type="button" onClick={handleBack} className="inline-flex h-10 w-10 items-center justify-center" aria-label="Go back">
             <img src={backIcon} alt="" aria-hidden="true" className="h-10 w-10" />
           </button>
           <div className="min-w-0 flex-1 pr-10 text-center">
@@ -148,7 +156,7 @@ export default function TimelineUpdateDetailPage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-2">
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-2">
           <button type="button" onClick={() => router.push(`/plant/growth-timeline/${params.id}/edit`)} className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]">Edit</button>
           <button type="button" onClick={() => setIsDeleteDrawerOpen(true)} className="mt-2 h-[52px] w-full rounded-[1000px] bg-[#ef4444] text-[14px] font-medium leading-5 text-white">Delete</button>
         </div>
@@ -159,14 +167,14 @@ export default function TimelineUpdateDetailPage() {
           aria-hidden={!isDeleteDrawerOpen}
         />
         <div
-          className={`fixed bottom-0 left-1/2 z-[60] w-full max-w-[390px] -translate-x-1/2 rounded-t-[20px] bg-white px-4 pb-6 pt-3 shadow-[0_-8px_24px_rgba(0,0,0,0.12)] transition-transform duration-200 ${isDeleteDrawerOpen ? "translate-y-0" : "translate-y-full"}`}
+          className={`fixed bottom-0 left-0 right-0 z-[60] w-full rounded-t-[20px] bg-white px-4 pb-6 pt-3 shadow-[0_-8px_24px_rgba(0,0,0,0.12)] transition-transform duration-200 ${isDeleteDrawerOpen ? "translate-y-0" : "translate-y-full"}`}
           role="dialog"
           aria-modal="true"
           aria-hidden={!isDeleteDrawerOpen}
         >
           <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-[#d4d4d4]" />
           <h3 className="text-center text-[20px] font-semibold leading-6 text-[#182a17]">Delete update?</h3>
-          <p className="mt-2 text-center text-[14px] font-medium leading-5 text-[#333333cc]">This action can’t be undone.</p>
+          <p className="mt-2 text-center text-[14px] font-medium leading-5 text-[#333333cc]">This action canâ€™t be undone.</p>
           <button
             type="button"
             onClick={handleDelete}
@@ -186,3 +194,4 @@ export default function TimelineUpdateDetailPage() {
     </main>
   );
 }
+
