@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useMemo, useRef, useState } from "react";
 
-const imgPlant = "/images/figma/placeholder-expired.png";
+const imgPlant = "/images/rattlesnake-plant.jpg";
+const imgPlantAlt1 = "/images/figma/slide-1.png";
+const imgPlantAlt2 = "/images/figma/slide-2.png";
+const imgPlantAlt3 = "/images/figma/slide-3.png";
+const imgPlantAlt4 = "/images/figma/slide-4.png";
+const imgPlantAlt5 = "/images/figma/slide-5.png";
 const imgRightIcon = "/icons/my-garden-chevron-right.svg";
-const imgSliderDots = "/icons/new-plant/chevron-down.svg";
 const imgCheck = "/icons/onboarding-check.svg";
 const imgLeaf = "/icons/logs/leaf.svg";
 const imgSprout = "/icons/sprout-active.svg";
@@ -46,6 +50,34 @@ function IdentifyResultsPageContent() {
   const searchParams = useSearchParams();
   const isNoMatchState = searchParams.get("state") === "empty";
   const [selectedResult, setSelectedResult] = useState<string>("rattlesnake-high");
+  const [activeSlides, setActiveSlides] = useState<Record<string, number>>({});
+  const touchStartXRef = useRef<Record<string, number>>({});
+  const touchEndXRef = useRef<Record<string, number>>({});
+
+  const optionImages = useMemo(() => {
+    const library = [imgPlant, imgPlantAlt1, imgPlantAlt2, imgPlantAlt3, imgPlantAlt4, imgPlantAlt5];
+
+    const hashString = (value: string) => value.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    const byOption: Record<string, string[]> = {};
+
+    for (const option of matchOptions) {
+      const seed = hashString(option.id);
+      const count = 2 + (seed % 4); // 2 to 5 images
+      const shuffled = [...library].sort((a, b) => (hashString(option.id + a) % 11) - (hashString(option.id + b) % 11));
+      byOption[option.id] = shuffled.slice(0, count);
+    }
+    return byOption;
+  }, []);
+
+  const moveSlide = (optionId: string, direction: "next" | "prev") => {
+    const images = optionImages[optionId] ?? [];
+    if (images.length < 2) return;
+    setActiveSlides((current) => {
+      const currentIndex = current[optionId] ?? 0;
+      const nextIndex = direction === "next" ? (currentIndex + 1) % images.length : (currentIndex - 1 + images.length) % images.length;
+      return { ...current, [optionId]: nextIndex };
+    });
+  };
 
   const handleConfirm = () => {
     if (!selectedResult) return;
@@ -111,29 +143,66 @@ function IdentifyResultsPageContent() {
               <div className="mt-4 flex flex-col gap-4">
                 {matchOptions.map((option) => {
                   const isSelected = selectedResult === option.id;
+                  const images = optionImages[option.id] ?? [imgPlant];
+                  const activeIndex = activeSlides[option.id] ?? 0;
+                  const activeImage = images[activeIndex] ?? images[0];
                   return (
-                    <button
+                    <div
                       key={option.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedResult(option.id);
-                      }}
                       className="w-full rounded-[12px] border border-black/10 bg-white p-4 text-left"
                     >
                       <div className="flex flex-col gap-3">
-                        <div className="relative h-[150px] w-full overflow-hidden rounded-[8px] p-2">
-                          <img src={imgPlant} alt="Rattlesnake Plant" className="absolute inset-0 h-full w-full rounded-[8px] object-cover" />
+                        <div
+                          className="relative h-[150px] w-full overflow-hidden rounded-[8px] p-2"
+                          onTouchStart={(event) => {
+                            touchStartXRef.current[option.id] = event.touches[0]?.clientX ?? 0;
+                          }}
+                          onTouchMove={(event) => {
+                            touchEndXRef.current[option.id] = event.touches[0]?.clientX ?? 0;
+                          }}
+                          onTouchEnd={() => {
+                            const startX = touchStartXRef.current[option.id] ?? 0;
+                            const endX = touchEndXRef.current[option.id] ?? startX;
+                            const delta = startX - endX;
+                            if (Math.abs(delta) < 24) return;
+                            moveSlide(option.id, delta > 0 ? "next" : "prev");
+                          }}
+                        >
+                          <img src={activeImage} alt="Rattlesnake Plant" className="absolute inset-0 h-full w-full rounded-[8px] object-cover" />
                           <div className="absolute right-2 top-2 h-8 w-8">
                             {isSelected ? (
-                              <span aria-hidden="true" className="absolute inset-0 inline-flex items-center justify-center rounded-full border border-white bg-[#5fa659]">
+                              <button
+                                type="button"
+                                aria-label="Selected plant match"
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  setSelectedResult(option.id);
+                                }}
+                                className="absolute inset-0 inline-flex items-center justify-center rounded-full border border-white bg-[#5fa659]"
+                              >
                                 <img src={imgCheck} alt="" className="h-[21.33px] w-[21.33px]" />
-                              </span>
+                              </button>
                             ) : (
-                              <span aria-hidden="true" className="absolute inset-0 rounded-full border-[1.5px] border-white/80 bg-white/50" />
+                              <button
+                                type="button"
+                                aria-label="Select plant match"
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  setSelectedResult(option.id);
+                                }}
+                                className="absolute inset-0 rounded-full border-[1.5px] border-white/80 bg-white/50"
+                              />
                             )}
                           </div>
-                          <div className="absolute left-1/2 top-[126px] -translate-x-1/2 rounded-[999px] bg-[#f4f1e8] p-1">
-                            <img src={imgSliderDots} alt="" aria-hidden="true" className="h-2 w-[44px]" />
+                          <div className="absolute left-1/2 top-[126px] inline-flex h-4 -translate-x-1/2 items-center rounded-[999px] bg-[#f4f1e8] p-1">
+                            <div aria-hidden="true" className="inline-flex items-center gap-1">
+                              {images.map((_, idx) => (
+                                <span
+                                  key={`${option.id}-dot-${idx}`}
+                                  className={`h-2 w-2 rounded-full ${idx === activeIndex ? "bg-[#457941]" : "bg-[rgba(69,121,65,0.3)]"}`}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
 
@@ -150,7 +219,7 @@ function IdentifyResultsPageContent() {
                           <ScorePill score={option.score} tone={option.scoreTone} />
                         </div>
                       </div>
-                    </button>
+                    </div>
                   );
                 })}
               </div>
@@ -208,3 +277,4 @@ export default function IdentifyResultsPage() {
     </Suspense>
   );
 }
+

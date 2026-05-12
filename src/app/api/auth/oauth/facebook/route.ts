@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type OAuthStartBody = {
   keepSignedIn?: boolean;
+  source?: "login" | "signup";
 };
 
 function getSiteUrl(request: Request) {
@@ -22,10 +23,12 @@ function getSiteUrl(request: Request) {
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as OAuthStartBody;
   const keepSignedIn = body.keepSignedIn ?? true;
+  const source = body.source === "signup" ? "signup" : "login";
   const siteUrl = getSiteUrl(request);
 
   const callbackUrl = new URL("/api/auth/oauth/callback", siteUrl);
   callbackUrl.searchParams.set("persistent", keepSignedIn ? "1" : "0");
+  callbackUrl.searchParams.set("source", source);
 
   const supabase = createSupabaseServerClient();
   const { data, error } = await supabase.auth.signInWithOAuth({

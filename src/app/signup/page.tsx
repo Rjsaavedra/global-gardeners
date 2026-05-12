@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function FacebookIcon() {
   return (
@@ -133,11 +133,85 @@ function Divider() {
 }
 
 function SocialButtonsStack() {
+  const router = useRouter();
+  const [ssoError, setSsoError] = useState("");
+  const [isSsoSubmitting, setIsSsoSubmitting] = useState(false);
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const oauthMode = query.get("oauth");
+    const source = query.get("source");
+    const accessToken = new URLSearchParams(window.location.hash.slice(1)).get("access_token");
+    const refreshToken = new URLSearchParams(window.location.hash.slice(1)).get("refresh_token");
+
+    if (oauthMode !== "implicit" || source !== "signup" || !accessToken || !refreshToken) return;
+
+    const completeOAuthSession = async () => {
+      setIsSsoSubmitting(true);
+      setSsoError("");
+
+      try {
+        const response = await fetch("/api/auth/oauth/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            accessToken,
+            refreshToken,
+            persistent: query.get("persistent") !== "0",
+          }),
+        });
+
+        const result = (await response.json()) as { error?: string; nextStep?: string };
+        if (!response.ok) {
+          setSsoError(result.error ?? "Unable to complete Facebook sign up.");
+          return;
+        }
+
+        window.history.replaceState(null, "", "/signup");
+        router.push(result.nextStep ?? "/");
+      } catch {
+        setSsoError("Unexpected error while finalizing Facebook sign up.");
+      } finally {
+        setIsSsoSubmitting(false);
+      }
+    };
+
+    void completeOAuthSession();
+  }, [router]);
+
+  const handleFacebookSignUp = async () => {
+    if (isSsoSubmitting) return;
+    setSsoError("");
+    setIsSsoSubmitting(true);
+
+    try {
+      const response = await fetch("/api/auth/oauth/facebook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keepSignedIn: true, source: "signup" }),
+      });
+
+      const result = (await response.json()) as { error?: string; url?: string };
+      if (!response.ok || !result.url) {
+        setSsoError(result.error ?? "Unable to start Facebook sign up.");
+        setIsSsoSubmitting(false);
+        return;
+      }
+
+      window.location.href = result.url;
+    } catch {
+      setSsoError("Unexpected error while starting Facebook sign up.");
+      setIsSsoSubmitting(false);
+    }
+  };
+
   return (
     <div className="w-full space-y-3">
       <button
         type="button"
-        className="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-[14px] font-medium text-black"
+        onClick={handleFacebookSignUp}
+        disabled={isSsoSubmitting}
+        className="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-white px-6 text-[14px] font-medium text-black disabled:cursor-not-allowed disabled:opacity-60"
       >
         <FacebookIcon />
         Continue with Facebook
@@ -156,6 +230,7 @@ function SocialButtonsStack() {
         <AppleIcon />
         Continue with Apple
       </button>
+      {ssoError ? <p className="text-[12px] leading-4 text-[#ef4444]">{ssoError}</p> : null}
     </div>
   );
 }

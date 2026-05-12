@@ -65,6 +65,16 @@ type ReportReasonOption = "spam" | "inappropriate content" | "misinformation";
 const RECENT_SEARCHES_KEY = "feedRecentSearches";
 const MAX_RECENT_SEARCHES = 6;
 
+function parseSharedLogCaption(caption: string) {
+  const titleMatch = caption.match(/\[\[LOG_TITLE\]\](.*)/);
+  const bodyMatch = caption.match(/\[\[LOG_BODY\]\]([\s\S]*)/);
+  if (!titleMatch || !bodyMatch) return null;
+  return {
+    title: titleMatch[1]?.trim() ?? "",
+    body: bodyMatch[1]?.trim() ?? "",
+  };
+}
+
 const drawerItems: DrawerItem[] = [
   {
     label: "Stream",
@@ -545,9 +555,24 @@ function FeedCard({
           </button>
         </div>
 
-        <p className="line-clamp-3 text-[14px] leading-5 text-[#333333]">
-          <span className="font-semibold">@{post.username}</span> {post.caption}
-        </p>
+        {(() => {
+          const sharedLog = parseSharedLogCaption(post.caption);
+          if (!sharedLog) {
+            return (
+              <p className="line-clamp-3 text-[14px] leading-5 text-[#333333]">
+                <span className="font-semibold">@{post.username}</span> {post.caption}
+              </p>
+            );
+          }
+
+          return (
+            <p className="line-clamp-3 text-[14px] leading-5 text-[#333333]">
+              <span className="font-semibold">@{post.username}</span>{" "}
+              <span className="font-semibold">{sharedLog.title}</span>
+              {sharedLog.body ? ` ${sharedLog.body}` : ""}
+            </p>
+          );
+        })()}
         <p className="text-[12px] leading-4 text-[#33333399]">{post.publishedAgo}</p>
       </div>
     </article>

@@ -2,34 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const topicRows = [
-  ["My plant looks sick", "Help me propagate", "Design my garden"],
-  ["Moon phase gardening", "Best indoor plants", "Preserving vegetables"],
-];
-
-const plants = [
-  { id: 1, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-  { id: 2, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-  { id: 3, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-  { id: 4, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-  { id: 5, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-  { id: 6, name: "Plant Name Here", species: "Species name", image: "/images/figma/placeholder-expired.png" },
-];
-
-const identifiedPlants = [
-  { id: 101, name: "Monstera Deliciosa", species: "Identified · Aroid", image: "/images/figma/placeholder-expired.png" },
-  { id: 102, name: "Lavender", species: "Identified · Lamiaceae", image: "/images/figma/placeholder-expired.png" },
-  { id: 103, name: "Snake Plant", species: "Identified · Dracaena", image: "/images/figma/placeholder-expired.png" },
-];
-
-const unidentifiedPlants = [
-  { id: 201, name: "Unknown Leaf 01", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
-  { id: 202, name: "Unknown Flower 02", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
-  { id: 203, name: "Unknown Vine 03", species: "Unidentified specimen", image: "/images/figma/placeholder-expired.png" },
-];
+type PlantOption = { id: number; name: string; species: string; image: string; identified: boolean };
+type TopicOption = { id: string; label: string };
+type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
+const DEMO_ASSISTANT_BODY =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.";
 
 function PlusIcon() {
   return (
@@ -57,16 +37,19 @@ function SearchIcon() {
 }
 
 function MyGrowMateChatPageContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isConfirmDrawerOpen, setIsConfirmDrawerOpen] = useState(false);
+  const [isTopicConfirmDrawerOpen, setIsTopicConfirmDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "identified" | "unidentified">("all");
   const [selectedPlantId, setSelectedPlantId] = useState<number | null>(null);
+  const [attachedPlantId, setAttachedPlantId] = useState<number | null>(null);
+  const [plantOptions, setPlantOptions] = useState<PlantOption[]>([]);
+  const [plantSearch, setPlantSearch] = useState("");
   const [attachedPlantName, setAttachedPlantName] = useState("None Selected");
-  const [hasSentMessage, setHasSentMessage] = useState(false);
   const [messageText, setMessageText] = useState("");
-  const [lastSentMessage, setLastSentMessage] = useState("");
-  const [showAssistantResponse, setShowAssistantResponse] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const [isPlusMenuOpen, setIsPlusMenuOpen] = useState(false);
   const [isDeleteDrawerOpen, setIsDeleteDrawerOpen] = useState(false);
@@ -77,19 +60,106 @@ function MyGrowMateChatPageContent() {
   const [isConversationStarted, setIsConversationStarted] = useState(false);
   const [didHydrateFromLog, setDidHydrateFromLog] = useState(false);
   const [didHydrateFromConversation, setDidHydrateFromConversation] = useState(false);
-  const activePlants = activeTab === "all" ? plants : activeTab === "identified" ? identifiedPlants : unidentifiedPlants;
-  const selectedPlant = [...plants, ...identifiedPlants, ...unidentifiedPlants].find((plant) => plant.id === selectedPlantId);
+  const [savingLogByMessageId, setSavingLogByMessageId] = useState<Record<string, boolean>>({});
+  const [savedLogByMessageId, setSavedLogByMessageId] = useState<Record<string, boolean>>({});
+  const [topicOptions, setTopicOptions] = useState<TopicOption[]>([]);
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [attachedTopicLabel, setAttachedTopicLabel] = useState<string>("None Selected");
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [conversationPlantId, setConversationPlantId] = useState<number | null>(null);
+  const identifiedPlants = useMemo(() => plantOptions.filter((plant) => plant.identified), [plantOptions]);
+  const unidentifiedPlants = useMemo(() => plantOptions.filter((plant) => !plant.identified), [plantOptions]);
+  const tabPlants = activeTab === "all" ? plantOptions : activeTab === "identified" ? identifiedPlants : unidentifiedPlants;
+  const normalizedSearch = plantSearch.trim().toLowerCase();
+  const activePlants = useMemo(() => (!normalizedSearch ? tabPlants : tabPlants.filter((plant) => plant.name.toLowerCase().includes(normalizedSearch) || plant.species.toLowerCase().includes(normalizedSearch))), [normalizedSearch, tabPlants]);
+  const selectedPlant = plantOptions.find((plant) => plant.id === selectedPlantId);
+  const topicRows = useMemo(() => {
+    if (topicOptions.length === 0) return [];
+    const rows: string[][] = [];
+    for (let i = 0; i < topicOptions.length; i += 3) {
+      rows.push(topicOptions.slice(i, i + 3).map((topic) => topic.label));
+    }
+    return rows;
+  }, [topicOptions]);
+  const persistMessage = async (userMessage: string, assistantMessage?: string, conversationTitleOverride?: string) => {
+    let activeConversationId = conversationId;
+    if (!activeConversationId) {
+      const derivedTitle =
+        conversationTitleOverride?.trim()
+          ? conversationTitleOverride.trim()
+          : attachedTopicLabel !== "None Selected"
+          ? attachedTopicLabel
+          : attachedPlantName !== "None Selected"
+            ? attachedPlantName
+            : "Global Gardeners";
+      const createResponse = await fetch("/api/my-grow-mate/conversations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: derivedTitle,
+          plantId: attachedPlantId,
+        }),
+      });
+      if (!createResponse.ok) return null;
+      const created = (await createResponse.json()) as { id?: string };
+      if (!created.id) return null;
+      activeConversationId = created.id;
+      setConversationId(created.id);
+    }
+
+    const messageResponse = await fetch(`/api/my-grow-mate/conversations/${activeConversationId}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userMessage, assistantMessage }),
+    });
+    if (!messageResponse.ok) return null;
+    return activeConversationId;
+  };
+
   const handleSend = () => {
     const trimmed = messageText.trim();
     if (!trimmed) return;
-    setLastSentMessage(trimmed);
-    setHasSentMessage(true);
+    const userMessage: ChatMessage = { id: `u-${Date.now()}`, role: "user", content: trimmed };
+    const assistantMessage: ChatMessage = {
+      id: `a-${Date.now() + 1}`,
+      role: "assistant",
+      content: DEMO_ASSISTANT_BODY,
+    };
+    setMessages((prev) => [...prev, userMessage]);
     setIsConversationStarted(true);
-    setShowAssistantResponse(false);
     setMessageText("");
     setTimeout(() => {
-      setShowAssistantResponse(true);
-    }, 2200);
+      setMessages((prev) => [...prev, assistantMessage]);
+    }, 700);
+    void persistMessage(trimmed, DEMO_ASSISTANT_BODY);
+  };
+
+  const handleSaveAsLog = async (messageId: string, content: string) => {
+    if (savingLogByMessageId[messageId] || savedLogByMessageId[messageId]) return;
+    setSavingLogByMessageId((prev) => ({ ...prev, [messageId]: true }));
+    try {
+      const payload = {
+        title: "Care Plan",
+        topic: "Care Plan",
+        content,
+        plantId: attachedPlantId,
+        conversationId,
+      };
+      const response = await fetch("/api/my-grow-mate/logs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!response.ok) {
+        setSavedLogByMessageId((prev) => ({ ...prev, [messageId]: false }));
+        return;
+      }
+      setSavedLogByMessageId((prev) => ({ ...prev, [messageId]: true }));
+    } catch {
+      setSavedLogByMessageId((prev) => ({ ...prev, [messageId]: false }));
+    } finally {
+      setSavingLogByMessageId((prev) => ({ ...prev, [messageId]: false }));
+    }
   };
 
   useEffect(() => {
@@ -97,24 +167,116 @@ function MyGrowMateChatPageContent() {
     if (!fromLog || didHydrateFromLog) return;
     setDidHydrateFromLog(true);
     setIsConversationStarted(true);
-    setHasSentMessage(true);
-    setLastSentMessage("Can you summarize this saved log?");
-    setShowAssistantResponse(true);
+    setMessages([
+      { id: "seed-user", role: "user", content: "Can you summarize this saved log?" },
+      {
+        id: "seed-assistant",
+        role: "assistant",
+        content: DEMO_ASSISTANT_BODY,
+      },
+    ]);
     setConversationName("Global Gardeners");
     setAttachedPlantName(fromLog === "2" || fromLog === "5" ? "Monstera" : "Plant name");
   }, [searchParams, didHydrateFromLog]);
 
   useEffect(() => {
-    const fromConversation = searchParams.get("fromConversation");
+    const fromConversation = searchParams.get("fromConversation") ?? searchParams.get("conversationId");
     if (!fromConversation || didHydrateFromConversation) return;
     setDidHydrateFromConversation(true);
+    setConversationId(fromConversation);
     setIsConversationStarted(true);
-    setHasSentMessage(true);
-    setLastSentMessage("hello");
-    setShowAssistantResponse(true);
-    setConversationName("Title of conversation");
-    setAttachedPlantName(fromConversation === "1" || fromConversation === "3" ? "Monstera" : "Unidentified");
+    const loadConversation = async () => {
+      const [messagesRes, conversationsRes] = await Promise.all([
+        fetch(`/api/my-grow-mate/conversations/${fromConversation}/messages`),
+        fetch("/api/my-grow-mate/conversations"),
+      ]);
+      if (conversationsRes.ok) {
+        const payload = (await conversationsRes.json()) as {
+          conversations?: Array<{ id: string; title: string; plantId: string | null }>;
+        };
+        const currentConversation = payload.conversations?.find((c) => c.id === fromConversation);
+        if (!currentConversation) return;
+        const plantId = currentConversation.plantId ? Number(currentConversation.plantId) : null;
+        setConversationPlantId(Number.isInteger(plantId) ? plantId : null);
+        if (currentConversation.title && currentConversation.title !== "Global Gardeners") {
+          setAttachedTopicLabel(currentConversation.title);
+        }
+      }
+      if (!messagesRes.ok) return;
+      const payload = (await messagesRes.json()) as {
+        messages?: Array<{ role: "user" | "assistant" | "system"; content: string }>;
+      };
+      const messages = payload.messages ?? [];
+      const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
+      const normalized = messages
+        .filter((m) => m.role === "user" || m.role === "assistant")
+        .map((m, idx) => ({ id: `${m.role}-${idx}`, role: m.role, content: m.content }));
+      if (normalized.length > 0) setMessages(normalized);
+      else if (lastUserMessage) setMessages([{ id: "fallback", role: "user", content: lastUserMessage.content }]);
+    };
+    void loadConversation();
   }, [searchParams, didHydrateFromConversation]);
+
+  useEffect(() => {
+    if (!conversationPlantId) return;
+    const matchedPlant = plantOptions.find((plant) => plant.id === conversationPlantId);
+    if (!matchedPlant) return;
+    setAttachedPlantId(matchedPlant.id);
+    setAttachedPlantName(matchedPlant.name);
+    if (attachedTopicLabel === "None Selected") {
+      setAttachedTopicLabel("None Selected");
+    }
+  }, [conversationPlantId, plantOptions, attachedTopicLabel]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadTopics = async () => {
+      const response = await fetch("/api/my-grow-mate/topics");
+      if (!response.ok) return;
+      const payload = (await response.json()) as { topics?: TopicOption[] };
+      if (cancelled || !Array.isArray(payload.topics)) return;
+      setTopicOptions(payload.topics);
+    };
+    void loadTopics();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isRenameDrawerOpen) return;
+    const contextualTitle =
+      attachedTopicLabel !== "None Selected"
+        ? attachedTopicLabel
+        : attachedPlantName !== "None Selected"
+          ? attachedPlantName
+          : "Global Gardeners";
+    setRenameValue(contextualTitle);
+  }, [isRenameDrawerOpen, attachedTopicLabel, attachedPlantName]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadPlants = async () => {
+      const response = await fetch("/api/plants");
+      if (!response.ok) return;
+      const payload = (await response.json()) as {
+        plants?: Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>;
+      };
+      if (cancelled || !Array.isArray(payload.plants)) return;
+      const nextOptions: PlantOption[] = payload.plants.map((plant) => ({
+        id: plant.id,
+        name: plant.commonName,
+        species: plant.scientificName ?? "Unknown species",
+        image: plant.coverPhotoUrl ?? "/images/figma/placeholder-expired.png",
+        identified: Boolean(plant.scientificName && plant.scientificName.trim()),
+      }));
+      setPlantOptions(nextOptions);
+    };
+    void loadPlants();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <main className="client-main h-dvh w-full overflow-x-hidden bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] text-[#182a17]">
@@ -148,10 +310,12 @@ function MyGrowMateChatPageContent() {
                 <p className="whitespace-nowrap text-[16px] font-medium leading-6 text-black">Plant: None Selected</p>
               </div>
             ) : (
-              <div className="flex items-center px-2">
-                <div className="flex flex-col items-center justify-center gap-[2px]">
-                  <p className="text-[18px] font-semibold leading-[27px] text-[#31674c]">{conversationName}</p>
-                  <p className="whitespace-nowrap text-[14px] font-medium leading-5 text-[#333333cc]">Plant: {attachedPlantName}</p>
+              <div className="flex flex-col items-center px-2">
+                <p className="text-[18px] font-semibold leading-[27px] text-[#31674c]">Global Gardeners</p>
+                <div className="flex items-center">
+                  <p className="whitespace-nowrap text-[16px] font-medium leading-6 text-black">
+                    {attachedTopicLabel !== "None Selected" ? `Topic: ${attachedTopicLabel}` : `Plant: ${attachedPlantName}`}
+                  </p>
                 </div>
               </div>
             )}
@@ -174,7 +338,13 @@ function MyGrowMateChatPageContent() {
                 type="button"
                 onClick={() => {
                   setIsHeaderMenuOpen(false);
-                  setRenameValue(conversationName);
+                  const contextualTitle =
+                    attachedTopicLabel !== "None Selected"
+                      ? attachedTopicLabel
+                      : attachedPlantName !== "None Selected"
+                        ? attachedPlantName
+                        : "Global Gardeners";
+                  setRenameValue(contextualTitle);
                   setIsRenameDrawerOpen(true);
                 }}
                 className="flex min-h-[36px] w-full items-center gap-2 px-3 py-3 text-left"
@@ -236,7 +406,17 @@ function MyGrowMateChatPageContent() {
                   {topicRows.map((row, rowIndex) => (
                     <div key={rowIndex} className="flex gap-[10px]">
                       {row.map((topic) => (
-                        <button key={topic} type="button" className="shrink-0 rounded-full border border-black/10 bg-white px-4 py-3 text-[14px] font-medium leading-5 text-[#333333cc]">
+                        <button
+                          key={topic}
+                          type="button"
+                          onClick={() => {
+                            const selectedTopic = topicOptions.find((item) => item.label === topic);
+                            if (!selectedTopic) return;
+                            setSelectedTopicId(selectedTopic.id);
+                            setIsTopicConfirmDrawerOpen(true);
+                          }}
+                          className="shrink-0 rounded-full border border-black/10 bg-white px-4 py-3 text-[14px] font-medium leading-5 text-[#333333cc]"
+                        >
                           {topic}
                         </button>
                       ))}
@@ -248,37 +428,43 @@ function MyGrowMateChatPageContent() {
           </div>
           ) : null}
 
-          {hasSentMessage ? (
-            <>
-              <div
-                className="absolute right-4 top-[113px] flex items-center border border-[rgba(5,46,22,0.1)] bg-[#457941] p-4"
-                style={{ borderTopLeftRadius: 100, borderTopRightRadius: 60, borderBottomLeftRadius: 100, borderBottomRightRadius: 1 }}
-              >
-                <p className="whitespace-nowrap text-[14px] font-medium leading-5 text-white">{lastSentMessage}</p>
-              </div>
-              {showAssistantResponse ? (
-              <div className="absolute left-4 top-[189px] w-[265px] rounded-br-[20px] rounded-tl-[20px] rounded-tr-[20px] border border-[#e5e5e5] bg-white p-4">
-                <p className="mb-1 text-[14px] font-bold leading-5 text-[#333333]">Care Plan</p>
-                <p className="text-[14px] font-medium leading-5 text-[#333333cc]">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci.
-                  Sed felis orci, consequat eget mi quis, facilisis facilisis metus.
-                </p>
-                <div className="mt-3 border-t border-black/10 pt-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <button type="button" className="rounded-lg p-1">
-                        <Image src="/icons/chat-menus/copy.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
-                      </button>
-                      <button type="button" className="rounded-lg p-1">
-                        <Image src="/icons/chat-menus/refresh-cw.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
-                      </button>
+          {messages.length > 0 ? (
+            <div className="absolute left-0 right-0 top-[88px] bottom-[96px] overflow-y-auto px-4 pb-4">
+              <div className="flex flex-col gap-4 pt-4">
+                {messages.map((message) =>
+                  message.role === "user" ? (
+                    <div key={message.id} className="ml-auto max-w-[80%] border border-[rgba(5,46,22,0.1)] bg-[#457941] p-4 text-white" style={{ borderTopLeftRadius: 100, borderTopRightRadius: 60, borderBottomLeftRadius: 100, borderBottomRightRadius: 1 }}>
+                      <p className="text-[14px] font-medium leading-5">{message.content}</p>
                     </div>
-                    <button type="button" className="rounded-full bg-[#f5f5f5] px-3 py-[6px] text-[12px] font-normal leading-4 text-[#333333]">Save as log</button>
-                  </div>
-                </div>
+                  ) : (
+                    <div key={message.id} className="mr-auto w-[265px] rounded-br-[20px] rounded-tl-[20px] rounded-tr-[20px] border border-[#e5e5e5] bg-white p-4">
+                      <p className="mb-1 text-[14px] font-bold leading-5 text-[#333333]">Care Plan</p>
+                      <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{message.content}</p>
+                      <div className="mt-3 border-t border-black/10 pt-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-4">
+                            <button type="button" className="rounded-lg p-1">
+                              <Image src="/icons/chat-menus/copy.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
+                            </button>
+                            <button type="button" className="rounded-lg p-1">
+                              <Image src="/icons/chat-menus/refresh-cw.svg" alt="" aria-hidden="true" width={16} height={16} className="h-4 w-4" />
+                            </button>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleSaveAsLog(message.id, message.content)}
+                            disabled={Boolean(savingLogByMessageId[message.id] || savedLogByMessageId[message.id])}
+                            className="rounded-full bg-[#f5f5f5] px-3 py-[6px] text-[12px] font-normal leading-4 text-[#333333]"
+                          >
+                            {savedLogByMessageId[message.id] ? "Saved" : savingLogByMessageId[message.id] ? "Saving..." : "Save as log"}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ),
+                )}
               </div>
-              ) : null}
-            </>
+            </div>
           ) : null}
 
           <div className="absolute bottom-[max(16px,env(safe-area-inset-bottom))] left-4 right-4 z-10 flex items-center gap-3">
@@ -347,7 +533,7 @@ function MyGrowMateChatPageContent() {
           >
             <div className="mx-auto mt-[7px] h-[3px] w-20 rounded-[2px] bg-[rgba(0,0,0,0.1)]" />
             <div className="px-4 pb-[max(24px,env(safe-area-inset-bottom))] pt-6">
-              <div className="flex flex-col items-center gap-6 px-4 py-5">
+              <div className="flex w-full flex-col items-center gap-6 py-5">
                 <h3 className="w-[266px] text-center text-[20px] font-semibold leading-6 text-[#182a17]">Edit conversation name</h3>
                 <div className="w-full">
                   <div className="rounded-[8px] border border-black/5 bg-white px-4 py-3">
@@ -365,10 +551,26 @@ function MyGrowMateChatPageContent() {
                 <button
                   type="button"
                   disabled={renameValue.trim().length < 3}
-                  onClick={() => {
+                  onClick={async () => {
                     if (renameValue.trim().length < 3) return;
-                    setConversationName(renameValue.trim());
-                    setIsRenameDrawerOpen(false);
+                    const nextTitle = renameValue.trim();
+                    try {
+                      if (conversationId) {
+                        await fetch(`/api/my-grow-mate/conversations/${conversationId}`, {
+                          method: "PATCH",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ title: nextTitle }),
+                        });
+                      }
+                      if (attachedTopicLabel !== "None Selected") {
+                        setAttachedTopicLabel(nextTitle);
+                      } else if (attachedPlantName !== "None Selected") {
+                        setAttachedPlantName(nextTitle);
+                      }
+                    } finally {
+                      setConversationName(nextTitle);
+                      setIsRenameDrawerOpen(false);
+                    }
                   }}
                   className={`h-[52px] w-full rounded-[1000px] px-6 text-center text-[14px] font-medium leading-5 text-[#fafafa] ${
                     renameValue.trim().length < 3 ? "bg-[#457941] opacity-50" : "bg-[#457941] opacity-100"
@@ -430,15 +632,25 @@ function MyGrowMateChatPageContent() {
                 <div className="mt-8 flex flex-col gap-2">
                   <button
                     type="button"
-                    onClick={() => {
-                      setHasSentMessage(false);
-                      setLastSentMessage("");
-                      setShowAssistantResponse(false);
-                      setMessageText("");
-                      setIsDeleteModalOpen(false);
-                      setIsDeleteDrawerOpen(false);
-                      setIsHeaderMenuOpen(false);
-                      setIsPlusMenuOpen(false);
+                    onClick={async () => {
+                      try {
+                        if (conversationId) {
+                          await fetch(`/api/my-grow-mate/conversations/${conversationId}`, { method: "DELETE" });
+                        }
+                      } finally {
+                        setMessages([]);
+                        setMessageText("");
+                        setConversationId(null);
+                        setIsConversationStarted(false);
+                        setAttachedPlantId(null);
+                        setAttachedPlantName("None Selected");
+                        setAttachedTopicLabel("None Selected");
+                        setIsDeleteModalOpen(false);
+                        setIsDeleteDrawerOpen(false);
+                        setIsHeaderMenuOpen(false);
+                        setIsPlusMenuOpen(false);
+                        router.push("/my-grow-mate");
+                      }
                     }}
                     className="min-h-[36px] w-full rounded-[100px] bg-[#ef4444] px-4 py-2 text-[14px] font-medium leading-5 text-white"
                   >
@@ -470,7 +682,13 @@ function MyGrowMateChatPageContent() {
               <div className="mt-6 rounded-full border border-black/5 bg-white px-3 py-2">
                 <div className="flex min-h-[32px] items-center gap-3 rounded-lg px-2">
                   <SearchIcon />
-                  <p className="text-[14px] font-normal leading-5 text-[#33333380]">Search for a specific plant</p>
+                  <input
+                    type="text"
+                    value={plantSearch}
+                    onChange={(event) => setPlantSearch(event.target.value)}
+                    placeholder="Search for a specific plant"
+                    className="w-full bg-transparent text-[14px] font-normal leading-5 text-[#333333] placeholder:text-[#33333380] outline-none"
+                  />
                 </div>
               </div>
 
@@ -515,7 +733,7 @@ function MyGrowMateChatPageContent() {
                     key={plant.id}
                     type="button"
                     onClick={() => setSelectedPlantId(plant.id)}
-                    className={`flex w-full items-center gap-4 px-3 py-3 text-left ${idx < plants.length - 1 ? "border-b border-black/10" : ""}`}
+                    className={`flex w-full items-center gap-4 px-3 py-3 text-left ${idx < activePlants.length - 1 ? "border-b border-black/10" : ""}`}
                   >
                     <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-[6px] bg-[#d9d9d9]">
                       <img src={plant.image} alt="" className="h-full w-full object-cover" />
@@ -526,10 +744,26 @@ function MyGrowMateChatPageContent() {
                     </div>
                     <span
                       aria-hidden="true"
-                      className={`h-5 w-5 shrink-0 rounded-full border ${isSelected ? "border-[#457941] bg-[#457941]" : "border-black/10 bg-[#f2f2f2]"}`}
-                    />
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${isSelected ? "border-[#2f6b3a] bg-[#457941]" : "border-black/10 bg-[#f2f2f2]"}`}
+                    >
+                      {isSelected ? (
+                        <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3 w-3 text-white">
+                          <path
+                            d="M5 10.2L8.2 13.4L15 6.6"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      ) : null}
+                    </span>
                   </button>
                 )})}
+                {activePlants.length === 0 ? (
+                  <div className="px-3 py-6 text-center text-[12px] font-medium text-[#737373]">No plants found.</div>
+                ) : null}
               </div>
 
               <button
@@ -572,13 +806,14 @@ function MyGrowMateChatPageContent() {
                   type="button"
                   onClick={() => {
                     if (selectedPlant) {
+                      setAttachedPlantId(selectedPlant.id);
                       setAttachedPlantName(selectedPlant.name);
+                      setAttachedTopicLabel("None Selected");
                     }
-                    setHasSentMessage(false);
-                    setLastSentMessage("");
-                    setShowAssistantResponse(false);
+                    setMessages([]);
                     setMessageText("");
                     setIsConversationStarted(true);
+                    setConversationId(null);
                     setIsConfirmDrawerOpen(false);
                     setSelectedPlantId(null);
                   }}
@@ -589,6 +824,64 @@ function MyGrowMateChatPageContent() {
                 <button
                   type="button"
                   onClick={() => setIsConfirmDrawerOpen(false)}
+                  className="h-[52px] w-full rounded-[100px] bg-white px-6 text-center text-[14px] font-medium leading-5 text-[#171717]"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {isTopicConfirmDrawerOpen ? <button type="button" aria-label="Close topic confirmation drawer" onClick={() => setIsTopicConfirmDrawerOpen(false)} className="absolute inset-0 z-30 bg-[rgba(23,23,23,0.5)]" /> : null}
+
+          <div
+            className={`absolute bottom-0 left-0 right-0 z-40 w-full rounded-tl-[24px] rounded-tr-[24px] border border-[rgba(212,212,212,0.5)] bg-[#f8f6f1] shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] transition-transform duration-300 ${
+              isTopicConfirmDrawerOpen ? "translate-y-0" : "translate-y-full"
+            }`}
+          >
+            <div className="mx-auto mt-[7px] h-[3px] w-20 rounded-[2px] bg-[rgba(212,212,212,0.5)]" />
+            <div className="px-4 pb-[max(24px,env(safe-area-inset-bottom))] pt-6">
+              <div className="flex flex-col items-center gap-4 px-4 py-5">
+                <h3 className="w-[266px] text-center text-[20px] font-semibold leading-6 tracking-[0] text-[#182a17]">
+                  Switching topics will start a new conversation.
+                </h3>
+                <p className="w-full text-center text-[14px] font-medium leading-5 text-[#333333cc]">
+                  Your current chat will remain saved.
+                </p>
+              </div>
+              <div className="mt-3 flex flex-col gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const topic = topicOptions.find((item) => item.id === selectedTopicId);
+                    if (topic) {
+                      setAttachedTopicLabel(topic.label);
+                      const userMessage: ChatMessage = { id: `u-${Date.now()}`, role: "user", content: topic.label };
+                      const assistantMessage: ChatMessage = {
+                        id: `a-${Date.now() + 1}`,
+                        role: "assistant",
+                        content: DEMO_ASSISTANT_BODY,
+                      };
+                      setMessages([userMessage]);
+                      setConversationId(null);
+                      setTimeout(() => {
+                        setMessages((prev) => [...prev, assistantMessage]);
+                        // per-bubble save state handled by message id
+                      }, 700);
+                      void persistMessage(topic.label, DEMO_ASSISTANT_BODY, topic.label);
+                    }
+                    setMessageText("");
+                    setIsConversationStarted(true);
+                    setIsTopicConfirmDrawerOpen(false);
+                    setSelectedTopicId(null);
+                  }}
+                  className="h-[52px] w-full rounded-[1000px] bg-[#457941] px-6 text-center text-[14px] font-medium leading-5 text-[#fafafa]"
+                >
+                  Start new conversation
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsTopicConfirmDrawerOpen(false)}
                   className="h-[52px] w-full rounded-[100px] bg-white px-6 text-center text-[14px] font-medium leading-5 text-[#171717]"
                 >
                   Cancel

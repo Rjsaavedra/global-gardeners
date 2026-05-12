@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function EyeOffIcon() {
   return (
@@ -127,6 +127,47 @@ export default function LoginPage() {
   const [isSsoSubmitting, setIsSsoSubmitting] = useState(false);
   const [keepSignedIn, setKeepSignedIn] = useState(false);
 
+  useEffect(() => {
+    const currentQuery = new URLSearchParams(window.location.search);
+    const oauthMode = currentQuery.get("oauth");
+    const accessToken = new URLSearchParams(window.location.hash.slice(1)).get("access_token");
+    const refreshToken = new URLSearchParams(window.location.hash.slice(1)).get("refresh_token");
+
+    if (oauthMode !== "implicit" || !accessToken || !refreshToken) return;
+
+    const completeOAuthSession = async () => {
+      setIsSsoSubmitting(true);
+      setSsoError("");
+
+      try {
+        const response = await fetch("/api/auth/oauth/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            accessToken,
+            refreshToken,
+            persistent: currentQuery.get("persistent") !== "0",
+          }),
+        });
+
+        const result = (await response.json()) as { error?: string; nextStep?: string };
+        if (!response.ok) {
+          setSsoError(result.error ?? "Unable to complete Facebook login.");
+          return;
+        }
+
+        window.history.replaceState(null, "", "/login");
+        router.push(result.nextStep ?? "/");
+      } catch {
+        setSsoError("Unexpected error while finalizing Facebook login.");
+      } finally {
+        setIsSsoSubmitting(false);
+      }
+    };
+
+    void completeOAuthSession();
+  }, [router]);
+
   const validateField = (name: "email" | "password", value: string) => {
     if (!value.trim()) {
       return "*This field contains validation errors.";
@@ -197,7 +238,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ keepSignedIn }),
+        body: JSON.stringify({ keepSignedIn, source: "login" }),
       });
 
       const result = (await response.json()) as { error?: string; url?: string };

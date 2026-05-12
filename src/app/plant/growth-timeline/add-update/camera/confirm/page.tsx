@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 const backgroundImage = "/images/figma/placeholder-expired.png";
 
@@ -27,8 +27,10 @@ function CircleButton({
   );
 }
 
-export default function AddUpdatePhotoConfirmPage() {
+function AddUpdatePhotoConfirmPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const plantId = searchParams.get("plantId");
   const [flashOn, setFlashOn] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -62,7 +64,7 @@ export default function AddUpdatePhotoConfirmPage() {
         <footer className="relative z-10 h-24 border-t border-[#e5e5e5] bg-white px-4 py-3 shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)]">
           <button
             type="button"
-            onClick={() => router.push("/plant/growth-timeline/add-update")}
+            onClick={() => router.push(`/plant/growth-timeline/add-update${plantId ? `?plantId=${plantId}` : ""}`)}
             className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 tracking-[0px] text-[#fafafa]"
           >
             Continue
@@ -73,3 +75,18 @@ export default function AddUpdatePhotoConfirmPage() {
   );
 }
 
+export default function AddUpdatePhotoConfirmPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <AddUpdatePhotoConfirmPageContent />
+    </Suspense>
+  );
+}

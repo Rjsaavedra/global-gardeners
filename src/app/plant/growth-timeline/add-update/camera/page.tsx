@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 const backgroundImage = "/images/figma/placeholder-expired.png";
 
@@ -27,8 +27,10 @@ function CircleButton({
   );
 }
 
-export default function AddUpdateCameraPage() {
+function AddUpdateCameraPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const plantId = searchParams.get("plantId");
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const galleryInputRef = useRef<HTMLInputElement>(null);
@@ -94,7 +96,7 @@ export default function AddUpdateCameraPage() {
     const next = Array.from(new Set([...existing, imageDataUrl]));
     sessionStorage.setItem("ggPlantUpdatePhotos", JSON.stringify(next));
     sessionStorage.setItem("ggPlantUpdatePhoto", imageDataUrl);
-    router.push("/plant/growth-timeline/add-update/camera/confirm");
+    router.push(`/plant/growth-timeline/add-update/camera/confirm${plantId ? `?plantId=${plantId}` : ""}`);
   };
 
   const handleGallerySelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +118,7 @@ export default function AddUpdateCameraPage() {
         const next = Array.from(new Set([...existing, ...images]));
         sessionStorage.setItem("ggPlantUpdatePhotos", JSON.stringify(next));
         sessionStorage.setItem("ggPlantUpdatePhoto", images[images.length - 1]);
-        router.push("/plant/growth-timeline/add-update/camera/confirm");
+        router.push(`/plant/growth-timeline/add-update${plantId ? `?plantId=${plantId}` : ""}`);
       })
       .catch(() => setErrorMessage("Unable to load selected image."));
     event.target.value = "";
@@ -215,5 +217,21 @@ export default function AddUpdateCameraPage() {
         </footer>
       </section>
     </main>
+  );
+}
+
+export default function AddUpdateCameraPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <AddUpdateCameraPageContent />
+    </Suspense>
   );
 }

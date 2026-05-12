@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const backIcon = "/icons/back-button.svg";
@@ -16,28 +16,47 @@ type PlantUpdate = {
 export default function TimelineUpdateDetailPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const plantId = searchParams.get("plantId");
   const [update, setUpdate] = useState<PlantUpdate | null>(null);
   const [isDeleteDrawerOpen, setIsDeleteDrawerOpen] = useState(false);
 
   const handleBack = () => {
     if (!update) {
-      router.push("/plant/growth-timeline");
+      router.push(`/plant/growth-timeline${plantId ? `?plantId=${plantId}` : ""}`);
       return;
     }
     router.back();
   };
 
   useEffect(() => {
-    const raw = localStorage.getItem("ggPlantUpdates");
-    if (!raw) return;
-    try {
-      const list = JSON.parse(raw) as PlantUpdate[];
+    let cancelled = false;
+    const load = async () => {
+      if (!plantId) {
+        if (!cancelled) setUpdate(null);
+        return;
+      }
+      const response = await fetch(`/api/plants/${plantId}/timeline`);
+      if (!response.ok) {
+        if (!cancelled) setUpdate(null);
+        return;
+      }
+      const payload = (await response.json()) as { updates?: PlantUpdate[] };
+      const list = Array.isArray(payload.updates) ? payload.updates : [];
       const found = list.find((item) => item.id === params.id) ?? null;
-      setUpdate(found);
-    } catch {
+      if (!cancelled) setUpdate(found);
+    };
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [params.id, plantId]);
+
+  useEffect(() => {
+    if (!update) {
       setUpdate(null);
     }
-  }, [params.id]);
+  }, [update]);
 
   const dateLabel = useMemo(() => {
     if (!update?.date) return "";
@@ -97,19 +116,7 @@ export default function TimelineUpdateDetailPage() {
   };
 
   const handleDelete = () => {
-    const raw = localStorage.getItem("ggPlantUpdates");
-    if (!raw) {
-      router.push("/plant/growth-timeline");
-      return;
-    }
-    try {
-      const list = JSON.parse(raw) as PlantUpdate[];
-      const next = list.filter((item) => item.id !== params.id);
-      localStorage.setItem("ggPlantUpdates", JSON.stringify(next));
-    } catch {
-      localStorage.removeItem("ggPlantUpdates");
-    }
-    router.push("/plant/growth-timeline");
+    router.push(`/plant/growth-timeline${plantId ? `?plantId=${plantId}` : ""}`);
   };
 
   return (
@@ -157,7 +164,7 @@ export default function TimelineUpdateDetailPage() {
         </div>
 
         <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-2">
-          <button type="button" onClick={() => router.push(`/plant/growth-timeline/${params.id}/edit`)} className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]">Edit</button>
+          <button type="button" onClick={() => router.push(`/plant/growth-timeline/${params.id}/edit${plantId ? `?plantId=${plantId}` : ""}`)} className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]">Edit</button>
           <button type="button" onClick={() => setIsDeleteDrawerOpen(true)} className="mt-2 h-[52px] w-full rounded-[1000px] bg-[#ef4444] text-[14px] font-medium leading-5 text-white">Delete</button>
         </div>
 

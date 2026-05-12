@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
 const backIcon = "/icons/back-button.svg";
 const calendarIcon = "/icons/logs/calendar.svg";
@@ -12,13 +12,17 @@ const toLocalIsoDate = (date: Date) => {
   return `${y}-${m}-${d}`;
 };
 
-export default function AddPlantUpdatePage() {
+function AddPlantUpdatePageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const plantId = searchParams.get("plantId");
   const todayIso = useMemo(() => toLocalIsoDate(new Date()), []);
   const [selectedDate, setSelectedDate] = useState(todayIso);
   const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
   const [note, setNote] = useState("");
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
   const [viewYear, setViewYear] = useState(new Date().getFullYear());
   const [viewMonth, setViewMonth] = useState(new Date().getMonth());
 
@@ -36,7 +40,10 @@ export default function AddPlantUpdatePage() {
     if (storedBatch) {
       try {
         const photos = JSON.parse(storedBatch) as string[];
-        setSelectedPhotos(Array.isArray(photos) ? photos : []);
+        setSelectedPhotos((prev) => {
+          const incoming = Array.isArray(photos) ? photos : [];
+          return Array.from(new Set([...prev, ...incoming]));
+        });
       } catch {
         // no-op
       }
@@ -72,6 +79,15 @@ export default function AddPlantUpdatePage() {
     setViewMonth(next.getMonth());
   };
   const canPost = note.trim().length > 0;
+  const resolvedPlantId = useMemo(() => {
+    if (plantId) return plantId;
+    try {
+      const stored = sessionStorage.getItem("ggCurrentPlantId");
+      return stored && stored.trim() ? stored.trim() : null;
+    } catch {
+      return null;
+    }
+  }, [plantId]);
 
   return (
     <main className="client-main h-screen overflow-hidden bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
@@ -92,7 +108,14 @@ export default function AddPlantUpdatePage() {
               <div className="grid grid-cols-2 gap-4">
                 <button
                   type="button"
-                  onClick={() => router.push("/plant/growth-timeline/add-update/camera")}
+                  onClick={() => {
+                    try {
+                      sessionStorage.setItem("ggPlantUpdatePhotos", JSON.stringify(selectedPhotos));
+                    } catch {
+                      // Ignore storage write failures.
+                    }
+                    router.push(`/plant/growth-timeline/add-update/camera${resolvedPlantId ? `?plantId=${resolvedPlantId}` : ""}`);
+                  }}
                   className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-[8px] border border-dashed border-[#d4d4d4] bg-[rgba(255,255,255,0.1)] px-6 py-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] ${
                     selectedPhotos.length === 0 ? "col-span-2 min-h-[254px]" : "aspect-square"
                   }`}
@@ -115,7 +138,7 @@ export default function AddPlantUpdatePage() {
                       onClick={() => setSelectedPhotos((prev) => prev.filter((_, i) => i !== index))}
                       className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-black/30 text-white"
                     >
-                      <span className="text-[16px] leading-none">×</span>
+                      <span className="text-[16px] leading-none">�</span>
                     </button>
                   </div>
                 ))}
@@ -147,9 +170,23 @@ export default function AddPlantUpdatePage() {
               {calendarOpen ? (
                 <div className="rounded-[8px] border border-[#e5e5e5] bg-white p-4 shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]">
                   <div className="mb-4 flex items-center justify-between">
-                    <button type="button" onClick={() => changeMonth(-1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] text-[#737373]">?</button>
+                    <button
+                      type="button"
+                      aria-label="Previous month"
+                      onClick={() => changeMonth(-1)}
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] text-[#737373]"
+                    >
+                      <span aria-hidden="true" className="text-[16px] leading-none">‹</span>
+                    </button>
                     <p className="text-[14px] font-medium leading-5 text-[#0a0a0a]">{monthLabel}</p>
-                    <button type="button" onClick={() => changeMonth(1)} className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] text-[#737373]">?</button>
+                    <button
+                      type="button"
+                      aria-label="Next month"
+                      onClick={() => changeMonth(1)}
+                      className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e5e5] text-[#737373]"
+                    >
+                      <span aria-hidden="true" className="text-[16px] leading-none">›</span>
+                    </button>
                   </div>
                   <div className="grid grid-cols-7 text-center text-[12px] text-[#737373]">
                     {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((d) => <div key={d} className="h-8 leading-8">{d}</div>)}
@@ -185,26 +222,60 @@ export default function AddPlantUpdatePage() {
             type="button"
             onClick={() => {
               if (!canPost) return;
-              const nextUpdate = {
-                id: `${Date.now()}`,
-                photos: selectedPhotos,
-                photo: selectedPhotos[0] || "",
-                note: note.trim(),
-                date: selectedDate,
-              };
-              const raw = localStorage.getItem("ggPlantUpdates");
-              const list = raw ? (JSON.parse(raw) as typeof nextUpdate[]) : [];
-              list.unshift(nextUpdate);
-              localStorage.setItem("ggPlantUpdates", JSON.stringify(list));
-              router.push("/plant/growth-timeline");
+              void (async () => {
+                setSubmitError("");
+                if (!resolvedPlantId) {
+                  setSubmitError("Missing plant context. Open this from a plant page and try again.");
+                  return;
+                }
+                setIsPosting(true);
+                try {
+                  const response = await fetch(`/api/plants/${resolvedPlantId}/timeline`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      photos: selectedPhotos,
+                      note: note.trim(),
+                      date: selectedDate,
+                    }),
+                  });
+                  if (!response.ok) {
+                    const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+                    setSubmitError(payload?.error ?? "Unable to post update.");
+                    return;
+                  }
+                  router.push(`/plant/growth-timeline?plantId=${resolvedPlantId}`);
+                } finally {
+                  setIsPosting(false);
+                }
+              })();
             }}
-            className={`h-[52px] w-full rounded-[1000px] text-[14px] font-medium leading-5 tracking-[0px] text-[#fafafa] ${canPost ? "bg-[#457941]" : "bg-[#457941]/50"}`}
+            disabled={!canPost || isPosting}
+            className={`h-[52px] w-full rounded-[1000px] text-[14px] font-medium leading-5 tracking-[0px] text-[#fafafa] ${canPost && !isPosting ? "bg-[#457941]" : "bg-[#457941]/50"}`}
           >
-            Post
+            {isPosting ? "Posting..." : "Post"}
           </button>
+          {submitError ? <p className="mt-2 text-center text-[12px] font-medium text-[#b91c1c]">{submitError}</p> : null}
         </div>
       </section>
     </main>
   );
 }
+
+export default function AddPlantUpdatePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full items-center justify-center border border-[#e7e0d2] bg-[#f8f6f1]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <AddPlantUpdatePageContent />
+    </Suspense>
+  );
+}
+
 

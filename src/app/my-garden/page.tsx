@@ -48,6 +48,8 @@ export default function MyGardenPage() {
     nickname: "@Global Gardener",
     profilePhotoUrl: null,
   });
+  const [myPlants, setMyPlants] = useState<Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>>([]);
+  const [isPlantsLoading, setIsPlantsLoading] = useState(true);
 
   const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -65,6 +67,45 @@ export default function MyGardenPage() {
     const profilePhotoUrl = typeof drawerProfileData?.profilePhotoUrl === "string" && drawerProfileData.profilePhotoUrl.trim() ? drawerProfileData.profilePhotoUrl.trim() : null;
     setDrawerProfile({ fullName, nickname, profilePhotoUrl });
   }, [drawerProfileData]);
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadPlants = async () => {
+      setIsPlantsLoading(true);
+      try {
+        const cachedRaw = sessionStorage.getItem("ggMyGardenPlantsCache");
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw) as Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>;
+          if (!cancelled && Array.isArray(cached)) {
+            setMyPlants(cached);
+            setIsPlantsLoading(false);
+          }
+        }
+
+        const response = await fetch("/api/plants");
+        if (!response.ok) {
+          if (!cancelled) setIsPlantsLoading(false);
+          return;
+        }
+        const payload = (await response.json()) as {
+          plants?: Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>;
+        };
+        if (!cancelled && Array.isArray(payload.plants)) {
+          setMyPlants(payload.plants);
+          sessionStorage.setItem("ggMyGardenPlantsCache", JSON.stringify(payload.plants));
+        }
+      } catch {
+        // Keep fallback UI when request fails.
+      } finally {
+        if (!cancelled) setIsPlantsLoading(false);
+      }
+    };
+
+    void loadPlants();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openDrawer = () => {
     if (drawerCloseTimerRef.current) {
@@ -202,14 +243,14 @@ export default function MyGardenPage() {
               <article className="flex w-full items-center gap-4 rounded-full border border-[#e5e5e5] bg-white px-3 py-3">
                   <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={imgSproutIcon} alt="" className="h-6 w-6" /></div>
                   <div>
-                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">45</p>
+                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">{myPlants.length}</p>
                     <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Plants</p>
                   </div>
               </article>
               <article className="flex w-full items-center gap-4 rounded-full border border-[#e5e5e5] bg-white px-3 py-3">
                   <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={imgSpeciesIcon} alt="" className="h-6 w-6" /></div>
                   <div>
-                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">12</p>
+                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">{new Set(myPlants.map((plant) => plant.scientificName).filter(Boolean)).size}</p>
                     <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Species</p>
                   </div>
               </article>
@@ -291,27 +332,30 @@ export default function MyGardenPage() {
                 </div>
               </article>
 
-              {[imgFrame1111, imgFrame1112].map((image, index) => (
+              {myPlants.slice(0, 8).map((plant) => (
                 <article
-                  key={`${image}-${index}`}
+                  key={plant.id}
                   className="flex h-[231px] w-[171px] shrink-0 cursor-pointer flex-col"
                   role="button"
                   tabIndex={0}
-                  onClick={() => router.push("/plant")}
+                  onClick={() => router.push(`/plant/${plant.id}`)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      router.push("/plant");
+                      router.push(`/plant/${plant.id}`);
                     }
                   }}
                 >
-                  <img src={image} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
+                  <img src={plant.coverPhotoUrl ?? imgFrame1111} alt={plant.commonName} className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
-                    <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
-                    <p className="text-[12px] font-normal leading-4 text-[#333333cc]">Species name</p>
+                    <p className="text-[14px] font-medium leading-5 text-[#333333]">{plant.commonName}</p>
+                    <p className="text-[12px] font-normal leading-4 text-[#333333cc]">{plant.scientificName ?? "Unknown species"}</p>
                   </div>
                 </article>
               ))}
+              {!isPlantsLoading && myPlants.length === 0 ? (
+                <p className="px-2 text-[12px] font-medium text-[#737373]">No plants yet.</p>
+              ) : null}
             </div>
           </section>
 
@@ -444,6 +488,10 @@ export default function MyGardenPage() {
     </main>
   );
 }
+
+
+
+
 
 
 

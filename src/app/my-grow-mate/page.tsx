@@ -10,102 +10,39 @@ import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-dr
 const iconChevronRight = "/icons/my-garden-chevron-right.svg";
 const iconBell = "/icons/settings-bell.svg";
 const iconSparkles = "/icons/my-garden-care-logs.svg";
-const iconSavedLogLeaf = "/icons/my-garden-plants.svg";
 
 type QuickAction = {
+  id: string;
   title: string;
   description: string;
-  icon: ComponentType<SVGProps<SVGSVGElement> & { strokeWidth?: number }>;
+  iconKey: string;
 };
 
 type Conversation = {
-  id: number;
+  id: string;
   title: string;
   excerpt: string;
 };
 
 type SavedLog = {
-  id: number;
+  id: string;
   title: string;
-  plant: string;
   topic: string;
+  createdAt: string | null;
   icon: string;
 };
 
-const quickActions: QuickAction[] = [
-  {
-    title: "Indoor Plant Recommendations",
-    description: "Get indoor plant suggestions based on your space and preferences.",
-    icon: Flower2,
-  },
-  {
-    title: "Pest & Disease Diagnosis",
-    description: "Describe symptoms to identify and treat common plant pests and diseases.",
-    icon: Bug,
-  },
-  {
-    title: "Soil & Fertilizer Guide",
-    description: "Find the best soil mix and fertilizer for your plants.",
-    icon: Bean,
-  },
-  {
-    title: "Watering Schedule Creator",
-    description: "Create a watering schedule tailored to your plant and environment.",
-    icon: Droplets,
-  },
-  {
-    title: "Plant Companion Finder",
-    description: "Discover plants that grow well together and support healthy growth.",
-    icon: UsersRound,
-  },
-  {
-    title: "DIY Project Ideas",
-    description: "Explore creative and practical DIY gardening projects.",
-    icon: Hammer,
-  },
-  {
-    title: "Gardening for Beginners",
-    description: "Learn the basics with simple, step-by-step gardening guidance.",
-    icon: GraduationCap,
-  },
-  {
-    title: "Advanced Gardener's Hub",
-    description: "Dive into advanced topics like grafting, breeding, and hydroponics.",
-    icon: FlaskRound,
-  },
-  {
-    title: "Sustainable Gardening",
-    description: "Learn eco-friendly practices that support soil, water, and wildlife.",
-    icon: Recycle,
-  },
-];
-
-const conversations: Conversation[] = [
-  {
-    id: 1,
-    title: "Title of conversation",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
-  },
-  {
-    id: 2,
-    title: "Title of conversation",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
-  },
-  {
-    id: 3,
-    title: "Title of conversation",
-    excerpt:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.",
-  },
-];
-
-const savedLogs: SavedLog[] = [
-  { id: 1, title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
-  { id: 5, title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: iconSparkles },
-  { id: 3, title: "Title of log", plant: "Plant name", topic: "Topic", icon: iconSavedLogLeaf },
-];
+const quickActionIcons: Record<string, ComponentType<SVGProps<SVGSVGElement> & { strokeWidth?: number }>> = {
+  flower: Flower2,
+  bug: Bug,
+  bean: Bean,
+  droplets: Droplets,
+  users: UsersRound,
+  hammer: Hammer,
+  graduation: GraduationCap,
+  flask: FlaskRound,
+  recycle: Recycle,
+};
 
 function MenuIcon() {
   return (
@@ -143,26 +80,28 @@ function BellButton({ unreadNotifications, onClick }: { unreadNotifications: num
   );
 }
 
-function SectionHeader({ title, onViewAll }: { title: string; onViewAll?: () => void }) {
+function SectionHeader({ title, onViewAll }: { title: string; onViewAll?: (() => void) | null }) {
   return (
     <div className="flex h-6 w-full items-center justify-between gap-3">
       <h2 className="min-w-0 flex-1 text-[14px] font-medium leading-5 tracking-[0] text-[#333333]">{title}</h2>
-      <button type="button" onClick={onViewAll} className="flex shrink-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
-        <span className="text-[14px] font-medium leading-5 text-[#737373]">View&nbsp; all</span>
-        <img src={iconChevronRight} alt="" aria-hidden="true" className="h-6 w-6" />
-      </button>
+      {onViewAll ? (
+        <button type="button" onClick={onViewAll} className="flex shrink-0 items-center gap-[2px]" aria-label={`View all ${title.toLowerCase()}`}>
+          <span className="text-[14px] font-medium leading-5 text-[#737373]">View&nbsp; all</span>
+          <img src={iconChevronRight} alt="" aria-hidden="true" className="h-6 w-6" />
+        </button>
+      ) : null}
     </div>
   );
 }
 
 function QuickActionCard({ action }: { action: QuickAction }) {
-  const Icon = action.icon;
+  const Icon = quickActionIcons[action.iconKey] ?? Flower2;
   return (
     <button
       type="button"
-      className="relative flex h-[155px] w-[160px] shrink-0 overflow-hidden rounded-[12px] border border-black/10 bg-white p-4 text-left"
+      className="relative flex w-[160px] shrink-0 overflow-hidden rounded-[12px] border border-black/10 bg-white p-4 text-left"
     >
-      <span className="flex min-h-0 flex-1 flex-col gap-2 pr-4 pb-7">
+      <span className="flex min-h-0 flex-1 flex-col gap-2 pb-2">
         <span className="text-[14px] font-medium leading-5 tracking-[0] text-[#333333]">{action.title}</span>
         <span className="text-[12px] font-medium leading-4 tracking-[0] text-[#333333cc]">{action.description}</span>
       </span>
@@ -215,6 +154,16 @@ function ConversationRow({ conversation, compact, onClick }: { conversation: Con
 }
 
 function SavedLogRow({ log, onClick }: { log: SavedLog; onClick: () => void }) {
+  const formattedDateTime = log.createdAt
+    ? new Date(log.createdAt).toLocaleString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    : "No date";
+
   return (
     <button type="button" onClick={onClick} className="flex h-[72px] w-full items-center gap-4 overflow-hidden rounded-full border border-black/10 bg-white p-4 text-left">
       <span className="flex min-w-0 flex-1 items-center gap-3">
@@ -224,9 +173,9 @@ function SavedLogRow({ log, onClick }: { log: SavedLog; onClick: () => void }) {
         <span className="min-w-0 pr-4">
           <span className="block truncate text-[14px] font-medium leading-5 tracking-[0] text-[#333333]">{log.title}</span>
           <span className="flex items-center gap-[6px] text-[12px] font-normal leading-4 tracking-[0] text-[#333333cc]">
-            <span className="truncate">{log.plant}</span>
-            <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-[#333333cc]" />
             <span className="truncate">{log.topic}</span>
+            <span aria-hidden="true" className="h-1 w-1 shrink-0 rounded-full bg-[#333333cc]" />
+            <span className="truncate">{formattedDateTime}</span>
           </span>
         </span>
       </span>
@@ -248,6 +197,9 @@ export default function MyGrowMatePage() {
     nickname: "@Global Gardener",
     profilePhotoUrl: null,
   });
+  const [recentConversations, setRecentConversations] = useState<Conversation[]>([]);
+  const [recentLogs, setRecentLogs] = useState<SavedLog[]>([]);
+  const [quickActions, setQuickActions] = useState<QuickAction[]>([]);
 
   const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -309,6 +261,69 @@ export default function MyGrowMatePage() {
       document.body.style.overflow = "";
     };
   }, [isDrawerMounted]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadQuickActions = async () => {
+      const response = await fetch("/api/my-grow-mate/quick-actions");
+      if (!response.ok) return;
+      const payload = (await response.json()) as {
+        quickActions?: Array<{ id: string; title: string; description: string; iconKey: string }>;
+      };
+      if (cancelled || !Array.isArray(payload.quickActions)) return;
+      setQuickActions(payload.quickActions);
+    };
+    void loadQuickActions();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadConversations = async () => {
+      const response = await fetch("/api/my-grow-mate/conversations");
+      if (!response.ok) return;
+      const payload = (await response.json()) as { conversations?: Array<{ id: string; title: string; excerpt: string }> };
+      if (cancelled || !Array.isArray(payload.conversations)) return;
+      setRecentConversations(
+        payload.conversations.map((conversation) => ({
+          id: conversation.id,
+          title: conversation.title || "New conversation",
+          excerpt: conversation.excerpt || "No messages yet.",
+        })),
+      );
+    };
+    void loadConversations();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadLogs = async () => {
+      const response = await fetch("/api/my-grow-mate/logs");
+      if (!response.ok) return;
+      const payload = (await response.json()) as {
+        logs?: Array<{ id: string; title: string; topic: string; createdAt: string | null }>;
+      };
+      if (cancelled || !Array.isArray(payload.logs)) return;
+      setRecentLogs(
+        payload.logs.slice(0, 3).map((log) => ({
+          id: log.id,
+          title: log.title || "Saved log",
+          topic: log.topic || "Care Plan",
+          createdAt: log.createdAt ?? null,
+          icon: iconSparkles,
+        })),
+      );
+    };
+    void loadLogs();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleCreatePost = () => {
     closeDrawer();
@@ -400,30 +415,32 @@ export default function MyGrowMatePage() {
 
           <section className="flex w-full flex-col">
             <h2 className="text-[14px] font-medium leading-5 tracking-[0] text-[#333333]">Quick Actions</h2>
-            <div className="-mx-4 mt-4 h-[155px] overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex w-max gap-3">
+            <div className="-mx-4 mt-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex w-max items-stretch gap-3">
                 {quickActions.map((action) => (
-                  <QuickActionCard key={action.title} action={action} />
+                  <QuickActionCard key={action.id} action={action} />
                 ))}
               </div>
             </div>
           </section>
 
           <section className="flex w-full flex-col">
-            <SectionHeader title="Recent Conversations" onViewAll={() => router.push("/my-grow-mate/recent-conversations")} />
-            <div className="mt-6 flex w-full flex-col gap-3 pt-3">
-              {conversations.map((conversation, index) => (
-                <ConversationRow key={`${conversation.title}-${index}`} conversation={conversation} compact={index === 0} onClick={() => router.push(`/my-grow-mate/chat?fromConversation=${conversation.id}`)} />
+            <SectionHeader title="Recent Conversations" onViewAll={recentConversations.length > 3 ? () => router.push("/my-grow-mate/recent-conversations") : null} />
+            <div className="mt-6 flex w-full flex-col gap-3">
+              {recentConversations.slice(0, 3).map((conversation, index) => (
+                <ConversationRow key={conversation.id} conversation={conversation} compact={index === 0} onClick={() => router.push(`/my-grow-mate/chat?conversationId=${conversation.id}`)} />
               ))}
+              {recentConversations.length === 0 ? <p className="text-[12px] font-medium text-[#737373]">No saved conversations yet.</p> : null}
             </div>
           </section>
 
           <section className="flex w-full flex-col">
-            <SectionHeader title="Your Saved Logs" onViewAll={() => router.push("/my-grow-mate/logs")} />
-            <div className="mt-6 flex w-full flex-col gap-3 pt-3">
-              {savedLogs.map((log, index) => (
+            <SectionHeader title="Your Saved Logs" onViewAll={recentLogs.length > 3 ? () => router.push("/my-grow-mate/logs") : null} />
+            <div className="mt-6 flex w-full flex-col gap-3">
+              {recentLogs.map((log, index) => (
                 <SavedLogRow key={`${log.title}-${log.plant}-${index}`} log={log} onClick={() => router.push(`/my-grow-mate/logs/log-detail-${log.id}`)} />
               ))}
+              {recentLogs.length === 0 ? <p className="text-[12px] font-medium text-[#737373]">No saved logs yet.</p> : null}
             </div>
           </section>
         </div>

@@ -10,17 +10,65 @@ function PlantGrowthTimelinePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [posts, setPosts] = useState<Array<{ id: string; photo: string; note: string; date: string }>>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const returnTo = searchParams.get("returnTo");
+  const plantId = searchParams.get("plantId");
 
   useEffect(() => {
-    const raw = localStorage.getItem("ggPlantUpdates");
-    if (!raw) return;
+    if (!plantId) return;
     try {
-      setPosts(JSON.parse(raw));
+      sessionStorage.setItem("ggCurrentPlantId", plantId);
     } catch {
-      setPosts([]);
+      // Ignore storage write failures.
     }
-  }, []);
+  }, [plantId]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      setIsLoading(true);
+      if (!plantId) {
+        setPosts([]);
+        setIsLoading(false);
+        return;
+      }
+      try {
+        const cachedRaw = sessionStorage.getItem(`ggTimelineCache:${plantId}`);
+        if (cachedRaw) {
+          const cached = JSON.parse(cachedRaw) as Array<{ id: string; photo: string; note: string; date: string }>;
+          if (!cancelled && Array.isArray(cached)) {
+            setPosts(cached);
+            setIsLoading(false);
+          }
+        }
+      } catch {
+        // Ignore cache read failures.
+      }
+      const response = await fetch(`/api/plants/${plantId}/timeline`);
+      if (!response.ok) {
+        if (!cancelled) {
+          setPosts([]);
+          setIsLoading(false);
+        }
+        return;
+      }
+      const payload = (await response.json()) as { updates?: Array<{ id: string; photo: string; note: string; date: string }> };
+      if (!cancelled) {
+        const next = Array.isArray(payload.updates) ? payload.updates : [];
+        setPosts(next);
+        setIsLoading(false);
+        try {
+          sessionStorage.setItem(`ggTimelineCache:${plantId}`, JSON.stringify(next));
+        } catch {
+          // Ignore cache write failures.
+        }
+      }
+    };
+    void load();
+    return () => {
+      cancelled = true;
+    };
+  }, [plantId]);
 
   const timelineItems = useMemo(
     () =>
@@ -46,10 +94,14 @@ function PlantGrowthTimelinePageContent() {
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
-        <header className="flex items-center border-b border-black/10 bg-white p-4">
+        <header className="fixed left-0 right-0 top-0 z-30 flex w-full items-center border-b border-black/10 bg-white p-4">
           <button
             type="button"
             onClick={() => {
+              if (plantId) {
+                router.push(`/plant/${plantId}`);
+                return;
+              }
               if (returnTo) {
                 router.push(returnTo);
                 return;
@@ -66,8 +118,12 @@ function PlantGrowthTimelinePageContent() {
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto px-4 pb-[120px]">
-          {timelineItems.length > 0 ? (
+        <div className="flex-1 overflow-y-auto px-4 pb-[120px] pt-[72px]">
+          {isLoading && timelineItems.length === 0 ? (
+            <div className="pt-12 text-center">
+              <p className="text-[14px] font-medium text-[#525252]">Loading timeline...</p>
+            </div>
+          ) : timelineItems.length > 0 ? (
             <div className="pt-7">
               <p className="mx-auto w-[270px] text-center text-[20px] font-semibold leading-6 text-[#182a17]">Track your plant&apos;s growth over time</p>
               <div className="relative mt-8 min-h-[calc(100vh-280px)] pb-10">
@@ -99,7 +155,7 @@ function PlantGrowthTimelinePageContent() {
 
                     <button
                       type="button"
-                      onClick={() => router.push(`/plant/growth-timeline/${item.id}`)}
+                      onClick={() => router.push(`/plant/growth-timeline/${item.id}${plantId ? `?plantId=${plantId}` : ""}`)}
                       className={`ml-[90px] w-[calc(100%-90px)] rounded-[16px] border border-[#d4d4d4] bg-[#fafafa] p-2 text-left ${hasPhoto ? "" : "my-auto"}`}
                     >
                       {item.photo ? (
@@ -134,7 +190,7 @@ function PlantGrowthTimelinePageContent() {
         <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
           <button
             type="button"
-            onClick={() => router.push("/plant/growth-timeline/add-update")}
+            onClick={() => router.push(`/plant/growth-timeline/add-update${plantId ? `?plantId=${plantId}` : ""}`)}
             className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
           >
             {timelineItems.length > 0 ? "Add your plant update" : "Add your first update"}

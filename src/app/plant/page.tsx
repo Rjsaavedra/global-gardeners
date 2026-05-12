@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const heroImage = "/images/figma/placeholder-expired.png";
+const heroImage = "/images/rattlesnake-plant.jpg";
 const closeIcon = "/icons/new-plant/x.svg";
 const moreIcon = "/icons/new-plant/ellipsis-vertical.svg";
 const leafIcon = "/icons/logs/leaf.svg";
@@ -63,6 +63,10 @@ function AccordionRow({
 export default function PlantDetailPage() {
   const router = useRouter();
   const [openAccordion, setOpenAccordion] = useState("Watering & Moisture");
+  const [isSavingPlant, setIsSavingPlant] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [heroImageUrl, setHeroImageUrl] = useState(heroImage);
+  const [heroImages, setHeroImages] = useState<string[]>([heroImage]);
   const loremIpsum =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
@@ -70,17 +74,90 @@ export default function PlantDetailPage() {
     setOpenAccordion((current) => (current === title ? "" : title));
   };
 
+  useEffect(() => {
+    try {
+      const batchRaw = sessionStorage.getItem("ggPlantIdentifyPhotos");
+      if (batchRaw) {
+        const parsed = JSON.parse(batchRaw) as unknown;
+        if (Array.isArray(parsed)) {
+          const valid = parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+          if (valid.length) {
+            setHeroImages(valid);
+            setHeroImageUrl(valid[0]);
+            return;
+          }
+        }
+      }
+
+      const captured = sessionStorage.getItem("ggPlantIdentifyPhoto");
+      if (captured && captured.trim()) {
+        setHeroImageUrl(captured);
+        setHeroImages([captured]);
+      }
+    } catch {
+      // Ignore session storage access failures.
+    }
+  }, []);
+
+  const handleAddToGarden = async () => {
+    if (isSavingPlant) return;
+    setIsSavingPlant(true);
+    setSaveError("");
+
+    try {
+      const response = await fetch("/api/plants", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          commonName: "Rattlesnake Plant",
+          scientificName: "Goeppertia insignis",
+          description: "Rattlesnake plant added from identification flow.",
+          photos: [heroImageUrl],
+          lightLevel: "Medium Light",
+          wateringIntervalDays: 5,
+          temperatureMinC: 18,
+          temperatureMaxC: 24,
+          humidityPercent: 70,
+          careSections: [
+            { sectionKey: "watering_moisture", title: "Watering & Moisture", content: "Keep soil lightly moist and avoid complete dry-out." },
+            { sectionKey: "light", title: "Light", content: "Provide bright, indirect light and avoid harsh midday direct sun." },
+            { sectionKey: "temperature", title: "Temperature", content: "Best growth occurs in warm, stable indoor temperatures." },
+            { sectionKey: "humidity", title: "Humidity", content: "Prefers moderate-to-high humidity, especially in dry climates." },
+            { sectionKey: "fertilizing", title: "Fertilizing", content: "Feed monthly during active growth with a balanced fertilizer." },
+            { sectionKey: "repotting", title: "Repotting", content: "Repot when root-bound using a rich but well-draining mix." },
+            { sectionKey: "soil", title: "Soil", content: "Use airy, moisture-retentive soil with good drainage." },
+          ],
+        }),
+      });
+
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        setSaveError(payload?.error ?? "Unable to save plant.");
+        return;
+      }
+
+      router.push("/my-garden");
+    } catch {
+      setSaveError("Unable to save plant.");
+    } finally {
+      setIsSavingPlant(false);
+    }
+  };
+
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
         <div className="relative h-[357px] w-full overflow-hidden">
-          <img src={heroImage} alt="Rattlesnake Plant" className="h-full w-full object-cover" />
+          <img src={heroImageUrl} alt="Rattlesnake Plant" className="h-full w-full object-cover" />
 
-          <div className="absolute left-1/2 top-[325px] -translate-x-1/2 rounded-[999px] bg-[#f4f1e8] px-2 py-1.5">
-            <div aria-hidden="true" className="flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#d7d2c8]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#182a17]" />
-              <span className="h-1.5 w-1.5 rounded-full bg-[#d7d2c8]" />
+          <div className="absolute left-1/2 top-[325px] inline-flex h-4 -translate-x-1/2 items-center rounded-[999px] bg-[#f4f1e8] p-1">
+            <div aria-hidden="true" className="inline-flex items-center gap-1">
+              {heroImages.map((_, index) => (
+                <span
+                  key={`hero-dot-${index}`}
+                  className={`h-2 w-2 rounded-full ${index === 0 ? "bg-[#457941]" : "bg-[rgba(69,121,65,0.3)]"}`}
+                />
+              ))}
             </div>
           </div>
 
@@ -164,14 +241,23 @@ export default function PlantDetailPage() {
           </div>
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-40 w-full max-w-[390px] -translate-x-1/2 bg-[#f8f6f1] px-4 pb-4 pt-5">
-          <button type="button" className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]">
-            Add to My Garden
+        <div className="fixed bottom-0 left-0 right-0 z-40 w-full bg-[#f8f6f1] px-4 pb-4 pt-5">
+          <button
+            type="button"
+            onClick={() => {
+              void handleAddToGarden();
+            }}
+            disabled={isSavingPlant}
+            className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa] disabled:opacity-60"
+          >
+            {isSavingPlant ? "Saving..." : "Add to My Garden"}
           </button>
+          {saveError ? <p className="mt-2 text-center text-[12px] font-medium text-[#b91c1c]">{saveError}</p> : null}
         </div>
       </section>
     </main>
   );
 }
+
 
 

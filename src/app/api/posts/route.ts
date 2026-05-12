@@ -21,8 +21,8 @@ export async function POST(request: Request) {
   const body = (await request.json()) as CreatePostBody;
   const note = body.note?.trim() ?? "";
   const photos = sanitizePhotos(body.photos);
-  if (!photos.length) {
-    return NextResponse.json({ error: "Please upload at least one photo." }, { status: 400 });
+  if (!photos.length && !note) {
+    return NextResponse.json({ error: "Please provide a note or at least one photo." }, { status: 400 });
   }
 
   const supabase = createAuthedSupabaseClient(auth.accessToken);
@@ -41,16 +41,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: postError?.message ?? "Unable to create post." }, { status: 400 });
   }
 
-  const photoRows = photos.map((photoUrl, index) => ({
-    post_id: createdPost.id,
-    user_id: auth.userId,
-    photo_url: photoUrl,
-    sort_order: index,
-  }));
+  if (photos.length) {
+    const photoRows = photos.map((photoUrl, index) => ({
+      post_id: createdPost.id,
+      user_id: auth.userId,
+      photo_url: photoUrl,
+      sort_order: index,
+    }));
 
-  const { error: photosError } = await supabase.from("post_photos").insert(photoRows);
-  if (photosError) {
-    return NextResponse.json({ error: photosError.message }, { status: 400 });
+    const { error: photosError } = await supabase.from("post_photos").insert(photoRows);
+    if (photosError) {
+      return NextResponse.json({ error: photosError.message }, { status: 400 });
+    }
   }
 
   const response = NextResponse.json({ created: true, postId: createdPost.id });

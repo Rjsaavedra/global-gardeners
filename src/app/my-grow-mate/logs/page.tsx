@@ -1,41 +1,60 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type LogItem = {
-  id: number;
+  id: string;
   title: string;
   plant: string;
   topic: string;
+  logType: string;
   kind: "leaf" | "care" | "sprout";
 };
 
-const logs: LogItem[] = [
-  { id: 1, title: "Title of log", plant: "Plant name", topic: "Topic", kind: "leaf" },
-  { id: 2, title: "Monstera care plan outside of my house", plant: "Monstera", topic: "Care Plan", kind: "care" },
-  { id: 3, title: "Title of log", plant: "Plant name", topic: "Topic", kind: "sprout" },
-  { id: 4, title: "Title of log", plant: "Plant name", topic: "Topic", kind: "leaf" },
-  { id: 5, title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", kind: "care" },
-  { id: 6, title: "Title of log", plant: "Plant name", topic: "Topic", kind: "sprout" },
-  { id: 7, title: "Title of log", plant: "Plant name", topic: "Topic", kind: "leaf" },
-];
-
-const chipOptions = ["All", "Care Plan", "Topic 1", "Topic 2", "Topic 3"] as const;
-type LogFilter = (typeof chipOptions)[number];
+type LogFilter = string;
 
 export default function MyGrowMateLogsPage() {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<LogFilter>("All");
+  const [logs, setLogs] = useState<LogItem[]>([]);
+  const [chipOptions, setChipOptions] = useState<string[]>(["All"]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadLogs = async () => {
+      const response = await fetch("/api/my-grow-mate/logs");
+      if (!response.ok) return;
+      const payload = (await response.json()) as {
+        logs?: Array<{ id: string; title: string; plant: string; topic: string; logType?: string }>;
+      };
+      if (cancelled || !Array.isArray(payload.logs)) return;
+      const mappedLogs = payload.logs.map((log) => ({
+        id: log.id,
+        title: log.title || "Saved log",
+        plant: log.plant || "Plant name",
+        topic: log.topic || "Care Plan",
+        logType: log.logType || log.topic || "Care Plan",
+        kind: "care" as const,
+      }));
+      setLogs(mappedLogs);
+      const uniqueTypes = Array.from(new Set(mappedLogs.map((log) => log.logType).filter(Boolean)));
+      setChipOptions(["All", ...uniqueTypes]);
+    };
+    void loadLogs();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filtered = useMemo(() => {
-    const byFilter = logs.filter((log) => filter === "All" || log.topic === filter);
+    const byFilter = logs.filter((log) => filter === "All" || log.logType === filter);
     const q = query.trim().toLowerCase();
     if (!q) return byFilter;
     return byFilter.filter((log) => `${log.title} ${log.plant} ${log.topic}`.toLowerCase().includes(q));
-  }, [query, filter]);
+  }, [logs, query, filter]);
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] text-[#182a17]">
