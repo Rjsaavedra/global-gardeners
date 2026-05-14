@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DrawerItem, DrawerProfile, SideDrawer } from "@/components/feed-side-drawer";
-import { useDrawerProfileData, useFeedData, useNotificationsData, useOnboardingStatusData } from "@/lib/swr-hooks";
+import { useDrawerProfileData, useFeedData, useNotificationsData, useOnboardingStatusData, usePlantsData } from "@/lib/swr-hooks";
 
 type ProfileMeResponse = {
   fullName: string;
@@ -25,7 +25,34 @@ type OnboardingStatus = {
   pricingCompleted: boolean;
   interestsCompleted: boolean;
   firstPostCompleted: boolean;
+  fullNameCompleted?: boolean;
+  profilePhotoCompleted?: boolean;
+  nicknameCompleted?: boolean;
+  dismissedAt?: string | null;
+  completedAt?: string | null;
+  checklist?: Array<{ key: string; label: string; done: boolean }>;
+  percent?: number;
   nextStep: "/feed" | "/pricing" | "/interests" | "/onboarding";
+};
+
+type PlantCard = {
+  id: number;
+  commonName: string;
+  scientificName: string | null;
+  coverPhotoUrl: string | null;
+};
+
+type ProfileMediaItem = {
+  postId: string;
+  mediaIndex: number;
+  url: string;
+};
+
+const SETUP_STEP_ROUTE: Record<string, string> = {
+  personalize_experience: "/pricing",
+  add_first_plant: "/my-garden",
+  create_first_post: "/new-post",
+  select_interests: "/interests",
 };
 
 function getInitials(fullName: string) {
@@ -229,12 +256,14 @@ export default function ProfilePage() {
   const { data: profileData, error: profileError, isLoading: isProfileLoading } = useDrawerProfileData();
   const { data: feedData } = useFeedData();
   const { data: onboardingData } = useOnboardingStatusData();
+  const { data: plantsData } = usePlantsData();
   const { data: notificationsData } = useNotificationsData();
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
   const [profile, setProfile] = useState<ProfileMeResponse | null>(null);
   const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]);
   const [onboardingStatus, setOnboardingStatus] = useState<OnboardingStatus | null>(null);
+  const [plants, setPlants] = useState<PlantCard[]>([]);
   const [activeTab, setActiveTab] = useState<"grid" | "plants">("grid");
   const [isProgressCardHidden, setIsProgressCardHidden] = useState(false);
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
@@ -268,6 +297,12 @@ export default function ProfilePage() {
   useEffect(() => {
     setOnboardingStatus(onboardingData ?? null);
   }, [onboardingData]);
+  useEffect(() => {
+    setPlants(Array.isArray(plantsData?.plants) ? (plantsData.plants as PlantCard[]) : []);
+  }, [plantsData]);
+  useEffect(() => {
+    setIsProgressCardHidden(Boolean(onboardingData?.dismissedAt));
+  }, [onboardingData?.dismissedAt]);
 
   useEffect(() => {
     setIsLoading(isProfileLoading && !profile);
@@ -280,23 +315,41 @@ export default function ProfilePage() {
     return unique.size;
   }, [feedPosts]);
 
-  const mediaUrls = useMemo(
-    () =>
-      myPosts
-        .flatMap((post) => (post.mediaUrls?.length ? post.mediaUrls : post.mediaUrl ? [post.mediaUrl] : []))
-        .slice(0, 24),
-    [myPosts],
-  );
+  const profileMediaItems = useMemo(() => {
+    const items: ProfileMediaItem[] = [];
+    for (const post of myPosts) {
+      const media = post.mediaUrls?.length ? post.mediaUrls : post.mediaUrl ? [post.mediaUrl] : [];
+      media.forEach((url, index) => {
+        items.push({
+          postId: post.id,
+          mediaIndex: index,
+          url,
+        });
+      });
+      if (items.length >= 24) break;
+    }
+    return items.slice(0, 24);
+  }, [myPosts]);
 
   const progressSummary = useMemo(() => {
-    if (!onboardingStatus) return { completed: 0, total: 3, percent: 0 };
-    const completed = [onboardingStatus.pricingCompleted, onboardingStatus.interestsCompleted, onboardingStatus.firstPostCompleted].filter(Boolean).length;
-    const total = 3;
-    const percent = Math.round((completed / total) * 100);
-    return { completed, total, percent };
+    if (!onboardingStatus) return { completed: 0, total: 0, percent: 0, checklist: [] as Array<{ key: string; label: string; done: boolean }> };
+    const checklist = Array.isArray(onboardingStatus.checklist) ? onboardingStatus.checklist : [];
+    const completed = checklist.filter((item) => item.done).length;
+    const total = checklist.length;
+    const percent = total ? Math.round((completed / total) * 100) : 0;
+    return { completed, total, percent, checklist };
   }, [onboardingStatus]);
 
-  const showProgressCard = !isProgressCardHidden;
+  const handleCompleteSetupClick = () => {
+    const firstIncomplete = progressSummary.checklist.find((item) => !item.done);
+    if (!firstIncomplete) {
+      router.push("/feed");
+      return;
+    }
+    router.push(SETUP_STEP_ROUTE[firstIncomplete.key] ?? "/feed");
+  };
+
+  const showProgressCard = !isProgressCardHidden && progressSummary.percent < 100;
   const drawerProfile: DrawerProfile = {
     fullName: profile?.fullName || "Global Gardener",
     nickname: profile?.nickname || "@globalgardener",
@@ -386,6 +439,19 @@ export default function ProfilePage() {
       closeDrawer();
       router.replace("/login");
       setIsLoggingOut(false);
+    }
+  };
+
+  const handleDismissProgress = async () => {
+    setIsProgressCardHidden(true);
+    try {
+      await fetch("/api/profile/onboarding-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ dismissProfileSetup: true }),
+      });
+    } catch {
+      // keep local dismissal even if network fails
     }
   };
 
@@ -507,11 +573,13 @@ export default function ProfilePage() {
               </section>
 
               {showProgressCard ? (
-                <section className="relative rounded-[18px] border border-black/10 bg-white px-6 pb-6 pt-5">
+                <section className="relative rounded-[18px] border border-black/10 bg-white p-6">
                   <button
                     type="button"
                     aria-label="Dismiss profile progress"
-                    onClick={() => setIsProgressCardHidden(true)}
+                    onClick={() => {
+                      void handleDismissProgress();
+                    }}
                     className="absolute right-[6px] top-[6px] inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#f5f5f5] text-[#666666]"
                   >
                     <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 20 20">
@@ -519,26 +587,46 @@ export default function ProfilePage() {
                     </svg>
                   </button>
                   <p className="bg-[linear-gradient(90deg,_#182a17_0%,_#3c6838_20%,_#5fa659_70%)] bg-clip-text text-center text-[20px] font-semibold leading-6 tracking-[0] text-transparent">
-                    Complete your profile
+                    Complete your setup
                   </p>
 
-                  <div className="mt-8 flex flex-col gap-4">
-                    <div className="flex flex-col items-end gap-2">
-                      <div className="flex w-full items-center justify-between text-[12px] font-medium leading-4 text-[#171717]">
-                        <span>Pofile progress</span>
-                        <span>{progressSummary.percent}%</span>
+                  <div className="mt-8 flex flex-col gap-8">
+                    <div className="flex flex-col gap-6">
+                      <div className="flex flex-col items-end gap-2">
+                        <div className="flex w-full items-center justify-between text-[12px] font-medium leading-4 text-[#171717]">
+                          <span>Setup progress</span>
+                          <span>{progressSummary.percent}%</span>
+                        </div>
+                        <div className="h-2 w-full overflow-hidden rounded-[12px] bg-[#d4d4d4]">
+                          <div className="h-full rounded-l-[6px] bg-[#171717]" style={{ width: `${progressSummary.percent}%` }} />
+                        </div>
                       </div>
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-[#d4d4d4]">
-                        <div className="h-full rounded-full bg-[#171717]" style={{ width: `${progressSummary.percent}%` }} />
+                      <p className="mx-auto max-w-[310px] text-center text-[12px] font-medium leading-4 text-[#333333cc]">
+                        Complete the steps below to unlock a more personalized experience.
+                      </p>
+                      <div className="space-y-4">
+                        {progressSummary.checklist.map((item) => (
+                          <div key={item.key} className="flex items-center gap-2">
+                            {item.done ? (
+                              <span className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full border border-[#7ea87b] text-[#457941]">
+                                <svg aria-hidden="true" className="h-3.5 w-3.5" fill="none" viewBox="0 0 20 20">
+                                  <path d="M5.5 10.5L8.5 13.5L14.5 6.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+                                </svg>
+                              </span>
+                            ) : (
+                              <span className="inline-flex h-[18px] w-[18px] rounded-full border border-[#bfbfbf]" />
+                            )}
+                            <span className={`text-[14px] font-medium leading-5 ${item.done ? "text-[#333333cc]" : "text-[#33333366]"}`}>{item.label}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                    <p className="text-center text-[14px] font-medium leading-5 text-[#333333cc]">Add a few details to get more personalized tips and recommendations.</p>
                     <button
                       type="button"
-                      onClick={() => router.push(onboardingStatus?.nextStep ?? "/feed")}
-                      className="h-9 w-full rounded-full bg-\[#ef4444\] text-[14px] font-medium leading-5 text-[#fafafa]"
+                      onClick={handleCompleteSetupClick}
+                      className="h-10 w-full rounded-[1000px] bg-[#457941] px-4 text-[14px] font-medium leading-5 text-[#fafafa]"
                     >
-                      Continue setup
+                      Complete setup
                     </button>
                   </div>
                 </section>
@@ -583,11 +671,17 @@ export default function ProfilePage() {
 
             {activeTab === "grid" ? (
               <div className="mt-2 grid w-full grid-cols-3">
-                {mediaUrls.length ? (
-                  mediaUrls.map((url, index) => (
-                    <div key={`profile-grid-${index}`} className="relative aspect-square overflow-hidden border border-[#fafafa] bg-[#e5e5e5]">
-                      <Image src={url} alt={`Profile post ${index + 1}`} fill sizes="130px" className="object-cover" unoptimized loader={({ src }) => src} />
-                    </div>
+                {profileMediaItems.length ? (
+                  profileMediaItems.map((item, index) => (
+                    <button
+                      key={`profile-grid-${item.postId}-${index}`}
+                      type="button"
+                      className="relative aspect-square overflow-hidden border border-[#fafafa] bg-[#e5e5e5]"
+                      onClick={() => router.push(`/feed?postId=${item.postId}&mediaIndex=${item.mediaIndex}`)}
+                      aria-label={`Open post ${item.postId}`}
+                    >
+                      <Image src={item.url} alt={`Profile post ${index + 1}`} fill sizes="130px" className="object-cover" unoptimized loader={({ src }) => src} />
+                    </button>
                   ))
                 ) : (
                   <p className="col-span-3 mx-4 rounded-[12px] border border-black/10 bg-white p-4 text-center text-[14px] text-[#525252]">No posts yet.</p>
@@ -595,15 +689,31 @@ export default function ProfilePage() {
               </div>
             ) : (
               <div className="mt-2 grid w-full grid-cols-2 gap-4 px-4 pb-6">
-                {mediaUrls.length ? (
-                  mediaUrls.slice(0, 10).map((url, index) => (
-                    <article key={`plant-card-${index}`} className="overflow-hidden rounded-[12px] border border-black/10 bg-white">
+                {plants.length ? (
+                  plants.slice(0, 10).map((plant) => (
+                    <article
+                      key={`plant-card-${plant.id}`}
+                      className="cursor-pointer overflow-hidden rounded-[12px] border border-black/10 bg-white"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => router.push(`/plant/${plant.id}`)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          router.push(`/plant/${plant.id}`);
+                        }
+                      }}
+                    >
                       <div className="relative h-[153px] w-full bg-[#e5e5e5]">
-                        <Image src={url} alt={`Plant card ${index + 1}`} fill sizes="171px" className="object-cover" unoptimized loader={({ src }) => src} />
+                        {plant.coverPhotoUrl ? (
+                          <Image src={plant.coverPhotoUrl} alt={plant.commonName || "Plant photo"} fill sizes="171px" className="object-cover" unoptimized loader={({ src }) => src} />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-[#eef2e8] text-[12px] font-medium text-[#5a6b56]">No photo</div>
+                        )}
                       </div>
                       <div className="space-y-1 px-3 py-2">
-                        <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
-                        <p className="text-[12px] leading-4 text-[#333333cc]">Species name</p>
+                        <p className="truncate text-[14px] font-medium leading-5 text-[#333333]">{plant.commonName || "Plant name"}</p>
+                        <p className="truncate text-[12px] leading-4 text-[#333333cc]">{plant.scientificName || "Species name"}</p>
                       </div>
                     </article>
                   ))
@@ -635,6 +745,7 @@ export default function ProfilePage() {
     </main>
   );
 }
+
 
 
 

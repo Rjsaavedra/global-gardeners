@@ -28,6 +28,7 @@ export default function EditProfilePage() {
   const [profilePhotoUrl, setProfilePhotoUrl] = useState<string | null>(null);
   const [selectedPhotoFile, setSelectedPhotoFile] = useState<File | null>(null);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
+  const [removeCurrentPhoto, setRemoveCurrentPhoto] = useState(false);
   const [isCheckingName, setIsCheckingName] = useState(false);
   const [similarNames, setSimilarNames] = useState<string[]>([]);
   const [nameCheckError, setNameCheckError] = useState("");
@@ -125,8 +126,20 @@ export default function EditProfilePage() {
     if (!file) return;
     if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
     const preview = URL.createObjectURL(file);
+    setRemoveCurrentPhoto(false);
     setSelectedPhotoFile(file);
     setPhotoPreviewUrl(preview);
+    setSaveError("");
+  };
+
+  const onRemovePhoto = () => {
+    if (photoPreviewUrl) {
+      URL.revokeObjectURL(photoPreviewUrl);
+    }
+    setPhotoPreviewUrl(null);
+    setSelectedPhotoFile(null);
+    setProfilePhotoUrl(null);
+    setRemoveCurrentPhoto(true);
     setSaveError("");
   };
 
@@ -138,6 +151,9 @@ export default function EditProfilePage() {
       const formData = new FormData();
       formData.append("fullName", fullName.trim());
       formData.append("username", username.trim());
+      if (removeCurrentPhoto) {
+        formData.append("removePhoto", "true");
+      }
       if (selectedPhotoFile) {
         formData.append("photo", selectedPhotoFile);
       }
@@ -169,6 +185,7 @@ export default function EditProfilePage() {
       setFullName(result.fullName ?? "");
       setUsername((result.nickname ?? "").replace(/^@/, ""));
       setProfilePhotoUrl(result.profilePhotoUrl ?? null);
+      setRemoveCurrentPhoto(false);
       setSelectedPhotoFile(null);
       if (photoPreviewUrl) {
         URL.revokeObjectURL(photoPreviewUrl);
@@ -221,6 +238,11 @@ export default function EditProfilePage() {
                   <button type="button" onClick={onChoosePhoto} className="h-8 rounded-lg bg-[#171717] px-3 text-[14px] font-medium leading-5 text-[#fafafa]">
                     Change photo
                   </button>
+                  {displayedPhotoUrl ? (
+                    <button type="button" onClick={onRemovePhoto} className="h-8 rounded-lg border border-[#171717] bg-white px-3 text-[14px] font-medium leading-5 text-[#171717]">
+                      Remove
+                    </button>
+                  ) : null}
                   <input
                     ref={fileInputRef}
                     type="file"

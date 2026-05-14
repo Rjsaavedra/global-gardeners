@@ -438,7 +438,7 @@ export default function MyGrowMatePage() {
             <SectionHeader title="Your Saved Logs" onViewAll={recentLogs.length > 3 ? () => router.push("/my-grow-mate/logs") : null} />
             <div className="mt-6 flex w-full flex-col gap-3">
               {recentLogs.map((log, index) => (
-                <SavedLogRow key={`${log.title}-${log.plant}-${index}`} log={log} onClick={() => router.push(`/my-grow-mate/logs/log-detail-${log.id}`)} />
+                <SavedLogRow key={`${log.title}-${log.id}-${index}`} log={log} onClick={() => router.push(`/my-grow-mate/logs/log-detail-${log.id}`)} />
               ))}
               {recentLogs.length === 0 ? <p className="text-[12px] font-medium text-[#737373]">No saved logs yet.</p> : null}
             </div>

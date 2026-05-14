@@ -2,14 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const imgFrame1111 = "/images/figma/placeholder-expired.png";
-const imgFrame1112 = "/images/figma/placeholder-expired.png";
-const imgFrame1113 = "/images/figma/placeholder-expired.png";
-const imgFrame1114 = "/images/figma/placeholder-expired.png";
-const imgFrame1115 = "/images/figma/placeholder-expired.png";
-const imgFrame1116 = "/images/figma/placeholder-expired.png";
+const fallbackGalleryImage = "/images/figma/placeholder-expired.png";
 
 type GalleryStatus = "identified" | "unidentified";
 
@@ -17,18 +12,9 @@ type GalleryItem = {
   id: string;
   image: string;
   name: string;
-  species: string;
+  note: string;
   status: GalleryStatus;
 };
-
-const galleryItems: GalleryItem[] = [
-  { id: "g1", image: imgFrame1111, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "g2", image: imgFrame1112, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "g3", image: imgFrame1113, name: "Plant name", species: "Species name", status: "unidentified" },
-  { id: "g4", image: imgFrame1114, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "g5", image: imgFrame1115, name: "Plant name", species: "Species name", status: "unidentified" },
-  { id: "g6", image: imgFrame1116, name: "Plant name", species: "Species name", status: "identified" },
-];
 
 function SearchIcon() {
   return (
@@ -45,17 +31,57 @@ export default function GardenGalleryViewAllPage() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "identified" | "unidentified">("all");
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadGallery = async () => {
+      try {
+        const response = await fetch("/api/garden-gallery");
+        if (!response.ok) return;
+        const payload = (await response.json()) as {
+          entries?: Array<{
+            id: number;
+            title?: string | null;
+            note?: string | null;
+            coverPhotoUrl: string | null;
+            plants?: Array<{ commonName: string | null; scientificName: string | null }>;
+          }>;
+        };
+        if (cancelled || !Array.isArray(payload.entries)) return;
+        setGalleryItems(
+          payload.entries.map((entry) => {
+            const photoTitle = entry.title?.trim() || "Garden photo";
+            const note = entry.note?.trim() || "";
+            return {
+              id: String(entry.id),
+              image: entry.coverPhotoUrl ?? fallbackGalleryImage,
+              name: photoTitle,
+              note,
+              status: entry.plants?.[0]?.scientificName?.trim() ? "identified" : "unidentified",
+            } satisfies GalleryItem;
+          })
+        );
+      } catch {
+        // no-op
+      }
+    };
+    void loadGallery();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredItems = useMemo(() => {
     const normalized = searchValue.trim().toLowerCase();
     return galleryItems.filter((item) => {
       const matchesFilter = activeFilter === "all" ? true : item.status === activeFilter;
       const matchesSearch = normalized
-        ? item.name.toLowerCase().includes(normalized) || item.species.toLowerCase().includes(normalized)
+        ? item.name.toLowerCase().includes(normalized) || item.note.toLowerCase().includes(normalized)
         : true;
       return matchesFilter && matchesSearch;
     });
-  }, [activeFilter, searchValue]);
+  }, [activeFilter, searchValue, galleryItems]);
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
@@ -65,7 +91,7 @@ export default function GardenGalleryViewAllPage() {
             type="button"
             aria-label="Back to My Garden"
             className="inline-flex h-10 w-10 items-center justify-center transition"
-            onClick={() => router.back()}
+            onClick={() => router.push("/my-garden")}
           >
             <Image src="/icons/back-button.svg" alt="" aria-hidden="true" width={40} height={40} className="h-10 w-10" />
           </button>
@@ -130,7 +156,7 @@ export default function GardenGalleryViewAllPage() {
 
           <section className="grid grid-cols-2 gap-4">
             {filteredItems.map((item) => (
-              <article key={item.id} className="flex min-w-0 flex-col">
+              <article key={item.id} className="flex min-w-0 cursor-pointer flex-col" role="button" tabIndex={0} onClick={() => router.push(`/my-garden/gallery/${item.id}`)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); router.push(`/my-garden/gallery/${item.id}`); } }}>
                 <img
                   src={item.image}
                   alt={item.name}
@@ -138,7 +164,7 @@ export default function GardenGalleryViewAllPage() {
                 />
                 <div className="rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
                   <p className="text-[14px] font-medium leading-5 text-[#333333]">{item.name}</p>
-                  <p className="text-[12px] font-normal leading-4 text-[#333333cc]">{item.species}</p>
+                  <p className="line-clamp-2 text-[12px] font-normal leading-4 text-[#333333cc]">{item.note || "No note"}</p>
                 </div>
               </article>
             ))}

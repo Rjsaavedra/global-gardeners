@@ -21,6 +21,10 @@ type ProfileRow = {
   profile_photo_url: string | null;
 };
 
+type FollowRow = {
+  followed_user_id: string;
+};
+
 function toTimeAgo(createdAt: string) {
   const date = new Date(createdAt);
   const seconds = Math.max(1, Math.floor((Date.now() - date.getTime()) / 1000));
@@ -62,6 +66,14 @@ export async function GET(request: Request) {
     ? await supabase.from("profiles").select("user_id, full_name, nickname, profile_photo_url").in("user_id", actorIds)
     : { data: [] as ProfileRow[] };
   const profilesByUserId = new Map((profiles ?? []).map((profile) => [profile.user_id, profile]));
+  const { data: followRows } = actorIds.length
+    ? await supabase
+        .from("user_follows")
+        .select("followed_user_id")
+        .eq("follower_user_id", auth.userId)
+        .in("followed_user_id", actorIds)
+    : { data: [] as FollowRow[] };
+  const followedActorIds = new Set((followRows ?? []).map((row) => row.followed_user_id));
 
   const notifications = rows.map((row) => {
     const profile = row.actor_user_id ? profilesByUserId.get(row.actor_user_id) : undefined;
@@ -70,7 +82,7 @@ export async function GET(request: Request) {
     let canFollowBack = false;
     if (row.type === "follow") {
       message = "started following you";
-      canFollowBack = true;
+      canFollowBack = !followedActorIds.has(row.actor_user_id ?? "");
     } else if (row.type === "post_like") {
       message = "liked your post";
     } else if (row.type === "post_comment") {

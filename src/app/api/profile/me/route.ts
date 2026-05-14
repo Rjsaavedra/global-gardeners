@@ -109,6 +109,7 @@ export async function PATCH(request: Request) {
   const rawFullName = String(form.get("fullName") ?? "").trim();
   const rawUsername = String(form.get("username") ?? "").trim();
   const photo = form.get("photo");
+  const removePhoto = String(form.get("removePhoto") ?? "").trim().toLowerCase() === "true";
 
   const nextFullName = rawFullName || (typeof profile.full_name === "string" && profile.full_name.trim()) || fallbackFullName;
   const nextNickname = toSafeNickname(rawUsername, nextFullName);
@@ -137,7 +138,9 @@ export async function PATCH(request: Request) {
 
   let nextPhotoUrl: string | null = typeof profile.profile_photo_url === "string" ? profile.profile_photo_url : null;
 
-  if (photo instanceof File && photo.size > 0) {
+  if (removePhoto) {
+    nextPhotoUrl = null;
+  } else if (photo instanceof File && photo.size > 0) {
     const allowedTypes = new Set(["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"]);
     if (!allowedTypes.has(photo.type)) {
       return NextResponse.json({ error: "Unsupported image format. Please use JPG, PNG, WEBP, or GIF." }, { status: 400 });

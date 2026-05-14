@@ -58,12 +58,83 @@ function VideoCard({ image, mutedAgo }: { image: string; mutedAgo?: boolean }) {
   );
 }
 
+function formatViews(viewsCount: number) {
+  if (viewsCount >= 1_000_000) return `${(viewsCount / 1_000_000).toFixed(1).replace(/\.0$/, "")}M`;
+  if (viewsCount >= 1_000) return `${(viewsCount / 1_000).toFixed(1).replace(/\.0$/, "")}k`;
+  return `${viewsCount}`;
+}
+
+function formatDuration(durationSeconds: number) {
+  const total = Math.max(0, Math.floor(durationSeconds));
+  const min = Math.floor(total / 60);
+  const sec = total % 60;
+  return `${min}:${String(sec).padStart(2, "0")}`;
+}
+
+function extractYouTubeVideoId(videoUrl?: string | null) {
+  if (!videoUrl) return null;
+  try {
+    const parsed = new URL(videoUrl);
+    if (parsed.hostname.includes("youtu.be")) {
+      const fromPath = parsed.pathname.replace("/", "").trim();
+      if (fromPath) return fromPath;
+    }
+    const fromQuery = parsed.searchParams.get("v");
+    if (fromQuery) return fromQuery;
+  } catch {
+    // ignore malformed video url and fallback below
+  }
+  return null;
+}
+
+function resolveVideoThumbnail(thumbnailUrl: string | null, videoUrl?: string | null) {
+  if (thumbnailUrl && thumbnailUrl.trim().length > 0) return thumbnailUrl;
+  const videoId = extractYouTubeVideoId(videoUrl);
+  if (videoId) return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  return heroVideoA;
+}
+
+function formatSpotlightMonth(value: string) {
+  const parsed = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return value;
+  return parsed.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+function toEmbedUrl(videoUrl?: string | null) {
+  const videoId = extractYouTubeVideoId(videoUrl);
+  if (!videoId) return null;
+  return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&controls=1&rel=0&playsinline=1`;
+}
+
 export default function InfluencerSpotlightPage() {
   const router = useRouter();
   const [unreadNotifications, setUnreadNotifications] = useState(0);
-  const [selectedCandidateId, setSelectedCandidateId] = useState("2");
+  const [featuredInfluencer, setFeaturedInfluencer] = useState<{
+    id: number;
+    name: string;
+    shortDescription: string;
+    description: string;
+    avatarUrl: string | null;
+  } | null>(null);
+  const [featuredVideos, setFeaturedVideos] = useState<
+    Array<{ id: number; title: string; thumbnailUrl: string | null; durationSeconds: number; viewsCount: number; publishedAt: string | null }>
+  >([]);
+  const [nominees, setNominees] = useState<
+    Array<{ id: number; votesCount: number; percentage?: number; influencer: { id: number; slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>
+  >([]);
+  const [pastCreators, setPastCreators] = useState<
+    Array<{ id: number; spotlightMonth: string; influencer: { slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>
+  >([]);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<string>("");
+  const [votedNomineeId, setVotedNomineeId] = useState<string>("");
+  const [hasVotedThisCycle, setHasVotedThisCycle] = useState(false);
+  const [isSubmittingVote, setIsSubmittingVote] = useState(false);
   const [flowState, setFlowState] = useState<"none" | "vote-confirm" | "suggest" | "suggest-confirm">("none");
   const [suggestText, setSuggestText] = useState("");
+  const [isSubmittingSuggestion, setIsSubmittingSuggestion] = useState(false);
+  const [suggestError, setSuggestError] = useState<string | null>(null);
+  const [videoModalUrl, setVideoModalUrl] = useState<string | null>(null);
+  const [videoModalWatchUrl, setVideoModalWatchUrl] = useState<string | null>(null);
   const [isDrawerMounted, setIsDrawerMounted] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -118,6 +189,44 @@ export default function InfluencerSpotlightPage() {
       isMounted = false;
       clearInterval(intervalId);
       window.removeEventListener("focus", handleFocus);
+    };
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    const loadFeatured = async () => {
+      try {
+        const response = await fetch("/api/influencer-spotlight", { cache: "no-store" });
+        if (!response.ok || !isMounted) return;
+        const payload = (await response.json()) as {
+          featured: { id: number; name: string; shortDescription: string; description: string; avatarUrl: string | null } | null;
+          videos: Array<{ id: number; title: string; thumbnailUrl: string | null; durationSeconds: number; viewsCount: number; publishedAt: string | null }>;
+          nominees?: Array<{ id: number; votesCount: number; percentage?: number; influencer: { id: number; slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>;
+          pastCreators?: Array<{ id: number; spotlightMonth: string; influencer: { slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>;
+          currentUserVote?: { nomineeId: number } | null;
+          hasVoted?: boolean;
+        };
+        if (!isMounted) return;
+        setFeaturedInfluencer(payload.featured);
+        setFeaturedVideos(Array.isArray(payload.videos) ? payload.videos : []);
+        setPastCreators(Array.isArray(payload.pastCreators) ? payload.pastCreators : []);
+        const nomineeRows = Array.isArray(payload.nominees) ? payload.nominees : [];
+        setNominees(nomineeRows);
+        if (nomineeRows.length > 0) {
+          setSelectedCandidateId(String(nomineeRows[0].id));
+        }
+        const userVoted = Boolean(payload.hasVoted);
+        setHasVotedThisCycle(userVoted);
+        if (userVoted && payload.currentUserVote?.nomineeId) {
+          const votedId = String(payload.currentUserVote.nomineeId);
+          setVotedNomineeId(votedId);
+          setSelectedCandidateId(votedId);
+        }
+      } catch {}
+    };
+    void loadFeatured();
+    return () => {
+      isMounted = false;
     };
   }, []);
 
@@ -226,6 +335,66 @@ export default function InfluencerSpotlightPage() {
   const closeFlow = () => {
     setFlowState("none");
     setSuggestText("");
+    setSuggestError(null);
+  };
+
+  const handleSubmitSuggestion = async () => {
+    if (isSubmittingSuggestion) return;
+    const text = suggestText.trim();
+    if (text.length < 3) {
+      setSuggestError("Please enter at least 3 characters.");
+      return;
+    }
+    setIsSubmittingSuggestion(true);
+    setSuggestError(null);
+    try {
+      const response = await fetch("/api/influencer-spotlight/suggestions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ suggestionText: text }),
+      });
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        setSuggestError(payload?.error ?? "Unable to send suggestion.");
+        return;
+      }
+      setFlowState("suggest-confirm");
+    } finally {
+      setIsSubmittingSuggestion(false);
+    }
+  };
+
+  const handleSubmitVote = async () => {
+    if (!selectedCandidateId || isSubmittingVote) return;
+    setIsSubmittingVote(true);
+    try {
+      const response = await fetch("/api/influencer-spotlight", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nomineeId: Number(selectedCandidateId) }),
+      });
+      if (!response.ok) return;
+      const votePayload = (await response.json()) as { votedNomineeId?: number };
+      const votedId = String(votePayload.votedNomineeId ?? selectedCandidateId);
+      setNominees((prev) =>
+        prev.map((n) => (String(n.id) === selectedCandidateId ? { ...n, votesCount: n.votesCount + 1 } : n))
+      );
+      const nextNominees = nominees.map((n) =>
+        String(n.id) === selectedCandidateId ? { ...n, votesCount: n.votesCount + 1 } : n
+      );
+      const totalVotes = nextNominees.reduce((sum, n) => sum + Math.max(0, n.votesCount), 0);
+      setNominees(
+        nextNominees.map((n) => ({
+          ...n,
+          percentage: totalVotes > 0 ? Math.round((n.votesCount / totalVotes) * 100) : 0,
+        }))
+      );
+      setVotedNomineeId(votedId);
+      setHasVotedThisCycle(true);
+      setFlowState("vote-confirm");
+    } finally {
+      setIsSubmittingVote(false);
+    }
   };
 
   return (
@@ -265,85 +434,174 @@ export default function InfluencerSpotlightPage() {
             </div>
 
             <div className="mt-6">
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-center gap-3">
-                  <img src={heroAvatar} alt="Influencer" className="h-12 w-12 rounded-full object-cover" />
+                <div className="flex flex-col gap-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!featuredInfluencer?.slug) return;
+                      router.push(`/influencer-spotlight/profile?slug=${encodeURIComponent(featuredInfluencer.slug)}`);
+                    }}
+                    className="flex items-center justify-center gap-3"
+                  >
+                  <img src={featuredInfluencer?.avatarUrl || heroAvatar} alt={featuredInfluencer?.name || "Influencer"} className="h-12 w-12 rounded-full object-cover" />
                   <div>
-                    <p className="text-[18px] font-semibold leading-[27px] text-[#333333]">Influencer Name</p>
-                    <p className="text-[12px] font-medium leading-4 text-[#333333cc]">Indoor plant specialist</p>
+                    <p className="text-[18px] font-semibold leading-[27px] text-[#333333]">{featuredInfluencer?.name || "Influencer Name"}</p>
+                    <p className="text-[12px] font-medium leading-4 text-[#333333cc]">{featuredInfluencer?.shortDescription || "Indoor plant specialist"}</p>
                   </div>
-                </div>
+                </button>
                 <p className="text-center text-[14px] font-medium leading-5 text-[#333333cc]">
-                  Mario shares practical tips on indoor plant care, propagation, and plant health for beginner and experienced gardeners.
+                  {featuredInfluencer?.description || "Mario shares practical tips on indoor plant care, propagation, and plant health for beginner and experienced gardeners."}
                 </p>
               </div>
 
               <div className="mt-6 w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="flex gap-3">
-                  <VideoCard image={heroVideoA} />
-                  <VideoCard image={heroVideoB} mutedAgo />
+                  {featuredVideos.length > 0
+                    ? featuredVideos.map((video) => (
+                        <article
+                          key={video.id}
+                          className="w-[min(265px,calc(100vw-80px))] shrink-0 rounded-[12px] bg-[#f7f7f7] p-4"
+                          onClick={() => {
+                            const rawUrl = (video as { videoUrl?: string | null }).videoUrl ?? null;
+                            setVideoModalUrl(toEmbedUrl(rawUrl));
+                            setVideoModalWatchUrl(rawUrl);
+                          }}
+                        >
+                          <div className="relative aspect-[295/166] w-full overflow-hidden rounded-[8px]">
+                            <img
+                              src={resolveVideoThumbnail(video.thumbnailUrl, (video as { videoUrl?: string | null }).videoUrl)}
+                              alt=""
+                              className="h-full w-full rounded-[8px] object-cover"
+                              onError={(event) => {
+                                const target = event.currentTarget;
+                                if (target.src !== heroVideoA) target.src = heroVideoA;
+                              }}
+                            />
+                            <div className="absolute right-2 top-2 flex h-[40px] w-[40px] items-center justify-center">
+                              <img src={playOverlay} alt="" className="h-[40px] w-[40px]" />
+                            </div>
+                            <span className="absolute bottom-2 right-2 rounded-[6px] bg-black px-2 py-1 text-[12px] font-medium leading-[1.2] text-white">{formatDuration(video.durationSeconds)}</span>
+                          </div>
+                          <div className="mt-4 flex items-start gap-3">
+                            <div className="min-w-0 flex-1">
+                              <p className="text-[14px] font-medium leading-[1.2] text-[#333333]">{video.title}</p>
+                              <div className="mt-2 flex items-center gap-[6px]">
+                                <span className="text-[12px] font-medium leading-4 text-[#333333cc]">{formatViews(video.viewsCount)} views</span>
+                                <span aria-hidden="true" className="inline-block h-1 w-1 rounded-full bg-[#33333380]" />
+                                <span className="text-[12px] font-medium leading-4 text-[#33333380]">1 day ago</span>
+                              </div>
+                            </div>
+                            <img src={ellipsisIcon} alt="" className="mt-1 h-4 w-4" />
+                          </div>
+                        </article>
+                      ))
+                    : (
+                      <>
+                        <VideoCard image={heroVideoA} />
+                        <VideoCard image={heroVideoB} mutedAgo />
+                      </>
+                    )}
                 </div>
               </div>
             </div>
           </section>
 
           <section className="w-full rounded-[16px] border border-black/10 bg-white p-6">
-            <h3 className="mx-auto w-[244px] text-center text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Who should we feature next month?</h3>
-            <p className="mt-[18px] text-center text-[16px] font-medium leading-6 text-[#333333cc]">Which creator should we feature next?</p>
+            <h3 className="mx-auto w-[244px] text-center text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">
+              {hasVotedThisCycle ? "Thanks for voting!" : "Who should we feature next month?"}
+            </h3>
+            <p className="mt-[18px] text-center text-[16px] font-medium leading-6 text-[#333333cc]">
+              {hasVotedThisCycle ? "Your vote has been recorded." : "Which creator should we feature next?"}
+            </p>
 
-            <div className="mt-8 flex w-full flex-col gap-3">
-              {[1, 2, 3].map((id) => {
+            <div className="mt-8 flex w-full flex-col gap-2">
+              {nominees.map((nominee) => {
+                const id = nominee.id;
                 const selected = selectedCandidateId === String(id);
+                const isVoted = votedNomineeId === String(id);
                 return (
-                  <div key={id} className="flex h-[68px] gap-3">
+                  <div key={id} className={`flex ${hasVotedThisCycle ? "min-h-[68px]" : "h-[68px]"} gap-3`}>
                     <button
                       type="button"
-                      onClick={() => setSelectedCandidateId(String(id))}
-                      className={`flex flex-1 items-center rounded-[10px] border p-4 text-left ${selected ? "border-[#171717] bg-[#f8fafc]" : "border-[#e5e5e5] bg-white"}`}
+                      onClick={() => {
+                        if (!hasVotedThisCycle) {
+                          setSelectedCandidateId(String(id));
+                          return;
+                        }
+                        router.push(`/influencer-spotlight/profile?slug=${encodeURIComponent(nominee.influencer.slug)}`);
+                      }}
+                      className={`relative flex flex-1 items-center overflow-hidden rounded-[10px] border p-4 text-left ${selected ? "border-[#171717] bg-[#f8fafc]" : "border-[#e5e5e5] bg-white"}`}
                     >
-                      <span className={`relative h-4 w-4 rounded-full border ${selected ? "border-[#171717]" : "border-[#d4d4d4]"}`}>
-                        {selected ? <span className="absolute left-[3px] top-[3px] h-2 w-2 rounded-full bg-[#171717]" /> : null}
+                      {hasVotedThisCycle ? (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-y-0 left-0 rounded-l-[10px] bg-[#5fa659]/25"
+                          style={{ width: `${Math.min(100, Math.max(isVoted ? 44 : 18, nominee.percentage ?? 0))}%` }}
+                        />
+                      ) : null}
+                      {hasVotedThisCycle ? null : (
+                        <span className={`relative h-4 w-4 shrink-0 rounded-full border ${selected ? "border-[#171717]" : "border-[#d4d4d4]"}`}>
+                          {selected ? <span className="absolute left-[3px] top-[3px] h-2 w-2 rounded-full bg-[#171717]" /> : null}
+                        </span>
+                      )}
+                      <img src={nominee.influencer.avatarUrl || voteAvatar} alt={nominee.influencer.name} className="ml-3 h-9 w-9 rounded-full object-cover" />
+                      <span className="ml-3 min-w-0">
+                        <p className="text-[14px] font-medium leading-5 text-[#333333]">{nominee.influencer.name}</p>
+                        <p className={`text-[12px] font-medium leading-4 text-[#333333cc] ${hasVotedThisCycle ? "truncate whitespace-nowrap" : ""}`}>{nominee.influencer.shortDescription}</p>
                       </span>
-                      <img src={voteAvatar} alt="Influencer" className="ml-3 h-9 w-9 rounded-full object-cover" />
-                      <span className="ml-3">
-                        <p className="text-[14px] font-medium leading-5 text-[#333333]">Influencer Name</p>
-                        <p className="text-[12px] font-medium leading-4 text-[#333333cc]">Indoor plant specialist</p>
-                      </span>
+                      {hasVotedThisCycle ? (
+                        <span className="ml-auto flex shrink-0 items-center gap-2 pl-2">
+                          {isVoted ? <span className="rounded-full border border-[#5fa659] bg-[#f0fdf4] px-2 py-[2px] text-[10px] font-medium leading-4 text-[#5fa659]">Your vote</span> : null}
+                          <span className="text-[14px] font-semibold leading-5 text-[#333333]">{nominee.percentage ?? 0}%</span>
+                        </span>
+                      ) : null}
                     </button>
-                    <button type="button" className="w-[62px] rounded-[10px] bg-[#f7f7f7] p-3 text-[12px] font-medium leading-[1.2] text-black">View profile</button>
+                    {!hasVotedThisCycle ? (
+                      <button
+                        type="button"
+                        onClick={() => router.push(`/influencer-spotlight/profile?slug=${encodeURIComponent(nominee.influencer.slug)}`)}
+                        className="w-[62px] rounded-[10px] bg-[#f7f7f7] p-3 text-[12px] font-medium leading-[1.2] text-black"
+                      >
+                        View profile
+                      </button>
+                    ) : null}
                   </div>
                 );
               })}
+              {nominees.length === 0 ? <p className="text-center text-[14px] text-[#33333399]">No nominees available yet.</p> : null}
             </div>
 
             <button
               type="button"
-              onClick={() => setFlowState("vote-confirm")}
-              className="mt-8 h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+              onClick={() => void handleSubmitVote()}
+              disabled={!selectedCandidateId || nominees.length === 0 || isSubmittingVote || hasVotedThisCycle}
+              className="mt-8 h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa] disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Submit vote
+              {hasVotedThisCycle ? "Vote submitted" : isSubmittingVote ? "Submitting..." : "Submit vote"}
             </button>
-            <p className="mt-3 text-center text-[12px] font-normal leading-4 text-[#333333cc]">A confirmation email will be sent after voting.</p>
+            <p className="mt-3 text-center text-[12px] font-normal leading-4 text-[#333333cc]">
+              {hasVotedThisCycle ? "A confirmation email has been sent." : "A confirmation email will be sent after voting."}
+            </p>
           </section>
 
           <section className="w-full">
             <h3 className="text-[20px] font-semibold leading-6 text-[#333333]">Past Spotlight Creators</h3>
             <div className="mt-6">
               <div className="flex gap-3 overflow-x-auto pr-4">
-                {[1, 2].map((id) => (
-                  <article key={id} className="w-[min(265px,calc(100vw-64px))] shrink-0 rounded-[16px] border border-black/10 bg-white p-6">
+                {pastCreators.map((creator) => (
+                  <article key={creator.id} className="w-[min(265px,calc(100vw-64px))] shrink-0 rounded-[16px] border border-black/10 bg-white p-6">
                     <div className="flex flex-col items-center gap-6">
                       <div className="flex flex-col items-center gap-3">
-                        <img src={pastAvatar} alt="Past influencer" className="h-16 w-16 rounded-full object-cover" />
-                        <p className="text-[14px] font-semibold leading-5 text-[#182a17]">Influencer Name</p>
+                        <img src={creator.influencer.avatarUrl || pastAvatar} alt={creator.influencer.name} className="h-16 w-16 rounded-full object-cover" />
+                        <p className="text-[14px] font-semibold leading-5 text-[#182a17]">{creator.influencer.name}</p>
                         <div className="w-full rounded-[100px] border border-[#333333] bg-[rgba(255,255,255,0.2)] px-2 py-1">
-                          <p className="bg-gradient-to-r from-[#182a17] via-[#3c6838] to-[#5fa659] bg-clip-text text-center text-[12px] font-semibold leading-4 text-transparent">March 2025</p>
+                          <p className="bg-gradient-to-r from-[#182a17] via-[#3c6838] to-[#5fa659] bg-clip-text text-center text-[12px] font-semibold leading-4 text-transparent">{formatSpotlightMonth(creator.spotlightMonth)}</p>
                         </div>
-                        <p className="text-center text-[12px] font-medium leading-4 text-[#333333cc]">Mario shares practical tips on indoor plant care, propagation.</p>
+                        <p className="line-clamp-2 text-center text-[12px] font-medium leading-4 text-[#333333cc]">{creator.influencer.shortDescription}</p>
                       </div>
                       <button
                         type="button"
-                        onClick={() => router.push("/influencer-spotlight/past-creator")}
+                        onClick={() => router.push(`/influencer-spotlight/profile?slug=${encodeURIComponent(creator.influencer.slug)}`)}
                         className="h-8 w-full rounded-[100px] bg-[#f5f5f5] text-[14px] font-medium leading-5 text-black"
                       >
                         View videos
@@ -351,6 +609,7 @@ export default function InfluencerSpotlightPage() {
                     </div>
                   </article>
                 ))}
+                {pastCreators.length === 0 ? <p className="text-[14px] text-[#33333399]">No past spotlight creators yet.</p> : null}
               </div>
             </div>
           </section>
@@ -422,19 +681,24 @@ export default function InfluencerSpotlightPage() {
                       </p>
                       <textarea
                         value={suggestText}
-                        onChange={(event) => setSuggestText(event.target.value)}
+                        onChange={(event) => {
+                          setSuggestText(event.target.value);
+                          if (suggestError) setSuggestError(null);
+                        }}
                         placeholder="Share a creator you'd like to see featured..."
                         className="h-[120px] w-full resize-none rounded-[8px] border border-[#e5e5e5] p-2 text-[14px] leading-5 text-[#333333] placeholder:text-[#33333380] outline-none"
                       />
+                      {suggestError ? <p className="text-center text-[12px] text-[#b42318]">{suggestError}</p> : null}
                     </div>
                   </div>
                   <div className="space-y-2">
                     <button
                       type="button"
-                      onClick={() => setFlowState("suggest-confirm")}
-                      className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa]"
+                      onClick={() => void handleSubmitSuggestion()}
+                      disabled={isSubmittingSuggestion}
+                      className="h-[52px] w-full rounded-[1000px] bg-[#457941] text-[14px] font-medium leading-5 text-[#fafafa] disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Send
+                      {isSubmittingSuggestion ? "Sending..." : "Send"}
                     </button>
                     <button
                       type="button"
@@ -471,6 +735,39 @@ export default function InfluencerSpotlightPage() {
                 </>
               ) : null}
             </section>
+          </div>
+        ) : null}
+        {videoModalUrl ? (
+          <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-4" onClick={() => setVideoModalUrl(null)}>
+            <div className="relative w-full max-w-[720px]" onClick={(event) => event.stopPropagation()}>
+              <button
+                type="button"
+                aria-label="Close video"
+                className="absolute -top-10 right-0 rounded-full bg-white/90 px-3 py-1 text-[14px] font-medium text-[#171717]"
+                onClick={() => setVideoModalUrl(null)}
+              >
+                Close
+              </button>
+              <div className="aspect-video w-full overflow-hidden rounded-[12px] bg-black">
+                <iframe
+                  src={videoModalUrl}
+                  title="Influencer video"
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                  className="h-full w-full border-0"
+                />
+              </div>
+              {videoModalWatchUrl ? (
+                <a
+                  href={videoModalWatchUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-block rounded-full bg-white/90 px-3 py-1 text-[13px] font-medium text-[#171717]"
+                >
+                  Open in YouTube
+                </a>
+              ) : null}
+            </div>
           </div>
         ) : null}
       </section>

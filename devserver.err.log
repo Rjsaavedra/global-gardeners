@@ -131,3 +131,736 @@ See more: https://nextjs.org/docs/app/guides/local-development
   69 |
   70 |   const supabase = createAuthedSupabaseClient(auth.accessToken);
   71 |   const { data, error } = await supabase
+[TypeError: fetch failed] {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted address: vhfoacbjhalmcabeamtf.supabase.co:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[TypeError: fetch failed] {
+  [cause]: Error: getaddrinfo ENOTFOUND vhfoacbjhalmcabeamtf.supabase.co
+      at ignore-listed frames {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'vhfoacbjhalmcabeamtf.supabase.co'
+  }
+}
+[browser] Image with src "/images/figma/placeholder-expired.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)
+⨯ ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  [90m604 |[0m                     </button>
+  [90m605 |[0m                   </div>
+[31m[1m>[0m [90m606 |[0m                 </section>
+  [90m    |[0m                  [31m[1m^^^^^^^^^[0m
+  [90m607 |[0m               ) : [36mnull[0m}
+  [90m608 |[0m             </div>
+  [90m609 |[0m           ) : [36mnull[0m}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component]
+
+
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+⨯ ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  [90m604 |[0m                     </button>
+  [90m605 |[0m                   </div>
+[31m[1m>[0m [90m606 |[0m                 </section>
+  [90m    |[0m                  [31m[1m^^^^^^^^^[0m
+  [90m607 |[0m               ) : [36mnull[0m}
+  [90m608 |[0m             </div>
+  [90m609 |[0m           ) : [36mnull[0m}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component]
+
+
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13884:21)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13335:52) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13828:21)
+[browser] Uncaught Error: ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component]
+
+
+    at <unknown> (Error: ./src/app/profile/page.tsx:606:18)
+    at <unknown> (Error: (./src/app/profile/page.tsx:606:18)
+[browser] Uncaught Error: ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component]
+
+
+    at <unknown> (Error: ./src/app/profile/page.tsx:606:18)
+    at <unknown> (Error: (./src/app/profile/page.tsx:606:18)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] ./src/app/profile/page.tsx:606:18
+Unterminated regexp literal
+  604 |                     </button>
+  605 |                   </div>
+> 606 |                 </section>
+      |                  ^^^^^^^^^
+  607 |               ) : null}
+  608 |             </div>
+  609 |           ) : null}
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/app/profile/page.tsx [Client Component Browser]
+    ./src/app/profile/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/profile/page.tsx [Client Component SSR]
+    ./src/app/profile/page.tsx [Server Component] 
+    at handleErrors (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+    at processMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2827:28)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2679:13)
+    at WebSocket.handleMessage (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2324:17) (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_client_0pe1dg-._.js:2773:21)
+[browser] Uncaught ReferenceError: Cannot access 'filteredFeedPosts' before initialization
+    at FeedPageContent (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~6up_-._.js?id=%255Bproject%255D%252Fsrc%252Fapp%252Ffeed%252Fpage.tsx+%255Bapp-client%255D+%2528ecmascript%2529:2050:9)
+    at Object.react_stack_bottom_frame (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performSyncWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at flushSyncWork$1 (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9230:86)
+    at Object.scheduleRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:299:13)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:391:33)
+    at Set.forEach (<anonymous>)
+    at Object.performReactRefresh (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:384:38)
+    at applyUpdate (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:878:31)
+    at <unknown> (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:886:13)
+    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~6up_-._.js:3568:221)
+    at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_0yvlw.6._.js:6557:50)
+[browser] Uncaught ReferenceError: Cannot access 'filteredFeedPosts' before initialization
+    at FeedPageContent (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~6up_-._.js:2431:9)
+    at Object.react_stack_bottom_frame (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performWorkOnRootViaSchedulerTask (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64)
+    at FeedPage (file://D:/Global Gardeners/.next/dev/static/chunks/src_0~6up_-._.js:3591:221)
+    at ClientPageRoot (file://D:/Global Gardeners/.next/dev/static/chunks/node_modules_0yvlw.6._.js:6557:50)
+⚠ Fast Refresh had to perform a full reload due to a runtime error.

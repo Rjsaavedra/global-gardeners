@@ -17,44 +17,7 @@ type GuideCard = {
   readTime: string;
 };
 
-const guideCards: GuideCard[] = [
-  {
-    id: "guide-1",
-    title: "Global Gardeners Mini Guide ~ 1",
-    subtitle: "A gentle guide for everyday gardeners",
-    readTime: "10 min read",
-  },
-  {
-    id: "guide-2",
-    title: "The Ultimate Gardening Handbook: Your Go-To Resource for Green Thumbs",
-    subtitle: "A Friendly Companion for Daily Gardening Adventures",
-    readTime: "10 min read",
-  },
-  {
-    id: "guide-3",
-    title: "The Essential Gardening Guide",
-    subtitle: "A Supportive Guide for Casual Gardeners",
-    readTime: "10 min read",
-  },
-  {
-    id: "guide-4",
-    title: "The Comprehensive Gardening Manual: A Mini Guide for Enthusiasts",
-    subtitle: "An Easygoing Guide for Everyday Plant Lovers",
-    readTime: "10 min read",
-  },
-  {
-    id: "guide-5",
-    title: "Global Gardeners Mini Guide ~ 2",
-    subtitle: "A gentle guide for everyday gardeners",
-    readTime: "10 min read",
-  },
-  {
-    id: "guide-6",
-    title: "Global Gardeners Mini Guide ~ 2",
-    subtitle: "A gentle guide for everyday gardeners",
-    readTime: "10 min read",
-  },
-];
+const guideCards: GuideCard[] = [];
 
 function MenuIcon() {
   return (
@@ -88,6 +51,7 @@ export default function GuidesPage() {
     nickname: "@Global Gardener",
     profilePhotoUrl: null,
   });
+  const [cards, setCards] = useState<GuideCard[]>(guideCards);
 
   const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -99,6 +63,25 @@ export default function GuidesPage() {
     const profilePhotoUrl = typeof drawerProfileData?.profilePhotoUrl === "string" && drawerProfileData.profilePhotoUrl.trim() ? drawerProfileData.profilePhotoUrl.trim() : null;
     setDrawerProfile({ fullName, nickname, profilePhotoUrl });
   }, [drawerProfileData]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadGuides = async () => {
+      try {
+        const response = await fetch("/api/guides");
+        if (!response.ok) return;
+        const payload = (await response.json()) as { guides?: GuideCard[] };
+        if (cancelled || !Array.isArray(payload.guides)) return;
+        setCards(payload.guides);
+      } catch {
+        // no-op
+      }
+    };
+    void loadGuides();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openDrawer = () => {
     if (drawerCloseTimerRef.current) {
@@ -231,7 +214,7 @@ export default function GuidesPage() {
         </header>
 
         <div className="flex flex-col gap-2 px-4 pb-8 pt-[104px]">
-          {guideCards.map((guide) => (
+          {cards.map((guide) => (
             <button
               key={guide.id}
               type="button"

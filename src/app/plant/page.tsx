@@ -105,30 +105,49 @@ export default function PlantDetailPage() {
     setSaveError("");
 
     try {
-      const response = await fetch("/api/plants", {
-        method: "POST",
+      const payload = {
+        commonName: "Rattlesnake Plant",
+        scientificName: "Goeppertia insignis",
+        description: "Rattlesnake plant added from identification flow.",
+        photos: [heroImageUrl],
+        lightLevel: "Medium Light",
+        wateringIntervalDays: 5,
+        temperatureMinC: 18,
+        temperatureMaxC: 24,
+        humidityPercent: 70,
+        careSections: [
+          { sectionKey: "watering_moisture", title: "Watering & Moisture", content: "Keep soil lightly moist and avoid complete dry-out." },
+          { sectionKey: "light", title: "Light", content: "Provide bright, indirect light and avoid harsh midday direct sun." },
+          { sectionKey: "temperature", title: "Temperature", content: "Best growth occurs in warm, stable indoor temperatures." },
+          { sectionKey: "humidity", title: "Humidity", content: "Prefers moderate-to-high humidity, especially in dry climates." },
+          { sectionKey: "fertilizing", title: "Fertilizing", content: "Feed monthly during active growth with a balanced fertilizer." },
+          { sectionKey: "repotting", title: "Repotting", content: "Repot when root-bound using a rich but well-draining mix." },
+          { sectionKey: "soil", title: "Soil", content: "Use airy, moisture-retentive soil with good drainage." },
+        ],
+      };
+
+      const retakePlantIdRaw = typeof window !== "undefined" ? sessionStorage.getItem("ggRetakePlantId") : null;
+      const retakePlantId = retakePlantIdRaw?.trim() ?? "";
+      const isRetake = /^\d+$/.test(retakePlantId) && Number(retakePlantId) > 0;
+      let response = await fetch(isRetake ? `/api/plants/${retakePlantId}` : "/api/plants", {
+        method: isRetake ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          commonName: "Rattlesnake Plant",
-          scientificName: "Goeppertia insignis",
-          description: "Rattlesnake plant added from identification flow.",
-          photos: [heroImageUrl],
-          lightLevel: "Medium Light",
-          wateringIntervalDays: 5,
-          temperatureMinC: 18,
-          temperatureMaxC: 24,
-          humidityPercent: 70,
-          careSections: [
-            { sectionKey: "watering_moisture", title: "Watering & Moisture", content: "Keep soil lightly moist and avoid complete dry-out." },
-            { sectionKey: "light", title: "Light", content: "Provide bright, indirect light and avoid harsh midday direct sun." },
-            { sectionKey: "temperature", title: "Temperature", content: "Best growth occurs in warm, stable indoor temperatures." },
-            { sectionKey: "humidity", title: "Humidity", content: "Prefers moderate-to-high humidity, especially in dry climates." },
-            { sectionKey: "fertilizing", title: "Fertilizing", content: "Feed monthly during active growth with a balanced fertilizer." },
-            { sectionKey: "repotting", title: "Repotting", content: "Repot when root-bound using a rich but well-draining mix." },
-            { sectionKey: "soil", title: "Soil", content: "Use airy, moisture-retentive soil with good drainage." },
-          ],
-        }),
+        body: JSON.stringify(payload),
       });
+
+      // If stale retake id is present, safely fall back to creating a new plant.
+      if (isRetake && (response.status === 400 || response.status === 404)) {
+        try {
+          sessionStorage.removeItem("ggRetakePlantId");
+        } catch {
+          // Ignore storage failures.
+        }
+        response = await fetch("/api/plants", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }
 
       if (!response.ok) {
         const payload = (await response.json().catch(() => null)) as { error?: string } | null;
@@ -136,6 +155,13 @@ export default function PlantDetailPage() {
         return;
       }
 
+      if (isRetake) {
+        try {
+          sessionStorage.removeItem("ggRetakePlantId");
+        } catch {
+          // Ignore storage failures.
+        }
+      }
       router.push("/my-garden");
     } catch {
       setSaveError("Unable to save plant.");

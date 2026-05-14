@@ -39,7 +39,10 @@ export async function GET(request: Request) {
   const response = NextResponse.json({
     conversations: (data ?? []).map((row) => {
       const excerpt = lastUserMessageByConversation.get(row.id) ?? lastAnyMessageByConversation.get(row.id) ?? "";
-      const plantTitle = Array.isArray(row.plants) ? row.plants[0]?.common_name : row.plants?.common_name;
+      const plantRecord = Array.isArray(row.plants)
+        ? (row.plants[0] as { common_name?: string } | undefined)
+        : (row.plants as { common_name?: string } | null | undefined);
+      const plantTitle = typeof plantRecord?.common_name === "string" ? plantRecord.common_name : "";
       const resolvedTitle =
         row.title && row.title !== "Global Gardeners" ? row.title : plantTitle?.trim() ? plantTitle : "Global Gardeners";
 

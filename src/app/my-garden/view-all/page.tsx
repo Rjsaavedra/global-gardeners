@@ -2,14 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const imgFrame1111 = "/images/figma/placeholder-expired.png";
-const imgFrame1112 = "/images/figma/placeholder-expired.png";
-const imgFrame1113 = "/images/figma/placeholder-expired.png";
-const imgFrame1114 = "/images/figma/placeholder-expired.png";
-const imgFrame1115 = "/images/figma/placeholder-expired.png";
-const imgFrame1116 = "/images/figma/placeholder-expired.png";
+const fallbackPlantImage = "/images/figma/placeholder-expired.png";
 
 type PlantStatus = "identified" | "unidentified";
 
@@ -20,15 +15,6 @@ type PlantCard = {
   species: string;
   status: PlantStatus;
 };
-
-const plants: PlantCard[] = [
-  { id: "p1", image: imgFrame1111, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "p2", image: imgFrame1112, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "p3", image: imgFrame1113, name: "Plant name", species: "Species name", status: "unidentified" },
-  { id: "p4", image: imgFrame1114, name: "Plant name", species: "Species name", status: "identified" },
-  { id: "p5", image: imgFrame1115, name: "Plant name", species: "Species name", status: "unidentified" },
-  { id: "p6", image: imgFrame1116, name: "Plant name", species: "Species name", status: "identified" },
-];
 
 function SearchIcon() {
   return (
@@ -45,6 +31,45 @@ export default function MyGardenViewAllPage() {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "identified" | "unidentified">("all");
+  const [plants, setPlants] = useState<PlantCard[]>([]);
+  const [isLoadingPlants, setIsLoadingPlants] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadPlants = async () => {
+      setIsLoadingPlants(true);
+      try {
+        const response = await fetch("/api/plants");
+        if (!response.ok) return;
+
+        const payload = (await response.json()) as {
+          plants?: Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>;
+        };
+
+        if (!Array.isArray(payload.plants) || cancelled) return;
+
+        const normalizedPlants = payload.plants.map((plant) => ({
+          id: String(plant.id),
+          image: plant.coverPhotoUrl ?? fallbackPlantImage,
+          name: plant.commonName?.trim() || "Unnamed plant",
+          species: plant.scientificName?.trim() || "Unidentified",
+          status: plant.scientificName?.trim() ? "identified" : "unidentified",
+        } satisfies PlantCard));
+
+        setPlants(normalizedPlants);
+      } catch {
+        // Keep page resilient when request fails.
+      } finally {
+        if (!cancelled) setIsLoadingPlants(false);
+      }
+    };
+
+    void loadPlants();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const filteredPlants = useMemo(() => {
     const normalized = searchValue.trim().toLowerCase();
@@ -55,7 +80,7 @@ export default function MyGardenViewAllPage() {
         : true;
       return matchesFilter && matchesSearch;
     });
-  }, [activeFilter, searchValue]);
+  }, [activeFilter, searchValue, plants]);
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
@@ -130,7 +155,7 @@ export default function MyGardenViewAllPage() {
 
           <section className="grid grid-cols-2 gap-4">
             {filteredPlants.map((plant) => (
-              <article key={plant.id} className="flex min-w-0 flex-col">
+              <article key={plant.id} className="flex min-w-0 cursor-pointer flex-col" onClick={() => router.push(`/plant/${plant.id}`)}>
                 <img
                   src={plant.image}
                   alt={plant.name}
@@ -142,6 +167,16 @@ export default function MyGardenViewAllPage() {
                 </div>
               </article>
             ))}
+            {!isLoadingPlants && filteredPlants.length === 0 ? (
+              <p className="col-span-2 rounded-xl border border-black/10 bg-white p-4 text-center text-[14px] text-[#666666]">
+                No plants found.
+              </p>
+            ) : null}
+            {isLoadingPlants ? (
+              <p className="col-span-2 rounded-xl border border-black/10 bg-white p-4 text-center text-[14px] text-[#666666]">
+                Loading plants...
+              </p>
+            ) : null}
           </section>
         </div>
       </section>

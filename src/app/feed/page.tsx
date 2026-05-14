@@ -999,6 +999,8 @@ function FeedPageContent() {
   const reportConfirmationSheetCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLElement | null>(null);
+  const postElementRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const hasScrolledToTargetRef = useRef(false);
   const searchContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -1702,6 +1704,32 @@ function FeedPageContent() {
     });
   }, [activeSearchQuery, feedPosts]);
 
+  useEffect(() => {
+    const postId = searchParams.get("postId");
+    if (!postId) {
+      hasScrolledToTargetRef.current = false;
+      return;
+    }
+    if (isFeedLoading || hasScrolledToTargetRef.current || filteredFeedPosts.length === 0) {
+      return;
+    }
+
+    const targetNumericPostId = parseNumericPostId(postId);
+    const targetPost = filteredFeedPosts.find((post) => {
+      if (post.id === postId) return true;
+      if (!targetNumericPostId) return false;
+      return parseNumericPostId(post.id) === targetNumericPostId;
+    });
+    if (!targetPost) {
+      return;
+    }
+
+    const element = postElementRefs.current[targetPost.id];
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    hasScrolledToTargetRef.current = true;
+  }, [filteredFeedPosts, isFeedLoading, searchParams]);
+
   const handleToggleReplies = (threadId: string) => {
     setExpandedReplyThreadIds((previousThreadIds) =>
       previousThreadIds.includes(threadId)
@@ -1994,17 +2022,18 @@ function FeedPageContent() {
             </div>
           ) : null}
           {filteredFeedPosts.map((post) => (
-            <FeedCard
-              key={post.id}
-              isHeartPending={postHeartPendingIds.includes(post.id)}
-              onOpenComments={openCommentsSheet}
-              onToggleHeart={handleTogglePostHeart}
-              onOpenProfile={handleOpenProfile}
-              onOpenPostActions={openPostActionsSheet}
-              onFollow={handleFollow}
-              isFollowPending={followPendingAuthorIds.includes(post.authorId)}
-              post={post}
-            />
+            <div key={post.id} ref={(node) => { postElementRefs.current[post.id] = node; }}>
+              <FeedCard
+                isHeartPending={postHeartPendingIds.includes(post.id)}
+                onOpenComments={openCommentsSheet}
+                onToggleHeart={handleTogglePostHeart}
+                onOpenProfile={handleOpenProfile}
+                onOpenPostActions={openPostActionsSheet}
+                onFollow={handleFollow}
+                isFollowPending={followPendingAuthorIds.includes(post.authorId)}
+                post={post}
+              />
+            </div>
           ))}
         </div>
 

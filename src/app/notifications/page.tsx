@@ -21,6 +21,11 @@ type NotificationItem = {
   isRead?: boolean;
 };
 
+type NotificationsPayload = {
+  notifications?: NotificationItem[];
+  unreadCount?: number;
+};
+
 const emptyBellIcon = "/icons/notification-bell.svg";
 
 function SproutIcon() {
@@ -87,14 +92,36 @@ export default function NotificationsPage() {
     setNotifications((data?.notifications ?? []) as NotificationItem[]);
   }, [data]);
 
-  const handleNotificationClick = (item: NotificationItem) => {
+  const handleNotificationClick = async (item: NotificationItem) => {
     if (!item.isRead) {
       setNotifications((current) => current.map((entry) => (entry.id === item.id ? { ...entry, isRead: true } : entry)));
-      void fetch("/api/notifications", {
+      await mutate<NotificationsPayload>(
+        "/api/notifications",
+        (current) => {
+          const existing = current ?? {};
+          const currentNotifications = existing.notifications ?? [];
+          const wasUnread = currentNotifications.some((entry) => entry.id === item.id && !entry.isRead);
+          const nextNotifications = currentNotifications.map((entry) =>
+            entry.id === item.id ? { ...entry, isRead: true } : entry
+          );
+          const nextUnreadCount =
+            typeof existing.unreadCount === "number"
+              ? Math.max(0, existing.unreadCount - (wasUnread ? 1 : 0))
+              : existing.unreadCount;
+          return {
+            ...existing,
+            notifications: nextNotifications,
+            unreadCount: nextUnreadCount,
+          };
+        },
+        false
+      );
+      await fetch("/api/notifications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notificationId: item.id }),
-      });
+        cache: "no-store",
+      }).catch(() => null);
       void mutate("/api/notifications");
     }
 
@@ -155,7 +182,9 @@ export default function NotificationsPage() {
               <article
                 key={item.id}
                 className={`flex items-center gap-3 py-3 ${item.postId || item.type === "follow" ? "cursor-pointer" : ""}`}
-                onClick={() => handleNotificationClick(item)}
+                onClick={() => {
+                  void handleNotificationClick(item);
+                }}
               >
                 <NotificationMedia item={item} />
                 <div className="min-w-0 flex-1">

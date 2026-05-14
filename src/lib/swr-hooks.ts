@@ -53,3 +53,19 @@ export function useOnboardingStatusData() {
     dedupingInterval: 30_000,
   });
 }
+
+export type PlantsPayload = {
+  plants?: Array<{
+    id: number;
+    commonName: string;
+    scientificName: string | null;
+    coverPhotoUrl: string | null;
+    createdAt: string;
+  }>;
+};
+
+export function usePlantsData() {
+  return useSWR<PlantsPayload>("/api/plants", {
+    dedupingInterval: 20_000,
+  });
+}

@@ -39,22 +39,15 @@ function XIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-type MockPlant = {
+type PlantPickerItem = {
   id: string;
   name: string;
   species: string;
-  imageUrl: string;
+  imageUrl: string | null;
   identified: boolean;
 };
 
-const MOCK_PLANTS: MockPlant[] = [
-  { id: "1", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=200&q=80", identified: true },
-  { id: "2", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=200&q=80", identified: true },
-  { id: "3", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=200&q=80", identified: false },
-  { id: "4", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1509423350716-97f2360af9e4?auto=format&fit=crop&w=200&q=80", identified: true },
-  { id: "5", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=200&q=80", identified: false },
-  { id: "6", name: "Plant Name Here", species: "Species name", imageUrl: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=200&q=80", identified: true },
-];
+const DRAFT_ATTACHMENTS_STORAGE_KEY = "ggDraftPostAttachments";
 
 export default function NewPostPage() {
   const router = useRouter();
@@ -66,11 +59,13 @@ export default function NewPostPage() {
   const [plantSearch, setPlantSearch] = useState("");
   const [plantFilter, setPlantFilter] = useState<"all" | "identified" | "unidentified">("all");
   const [pendingPlantId, setPendingPlantId] = useState<string | null>(null);
-  const [attachedPlants, setAttachedPlants] = useState<MockPlant[]>([]);
+  const [attachedPlants, setAttachedPlants] = useState<PlantPickerItem[]>([]);
+  const [availablePlants, setAvailablePlants] = useState<PlantPickerItem[]>([]);
   const [saveToGallery, setSaveToGallery] = useState(true);
   const [timelineSelections, setTimelineSelections] = useState<Record<string, boolean>>({});
   const drawerSwipeStartYRef = useRef<number | null>(null);
   const drawerSwipeEndYRef = useRef<number | null>(null);
+  const [attachmentsDraftHydrated, setAttachmentsDraftHydrated] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -85,6 +80,100 @@ export default function NewPostPage() {
     } catch {
       setPhotoUrls([]);
     }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = sessionStorage.getItem(DRAFT_ATTACHMENTS_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as unknown;
+      if (!parsed || typeof parsed !== "object") return;
+
+      const attached =
+        Array.isArray((parsed as { attachedPlants?: unknown }).attachedPlants)
+          ? (parsed as { attachedPlants: unknown[] }).attachedPlants
+              .map((item) => {
+                if (!item || typeof item !== "object") return null;
+                const candidate = item as Partial<PlantPickerItem>;
+                if (typeof candidate.id !== "string" || typeof candidate.name !== "string" || typeof candidate.species !== "string") {
+                  return null;
+                }
+                return {
+                  id: candidate.id,
+                  name: candidate.name,
+                  species: candidate.species,
+                  imageUrl: typeof candidate.imageUrl === "string" ? candidate.imageUrl : null,
+                  identified: Boolean(candidate.identified),
+                } satisfies PlantPickerItem;
+              })
+              .filter((item): item is PlantPickerItem => item !== null)
+          : [];
+
+      const timeline =
+        (parsed as { timelineSelections?: unknown }).timelineSelections &&
+        typeof (parsed as { timelineSelections?: unknown }).timelineSelections === "object"
+          ? Object.fromEntries(
+              Object.entries((parsed as { timelineSelections: Record<string, unknown> }).timelineSelections).map(([key, value]) => [
+                key,
+                Boolean(value),
+              ])
+            )
+          : {};
+
+      setAttachedPlants(attached.slice(0, 2));
+      setTimelineSelections(timeline);
+    } catch {
+      // Ignore malformed cached attachment state.
+    } finally {
+      setAttachmentsDraftHydrated(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!attachmentsDraftHydrated) return;
+    const payload = {
+      attachedPlants,
+      timelineSelections,
+    };
+    sessionStorage.setItem(DRAFT_ATTACHMENTS_STORAGE_KEY, JSON.stringify(payload));
+  }, [attachedPlants, timelineSelections, attachmentsDraftHydrated]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadPlants = async () => {
+      try {
+        const response = await fetch("/api/plants");
+        if (!response.ok) return;
+        const payload = (await response.json()) as {
+          plants?: Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>;
+        };
+        if (!Array.isArray(payload.plants) || cancelled) return;
+
+        const normalized = payload.plants.map((plant) => {
+          const name = plant.commonName?.trim() || "Unnamed plant";
+          const species = plant.scientificName?.trim() || "Unidentified";
+          return {
+            id: String(plant.id),
+            name,
+            species,
+            imageUrl: plant.coverPhotoUrl,
+            identified: Boolean(plant.scientificName?.trim()),
+          };
+        });
+        setAvailablePlants(normalized);
+      } catch {
+        // Keep plant picker usable even if fetching fails.
+      }
+    };
+
+    void loadPlants();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handlePost = async () => {
@@ -104,6 +193,8 @@ export default function NewPostPage() {
         body: JSON.stringify({
           note,
           photos: photoUrls,
+          attachedPlantIds: attachedPlants.map((plant) => plant.id),
+          timelinePlantIds: attachedPlants.filter((plant) => Boolean(timelineSelections[plant.id])).map((plant) => plant.id),
         }),
       });
 
@@ -115,6 +206,7 @@ export default function NewPostPage() {
 
       sessionStorage.removeItem("ggDraftPostPhotos");
       sessionStorage.removeItem("ggCapturedPhoto");
+      sessionStorage.removeItem(DRAFT_ATTACHMENTS_STORAGE_KEY);
       router.push("/feed");
     } catch {
       setSubmitError("Unable to create post.");
@@ -134,7 +226,7 @@ export default function NewPostPage() {
   };
 
   const hasPhotos = photoUrls.length > 0;
-  const filteredPlants = MOCK_PLANTS.filter((plant) => {
+  const filteredPlants = availablePlants.filter((plant) => {
     if (plantFilter === "identified" && !plant.identified) return false;
     if (plantFilter === "unidentified" && plant.identified) return false;
     const term = plantSearch.trim().toLowerCase();
@@ -144,7 +236,7 @@ export default function NewPostPage() {
 
   const handleAttachPlant = () => {
     if (!pendingPlantId) return;
-    const match = MOCK_PLANTS.find((plant) => plant.id === pendingPlantId);
+    const match = availablePlants.find((plant) => plant.id === pendingPlantId);
     if (!match) return;
     if (attachedPlants.some((plant) => plant.id === match.id)) {
       setIsPlantDrawerOpen(false);
@@ -304,7 +396,7 @@ export default function NewPostPage() {
                   key={plant.id}
                   className="flex items-center gap-3 rounded-xl bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.05)]"
                 >
-                  <img src={plant.imageUrl} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
+                  <img src={plant.imageUrl ?? "/images/figma/placeholder-expired.png"} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[14px] font-medium leading-5 text-[#333333]">{plant.name}</p>
                     <p className="truncate text-[12px] leading-4 text-[#333333cc]">{plant.species}</p>
@@ -434,7 +526,7 @@ export default function NewPostPage() {
                         selected ? "bg-black/[0.02]" : "bg-transparent"
                       }`}
                     >
-                      <img src={plant.imageUrl} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
+                      <img src={plant.imageUrl ?? "/images/figma/placeholder-expired.png"} alt={plant.name} className="h-11 w-11 rounded-md object-cover" />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[14px] font-medium leading-5 text-[#333333]">{plant.name}</p>
                         <p className="truncate text-[12px] leading-4 text-[#333333cc]">{plant.species}</p>

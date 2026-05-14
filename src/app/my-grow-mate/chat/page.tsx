@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 type PlantOption = { id: number; name: string; species: string; image: string; identified: boolean };
 type TopicOption = { id: string; label: string };
 type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
+type ConversationMessage = { role: "user" | "assistant" | "system"; content: string };
 const DEMO_ASSISTANT_BODY =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.";
 
@@ -204,12 +205,16 @@ function MyGrowMateChatPageContent() {
       }
       if (!messagesRes.ok) return;
       const payload = (await messagesRes.json()) as {
-        messages?: Array<{ role: "user" | "assistant" | "system"; content: string }>;
+        messages?: ConversationMessage[];
       };
       const messages = payload.messages ?? [];
       const lastUserMessage = [...messages].reverse().find((m) => m.role === "user");
-      const normalized = messages
-        .filter((m) => m.role === "user" || m.role === "assistant")
+      const isChatMessage = (
+        message: ConversationMessage,
+      ): message is { role: ChatMessage["role"]; content: string } =>
+        message.role === "user" || message.role === "assistant";
+      const normalized: ChatMessage[] = messages
+        .filter(isChatMessage)
         .map((m, idx) => ({ id: `${m.role}-${idx}`, role: m.role, content: m.content }));
       if (normalized.length > 0) setMessages(normalized);
       else if (lastUserMessage) setMessages([{ id: "fallback", role: "user", content: lastUserMessage.content }]);

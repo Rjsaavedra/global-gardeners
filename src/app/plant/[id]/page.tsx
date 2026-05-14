@@ -44,6 +44,10 @@ export default function PlantByIdPage() {
   const [error, setError] = useState("");
   const [isPlantLoading, setIsPlantLoading] = useState(true);
   const [openAccordion, setOpenAccordion] = useState<string>("Watering & Moisture");
+  const [isActionsDrawerMounted, setIsActionsDrawerMounted] = useState(false);
+  const [isActionsDrawerVisible, setIsActionsDrawerVisible] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeletingPlant, setIsDeletingPlant] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -107,6 +111,47 @@ export default function PlantByIdPage() {
   const sections = Array.isArray(plant?.careSections) ? plant.careSections : [];
   const description = plant?.description || "No care description added yet.";
 
+  const openActionsDrawer = () => {
+    if (isActionsDrawerMounted) return;
+    setIsActionsDrawerMounted(true);
+    requestAnimationFrame(() => setIsActionsDrawerVisible(true));
+  };
+
+  const closeActionsDrawer = () => {
+    setIsActionsDrawerVisible(false);
+    setTimeout(() => setIsActionsDrawerMounted(false), 300);
+  };
+
+  const handleDeletePlant = async () => {
+    if (!plantId || isDeletingPlant) return;
+    setIsDeletingPlant(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/plants/${plantId}`, { method: "DELETE" });
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+        setError(payload?.error ?? "Unable to delete plant.");
+        return;
+      }
+      setIsDeleteDialogOpen(false);
+      closeActionsDrawer();
+      router.push("/my-garden");
+    } catch {
+      setError("Unable to delete plant.");
+    } finally {
+      setIsDeletingPlant(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!isActionsDrawerMounted) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isActionsDrawerMounted]);
+
   return (
     <main className="client-main min-h-screen bg-[#f8f6f1] px-0 sm:grid sm:place-items-center sm:px-8">
       <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] flex-col overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
@@ -119,6 +164,7 @@ export default function PlantByIdPage() {
             <button
               type="button"
               aria-label="More actions"
+              onClick={openActionsDrawer}
               className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-black/10 bg-white p-[8.889px]"
             >
               <img src={moreIcon} alt="" aria-hidden="true" className="h-6 w-6" />
@@ -173,6 +219,82 @@ export default function PlantByIdPage() {
           {isPlantLoading ? <p className="mt-4 text-[12px] font-medium text-[#737373]">Loading plant details...</p> : null}
           {error ? <p className="mt-4 text-[12px] font-medium text-[#b91c1c]">{error}</p> : null}
         </div>
+        {isActionsDrawerMounted ? (
+          <div className="fixed inset-0 z-50">
+            <button
+              type="button"
+              aria-label="Close actions drawer"
+              onClick={closeActionsDrawer}
+              className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${isActionsDrawerVisible ? "opacity-100" : "opacity-0"}`}
+            />
+            <section
+              className={`absolute bottom-0 left-0 right-0 rounded-t-[24px] border border-[rgba(212,212,212,0.5)] bg-[#f8f6f1] px-4 pb-5 pt-6 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] transition-transform duration-300 ${isActionsDrawerVisible ? "translate-y-0" : "translate-y-full"}`}
+            >
+              <div className="mx-auto mb-8 h-[3px] w-20 rounded-[2px] bg-[rgba(0,0,0,0.1)]" />
+              <div className="mb-8 space-y-4 text-center">
+                <p className="text-[32px] font-semibold leading-6 tracking-[-1px] text-[#182a17]">Wrong plant?</p>
+                <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Try taking another photo for a more accurate result.</p>
+              </div>
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeActionsDrawer();
+                    try {
+                      if (plantId) {
+                        sessionStorage.setItem("ggRetakePlantId", String(plantId));
+                      }
+                    } catch {
+                      // Ignore session storage failures.
+                    }
+                    router.push("/my-garden/add-plant");
+                  }}
+                  className="h-[52px] w-full rounded-[1000px] bg-[#457941] px-6 text-[14px] font-medium leading-5 text-white"
+                >
+                  Retake photo
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsDeleteDialogOpen(true);
+                  }}
+                  className="h-[52px] w-full rounded-[1000px] bg-[#dc2626] px-6 text-[14px] font-medium leading-5 text-white"
+                >
+                  Delete plant
+                </button>
+                <button type="button" onClick={closeActionsDrawer} className="h-[52px] w-full rounded-[100px] bg-white px-6 text-[14px] font-medium leading-5 text-[#333333]">
+                  Cancel
+                </button>
+              </div>
+            </section>
+            {isDeleteDialogOpen ? (
+              <div className="absolute inset-0 z-[60] flex items-center justify-center px-4">
+                <button type="button" aria-label="Close delete confirmation" className="absolute inset-0 bg-black/40" onClick={() => setIsDeleteDialogOpen(false)} />
+                <section className="relative w-full max-w-[358px] rounded-[12px] border border-[#e5e5e5] bg-[#f8f6f1] p-8 text-center shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)]">
+                  <div className="space-y-4">
+                    <p className="text-[32px] font-semibold leading-6 tracking-[-1px] text-[#182a17]">Delete plant?</p>
+                    <p className="text-[14px] font-medium leading-5 text-[#333333cc]">This action cannot be undone.</p>
+                  </div>
+                  <div className="mt-8 space-y-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        void handleDeletePlant();
+                      }}
+                      disabled={isDeletingPlant}
+                      className="min-h-9 w-full rounded-[100px] bg-[#ef4444] px-4 py-2 text-[14px] font-medium leading-5 text-white disabled:opacity-60"
+                    >
+                      {isDeletingPlant ? "Deleting..." : "Delete"}
+                    </button>
+                    <button type="button" onClick={() => setIsDeleteDialogOpen(false)} className="min-h-9 w-full rounded-[100px] bg-white px-4 py-2 text-[14px] font-medium leading-5 text-[#0a0a0a]">
+                      Cancel
+                    </button>
+                  </div>
+                </section>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </section>
     </main>
   );

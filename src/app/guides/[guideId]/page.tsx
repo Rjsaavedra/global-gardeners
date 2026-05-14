@@ -1,17 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const detailHeroImage = "/images/figma/placeholder-expired.png";
 
-const guideDetailBody = [
-  "This little guide was created to bring gardeners together - beginners, experts, and everyone in between. Gardening is a shared journey, shaped by the people who teach us, inspire us, and remind us to slow down and notice the small, beautiful things. Global Gardeners was built with that spirit in mind: a place where knowledge is shared freely, where stories matter, and where community comes first.",
-  "Inside these pages, you'll find gentle guidance, practical tips, and wisdom from some of the creators who have shaped our own gardening paths. They are part of the foundation of this community, and we're grateful to share their voices with you.",
-  "Whether you're tending a single houseplant or a full backyard garden, we're glad you're here. Take what resonates, return to it as the seasons change, and let it be a companion as you grow.",
-  "Welcome to our world. We're so happy to have you with us.",
-  "- Vicki, Founder of Global Gardeners",
-];
+const guideDetailBody = [] as string[];
 
 const guideSections = [
   "How to Use This Guide",
@@ -51,6 +46,35 @@ function ChevronDownIcon() {
 
 export default function GuideDetailPage() {
   const router = useRouter();
+  const params = useParams<{ guideId: string }>();
+  const [title, setTitle] = useState("Global Gardeners Mini Guide ~ 1");
+  const [subtitle, setSubtitle] = useState("A gentle guide for everyday gardeners");
+  const [readTime, setReadTime] = useState("10 min read");
+  const [paragraphs, setParagraphs] = useState<string[]>(guideDetailBody);
+
+  useEffect(() => {
+    const guideId = params?.guideId;
+    if (!guideId) return;
+    let cancelled = false;
+    const loadGuide = async () => {
+      try {
+        const response = await fetch(`/api/guides/${guideId}`);
+        if (!response.ok) return;
+        const payload = (await response.json()) as { guide?: { title: string; subtitle: string; readTime: string; paragraphs: string[] } };
+        if (cancelled || !payload.guide) return;
+        setTitle(payload.guide.title || title);
+        setSubtitle(payload.guide.subtitle || subtitle);
+        setReadTime(payload.guide.readTime || readTime);
+        setParagraphs(Array.isArray(payload.guide.paragraphs) ? payload.guide.paragraphs : []);
+      } catch {
+        // no-op
+      }
+    };
+    void loadGuide();
+    return () => {
+      cancelled = true;
+    };
+  }, [params?.guideId]);
 
   return (
     <main className="client-main min-h-screen bg-[radial-gradient(circle_at_top,_#fffdf7_0%,_#f8f6f1_50%,_#efe9dc_100%)] px-0 text-[#182a17]">
@@ -76,13 +100,13 @@ export default function GuideDetailPage() {
             />
           </div>
 
-          <p className="mt-2 text-[14px] font-medium leading-5 text-[#33333399]">10 min read</p>
-          <h1 className="mt-2 text-[30px] font-semibold leading-[1.2] tracking-[-1px] text-[#182a17]">Global Gardeners Mini Guide ~ 1</h1>
-          <p className="mt-2 text-[16px] font-medium leading-6 text-[#333333cc]">A gentle guide for everyday gardeners</p>
+          <p className="mt-2 text-[14px] font-medium leading-5 text-[#33333399]">{readTime}</p>
+          <h1 className="mt-2 text-[30px] font-semibold leading-[1.2] tracking-[-1px] text-[#182a17]">{title}</h1>
+          <p className="mt-2 text-[16px] font-medium leading-6 text-[#333333cc]">{subtitle}</p>
 
           <h2 className="mt-10 text-[18px] font-medium leading-[27px] text-[#333333]">Welcome to Global Gardeners</h2>
           <div className="mt-4 space-y-[14px] text-[14px] font-medium leading-5 text-[#333333cc]">
-            {guideDetailBody.map((paragraph) => (
+            {(paragraphs.length ? paragraphs : guideDetailBody).map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>

@@ -50,6 +50,11 @@ export default function MyGardenPage() {
   });
   const [myPlants, setMyPlants] = useState<Array<{ id: number; commonName: string; scientificName: string | null; coverPhotoUrl: string | null }>>([]);
   const [isPlantsLoading, setIsPlantsLoading] = useState(true);
+  const [galleryEntries, setGalleryEntries] = useState<Array<{ id: number; coverPhotoUrl: string | null; title: string; note: string }>>([]);
+  const [totalGalleryCount, setTotalGalleryCount] = useState(0);
+  const [recentLogs, setRecentLogs] = useState<Array<{ id: string; title: string; plant: string; topic: string }>>([]);
+  const [totalLogCount, setTotalLogCount] = useState(0);
+  const [totalPostCount, setTotalPostCount] = useState(0);
 
   const drawerCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
@@ -67,6 +72,26 @@ export default function MyGardenPage() {
     const profilePhotoUrl = typeof drawerProfileData?.profilePhotoUrl === "string" && drawerProfileData.profilePhotoUrl.trim() ? drawerProfileData.profilePhotoUrl.trim() : null;
     setDrawerProfile({ fullName, nickname, profilePhotoUrl });
   }, [drawerProfileData]);
+  useEffect(() => {
+    let cancelled = false;
+    const loadStats = async () => {
+      try {
+        const response = await fetch("/api/my-garden/stats");
+        if (!response.ok) return;
+        const payload = (await response.json()) as { careLogCount?: number; postCount?: number };
+        if (cancelled) return;
+        if (typeof payload.careLogCount === "number") setTotalLogCount(payload.careLogCount);
+        if (typeof payload.postCount === "number") setTotalPostCount(payload.postCount);
+      } catch {
+        // Keep current defaults if stats fail.
+      }
+    };
+    void loadStats();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -102,6 +127,70 @@ export default function MyGardenPage() {
     };
 
     void loadPlants();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadLogs = async () => {
+      try {
+        const response = await fetch("/api/my-grow-mate/logs");
+        if (!response.ok) return;
+        const payload = (await response.json()) as {
+          logs?: Array<{ id: string; title: string; plant: string; topic: string }>;
+        };
+        if (cancelled || !Array.isArray(payload.logs)) return;
+        setTotalLogCount(payload.logs.length);
+        setRecentLogs(
+          payload.logs.slice(0, 3).map((log) => ({
+            id: log.id,
+            title: log.title || "Saved log",
+            plant: log.plant || "Plant name",
+            topic: log.topic || "Care Plan",
+          }))
+        );
+      } catch {
+        // Keep static shell visible even if logs fail to load.
+      }
+    };
+    void loadLogs();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadGallery = async () => {
+      try {
+        const response = await fetch("/api/garden-gallery");
+        if (!response.ok) return;
+        const payload = (await response.json()) as {
+          entries?: Array<{
+            id: number;
+            title?: string | null;
+            note?: string | null;
+            coverPhotoUrl: string | null;
+            plants?: Array<{ commonName: string | null; scientificName: string | null }>;
+          }>;
+        };
+        if (cancelled || !Array.isArray(payload.entries)) return;
+        setTotalGalleryCount(payload.entries.length);
+        setGalleryEntries(
+          payload.entries.slice(0, 8).map((entry) => ({
+            id: entry.id,
+            coverPhotoUrl: entry.coverPhotoUrl,
+            title: entry.title?.trim() || "Garden photo",
+            note: entry.note?.trim() || "No note",
+          }))
+        );
+      } catch {
+        // no-op
+      }
+    };
+    void loadGallery();
     return () => {
       cancelled = true;
     };
@@ -254,17 +343,17 @@ export default function MyGardenPage() {
                     <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Species</p>
                   </div>
               </article>
-              <article className="flex w-full items-center gap-4 rounded-full border border-[#e5e5e5] bg-white px-3 py-3">
+                <article className="flex w-full items-center gap-4 rounded-full border border-[#e5e5e5] bg-white px-3 py-3">
                   <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={imgLogsIcon} alt="" className="h-6 w-6" /></div>
                   <div>
-                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">6</p>
+                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">{totalLogCount}</p>
                     <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Care logs</p>
                   </div>
               </article>
               <article className="flex w-full items-center gap-4 rounded-full border border-[#e5e5e5] bg-white px-3 py-3">
                   <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={imgCameraIcon} alt="" className="h-6 w-6" /></div>
                   <div>
-                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">34</p>
+                    <p className="text-[16px] font-semibold leading-6 text-[#333333]">{totalPostCount}</p>
                     <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Posts</p>
                   </div>
               </article>
@@ -353,9 +442,6 @@ export default function MyGardenPage() {
                   </div>
                 </article>
               ))}
-              {!isPlantsLoading && myPlants.length === 0 ? (
-                <p className="px-2 text-[12px] font-medium text-[#737373]">No plants yet.</p>
-              ) : null}
             </div>
           </section>
 
@@ -365,32 +451,30 @@ export default function MyGardenPage() {
                 <p className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">MyGrowMate Logs</p>
                 <p className="text-[16px] font-medium leading-6 text-[#333333cc]">AI care insights for your plants</p>
               </div>
-              <button type="button" className="flex items-center gap-[2px]" onClick={() => router.push("/my-grow-mate/logs")}>
-                <span className="text-[14px] font-medium leading-5 text-[#737373]">View all</span>
-                <img src={imgChevronRight} alt="" className="h-6 w-6" />
-              </button>
+              {totalLogCount > 3 ? (
+                <button type="button" className="flex items-center gap-[2px]" onClick={() => router.push("/my-grow-mate/logs")}>
+                  <span className="text-[14px] font-medium leading-5 text-[#737373]">View all</span>
+                  <img src={imgChevronRight} alt="" className="h-6 w-6" />
+                </button>
+              ) : null}
             </div>
             <div className="flex flex-col gap-3">
-              {[
-                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon, slug: "title-of-log-1" },
-                { title: "Montera Care Plan", plant: "Monstera", topic: "Care Plan", icon: imgCareIcon, slug: "montera-care-plan" },
-                { title: "Title of log", plant: "Plant name", topic: "Topic", icon: imgSproutIcon, slug: "title-of-log-2" },
-              ].map((row, index) => (
+              {recentLogs.map((row, index) => (
                 <article
-                  key={`${row.title}-${row.plant}-${index}`}
+                  key={`${row.id}-${index}`}
                   className="flex w-full cursor-pointer items-center gap-4 rounded-full border border-black/10 bg-white p-4"
                   role="button"
                   tabIndex={0}
-                  onClick={() => router.push(`/my-grow-mate/logs/${row.slug}`)}
+                  onClick={() => router.push(`/my-grow-mate/logs/log-detail-${row.id}`)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
                       event.preventDefault();
-                      router.push(`/my-grow-mate/logs/${row.slug}`);
+                      router.push(`/my-grow-mate/logs/log-detail-${row.id}`);
                     }
                   }}
                 >
                   <div className="flex min-w-0 flex-1 items-center gap-3">
-                    <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={row.icon} alt="" className="h-6 w-6" /></div>
+                    <div className="rounded-full bg-[#f0fdf4cc] p-2"><img src={imgCareIcon} alt="" className="h-6 w-6" /></div>
                     <div className="min-w-0">
                       <p className="text-[14px] font-medium leading-5 text-[#333333]">{row.title}</p>
                       <div className="flex items-center gap-[6px]">
@@ -403,6 +487,9 @@ export default function MyGardenPage() {
                   <img src={imgChevronRight} alt="" className="h-6 w-6" />
                 </article>
               ))}
+              {recentLogs.length === 0 ? (
+                <p className="rounded-full border border-black/10 bg-white px-4 py-3 text-[12px] font-medium text-[#737373]">No saved logs yet.</p>
+              ) : null}
             </div>
           </section>
 
@@ -412,13 +499,15 @@ export default function MyGardenPage() {
                 <p className="text-[24px] font-semibold leading-[28.8px] tracking-[-1px] text-[#182a17]">Garden Gallery</p>
                 <p className="text-[16px] font-medium leading-6 text-[#333333cc]">Your garden moments</p>
               </div>
-              <button type="button" className="flex items-center gap-[2px]" onClick={() => router.push("/my-garden/gallery")}>
-                <span className="text-[14px] font-medium leading-5 text-[#737373]">View all</span>
-                <img src={imgChevronRight} alt="" className="h-6 w-6" />
-              </button>
+              {totalGalleryCount > 1 ? (
+                <button type="button" className="flex items-center gap-[2px]" onClick={() => router.push("/my-garden/gallery")}>
+                  <span className="text-[14px] font-medium leading-5 text-[#737373]">View all</span>
+                  <img src={imgChevronRight} alt="" className="h-6 w-6" />
+                </button>
+              ) : null}
             </div>
             <div className="flex items-center gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <article className="flex h-[231px] w-[160px] shrink-0 flex-col items-center justify-center gap-4 rounded-[12px] border border-black/10 bg-white p-4">
+              <article className="flex h-[231px] w-[160px] shrink-0 cursor-pointer flex-col items-center justify-center gap-4 rounded-[12px] border border-black/10 bg-white p-4" role="button" tabIndex={0} onClick={() => router.push("/my-garden/gallery/new")} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); router.push("/my-garden/gallery/new"); } }}>
                 <div className="flex h-12 w-12 items-center justify-center rounded-[132px] bg-[#31674c] p-[10.667px]">
                   <img src={imgAddIcon} alt="" className="h-[21.33px] w-[21.33px]" />
                 </div>
@@ -428,12 +517,12 @@ export default function MyGardenPage() {
                 </div>
               </article>
 
-              {[imgFrame1113, imgFrame1114].map((image, index) => (
-                <article key={`${image}-${index}`} className="flex h-[231px] w-[171px] shrink-0 flex-col">
-                  <img src={image} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
+              {galleryEntries.map((entry) => (
+                <article key={entry.id} className="flex h-[231px] w-[171px] shrink-0 cursor-pointer flex-col" role="button" tabIndex={0} onClick={() => router.push(`/my-garden/gallery/${entry.id}`)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); router.push(`/my-garden/gallery/${entry.id}`); } }}>
+                  <img src={entry.coverPhotoUrl ?? imgFrame1113} alt="" className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
-                    <p className="text-[14px] font-medium leading-5 text-[#333333]">Plant name</p>
-                    <p className="text-[12px] font-normal leading-4 text-[#333333cc]">Species name</p>
+                    <p className="text-[14px] font-medium leading-5 text-[#333333]">{entry.title}</p>
+                    <p className="line-clamp-2 text-[12px] font-normal leading-4 text-[#333333cc]">{entry.note}</p>
                   </div>
                 </article>
               ))}
