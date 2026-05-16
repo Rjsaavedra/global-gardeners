@@ -38,21 +38,6 @@ function DetailTile({ label, value, icon, tone }: { label: string; value: string
   );
 }
 
-function formatTemperatureLabel(value: string): string {
-  const normalized = value.trim().replace(/\s+/g, " ");
-  if (!normalized) return "18 deg - 24 deg";
-  if (normalized.toLowerCase().includes("deg")) return normalized;
-  const rangeMatch = normalized.match(/^(-?\d+(?:\.\d+)?)\s*-\s*(-?\d+(?:\.\d+)?)$/);
-  if (rangeMatch) {
-    return `${rangeMatch[1]} deg - ${rangeMatch[2]} deg`;
-  }
-  const singleMatch = normalized.match(/^(-?\d+(?:\.\d+)?)$/);
-  if (singleMatch) {
-    return `${singleMatch[1]} deg`;
-  }
-  return normalized;
-}
-
 function AccordionRow({
   title,
   expanded,
@@ -77,132 +62,42 @@ function AccordionRow({
 
 export default function PlantDetailPage() {
   const router = useRouter();
-  const loremIpsum =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
   const [openAccordion, setOpenAccordion] = useState("Watering & Moisture");
   const [isSavingPlant, setIsSavingPlant] = useState(false);
   const [saveError, setSaveError] = useState("");
-  const [isAddPlantFlow, setIsAddPlantFlow] = useState(true);
   const [heroImageUrl, setHeroImageUrl] = useState(heroImage);
   const [heroImages, setHeroImages] = useState<string[]>([heroImage]);
-  const [plantCommonName, setPlantCommonName] = useState("Rattlesnake Plant");
-  const [plantScientificName, setPlantScientificName] = useState("Goeppertia insignis");
-  const [plantDescription, setPlantDescription] = useState("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.");
-  const [lightValue, setLightValue] = useState("Medium Light");
-  const [waterValue, setWaterValue] = useState("Every 5 days");
-  const [temperatureValue, setTemperatureValue] = useState("65 deg - 75 deg");
-  const [humidityValue, setHumidityValue] = useState("70%");
-  const [careSections, setCareSections] = useState<Array<{ title: string; content: string }>>([
-    { title: "Watering & Moisture", content: "Keep soil lightly moist and avoid complete dry-out." },
-    { title: "Light", content: loremIpsum },
-    { title: "Temperature", content: loremIpsum },
-    { title: "Humidity", content: loremIpsum },
-    { title: "Fertilizing", content: loremIpsum },
-    { title: "Repotting", content: loremIpsum },
-    { title: "Soil", content: loremIpsum },
-  ]);
+  const loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
   const toggleAccordion = (title: string) => {
     setOpenAccordion((current) => (current === title ? "" : title));
   };
 
   useEffect(() => {
     try {
-      const allImages: string[] = [];
-      const pushImage = (value: unknown) => {
-        if (typeof value !== "string") return;
-        const normalized = value.trim();
-        if (!normalized) return;
-        if (!allImages.includes(normalized)) allImages.push(normalized);
-      };
-
-      const selectedRaw = sessionStorage.getItem("ggPlantIdentifySelection");
-      if (selectedRaw) {
-        const selected = JSON.parse(selectedRaw) as { commonName?: string; scientificName?: string; imageUrls?: unknown[] };
-        const commonName = selected.commonName?.trim();
-        const scientificName = selected.scientificName?.trim();
-        if (commonName) setPlantCommonName(commonName);
-        if (scientificName) setPlantScientificName(scientificName);
-        if (Array.isArray(selected.imageUrls)) {
-          selected.imageUrls.forEach(pushImage);
-        }
-      }
-
       const batchRaw = sessionStorage.getItem("ggPlantIdentifyPhotos");
       if (batchRaw) {
         const parsed = JSON.parse(batchRaw) as unknown;
         if (Array.isArray(parsed)) {
-          parsed.forEach(pushImage);
+          const valid = parsed.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+          if (valid.length) {
+            setHeroImages(valid);
+            setHeroImageUrl(valid[0]);
+            return;
+          }
         }
       }
 
       const captured = sessionStorage.getItem("ggPlantIdentifyPhoto");
       if (captured && captured.trim()) {
-        pushImage(captured);
-      }
-
-      const hasAddFlowMarkers = Boolean(
-        selectedRaw ||
-          batchRaw ||
-          (captured && captured.trim()) ||
-          sessionStorage.getItem("ggRetakePlantId"),
-      );
-      setIsAddPlantFlow(hasAddFlowMarkers);
-
-      if (allImages.length) {
-        setHeroImages(allImages);
-        setHeroImageUrl(allImages[0]);
+        setHeroImageUrl(captured);
+        setHeroImages([captured]);
       }
     } catch {
       // Ignore session storage access failures.
     }
   }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const run = async () => {
-      try {
-        const response = await fetch("/api/plant-enrich", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            commonName: plantCommonName,
-            scientificName: plantScientificName,
-          }),
-        });
-        if (!response.ok) return;
-        const payload = (await response.json()) as {
-          commonName?: string;
-          scientificName?: string;
-          description?: string;
-          light?: string;
-          water?: string;
-          temperature?: string;
-          humidity?: string;
-          careSections?: Array<{ title?: string; content?: string }>;
-        };
-        if (cancelled) return;
-        if (typeof payload.commonName === "string" && payload.commonName.trim()) setPlantCommonName(payload.commonName.trim());
-        if (typeof payload.scientificName === "string" && payload.scientificName.trim()) setPlantScientificName(payload.scientificName.trim());
-        if (typeof payload.description === "string" && payload.description.trim()) setPlantDescription(payload.description.trim());
-        if (typeof payload.light === "string" && payload.light.trim()) setLightValue(payload.light.trim());
-        if (typeof payload.water === "string" && payload.water.trim()) setWaterValue(payload.water.trim());
-        if (typeof payload.temperature === "string" && payload.temperature.trim()) setTemperatureValue(payload.temperature.trim());
-        if (typeof payload.humidity === "string" && payload.humidity.trim()) setHumidityValue(payload.humidity.trim());
-        if (Array.isArray(payload.careSections)) {
-          const normalized = payload.careSections
-            .map((entry) => ({ title: entry.title?.trim() || "", content: entry.content?.trim() || "" }))
-            .filter((entry) => entry.title && entry.content);
-          if (normalized.length) setCareSections(normalized);
-        }
-      } catch {
-        // Keep fallback content.
-      }
-    };
-    void run();
-    return () => {
-      cancelled = true;
-    };
-  }, [plantCommonName, plantScientificName]);
 
   const handleAddToGarden = async () => {
     if (isSavingPlant) return;
@@ -211,21 +106,24 @@ export default function PlantDetailPage() {
 
     try {
       const payload = {
-        commonName: plantCommonName,
-        scientificName: plantScientificName,
+        commonName: "Rattlesnake Plant",
+        scientificName: "Goeppertia insignis",
         description: "Rattlesnake plant added from identification flow.",
-        photos: heroImages,
-        lightLevel: lightValue,
+        photos: [heroImageUrl],
+        lightLevel: "Medium Light",
         wateringIntervalDays: 5,
         temperatureMinC: 18,
         temperatureMaxC: 24,
-        humidityPercent: Number.parseInt(humidityValue, 10) || 70,
-        careSections: careSections.map((section, index) => ({
-          sectionKey: section.title.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "") || `section_${index + 1}`,
-          title: section.title,
-          content: section.content,
-          sortOrder: index,
-        })),
+        humidityPercent: 70,
+        careSections: [
+          { sectionKey: "watering_moisture", title: "Watering & Moisture", content: "Keep soil lightly moist and avoid complete dry-out." },
+          { sectionKey: "light", title: "Light", content: "Provide bright, indirect light and avoid harsh midday direct sun." },
+          { sectionKey: "temperature", title: "Temperature", content: "Best growth occurs in warm, stable indoor temperatures." },
+          { sectionKey: "humidity", title: "Humidity", content: "Prefers moderate-to-high humidity, especially in dry climates." },
+          { sectionKey: "fertilizing", title: "Fertilizing", content: "Feed monthly during active growth with a balanced fertilizer." },
+          { sectionKey: "repotting", title: "Repotting", content: "Repot when root-bound using a rich but well-draining mix." },
+          { sectionKey: "soil", title: "Soil", content: "Use airy, moisture-retentive soil with good drainage." },
+        ],
       };
 
       const retakePlantIdRaw = typeof window !== "undefined" ? sessionStorage.getItem("ggRetakePlantId") : null;
@@ -293,37 +191,31 @@ export default function PlantDetailPage() {
             <button type="button" onClick={() => router.push("/my-garden")} className="flex min-h-10 min-w-10 items-center justify-center rounded-full border-[1.111px] border-[rgba(146,146,146,0.24)] bg-white p-[8.889px]">
               <img src={closeIcon} alt="" aria-hidden="true" className="h-6 w-6" />
             </button>
-            {!isAddPlantFlow ? (
-              <button type="button" className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-black/10 bg-white p-[8.889px]">
-                <img src={moreIcon} alt="" aria-hidden="true" className="h-6 w-6" />
-              </button>
-            ) : <span className="h-10 w-10" aria-hidden="true" />}
+            <button type="button" className="flex min-h-10 min-w-10 items-center justify-center rounded-full border border-black/10 bg-white p-[8.889px]">
+              <img src={moreIcon} alt="" aria-hidden="true" className="h-6 w-6" />
+            </button>
           </div>
         </div>
 
         <div className="px-4 pb-[104px] pt-6">
-          <h1 className="text-[30px] font-semibold leading-[30px] tracking-[-1px] text-[#182a17]">{plantCommonName}</h1>
+          <h1 className="text-[30px] font-semibold leading-[30px] tracking-[-1px] text-[#182a17]">Rattlesnake Plant</h1>
           <div className="mt-2 flex items-center gap-2">
             <span className="rounded-full bg-[#f0fdf4] p-1.5">
               <img src={leafIcon} alt="" aria-hidden="true" className="h-4 w-4" />
             </span>
-            <p className="text-[16px] font-medium leading-6 text-[#333333cc]">{plantScientificName}</p>
+            <p className="text-[16px] font-medium leading-6 text-[#333333cc]">Goeppertia insignis</p>
           </div>
 
           <div className="mt-8 flex flex-col gap-3">
             <button
               type="button"
-              disabled={isAddPlantFlow}
-              onClick={() => {
-                if (isAddPlantFlow) return;
-                router.push("/plant/growth-timeline?returnTo=/plant");
-              }}
-              className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333] disabled:opacity-60"
+              onClick={() => router.push("/plant/growth-timeline?returnTo=/plant")}
+              className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]"
             >
               View growth timeline
               <img src={rightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
             </button>
-            <button type="button" disabled={isAddPlantFlow} className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-left disabled:opacity-60">
+            <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-left">
               <span>
                 <span className="block text-[14px] font-medium leading-5 text-[#333333]">Ask Grow Mate</span>
                 <span className="block text-[12px] font-medium leading-4 text-[#333333cc]">Get personalized care tips for this plant.</span>
@@ -334,26 +226,44 @@ export default function PlantDetailPage() {
 
           <div className="mt-8 space-y-2">
             <div className="flex gap-2">
-              <DetailTile label="Light" value={lightValue} icon={sunIcon} tone="yellow" />
-              <DetailTile label="Water" value={waterValue} icon={dropletIcon} tone="blue" />
+              <DetailTile label="Light" value="Medium Light" icon={sunIcon} tone="yellow" />
+              <DetailTile label="Water" value="Every 5 days" icon={dropletIcon} tone="blue" />
             </div>
             <div className="flex gap-2">
-              <DetailTile label="Temperature" value={formatTemperatureLabel(temperatureValue)} icon={thermoIcon} tone="orange" />
-              <DetailTile label="Humidity" value={humidityValue} icon={cloudyIcon} tone="teal" />
+              <DetailTile label="Temperature" value="65 deg - 75 deg" icon={thermoIcon} tone="orange" />
+              <DetailTile label="Humidity" value="70%" icon={cloudyIcon} tone="teal" />
             </div>
           </div>
 
           <div className="mt-8">
             <p className="text-[14px] font-medium leading-5 text-[#333333]">Description and Care Details</p>
-            <p className="mt-2 text-[14px] font-medium leading-5 text-[#333333cc]">{plantDescription}</p>
+            <p className="mt-2 text-[14px] font-medium leading-5 text-[#333333cc]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s.</p>
           </div>
 
           <div className="mt-8 bg-[#f8f6f1]">
-            {careSections.map((section) => (
-              <AccordionRow key={section.title} title={section.title} expanded={openAccordion === section.title} onToggle={() => toggleAccordion(section.title)}>
-                <p className="whitespace-pre-line text-[14px] font-medium leading-5 text-[#333333cc]">{section.content}</p>
-              </AccordionRow>
-            ))}
+            <AccordionRow title="Watering & Moisture" expanded={openAccordion === "Watering & Moisture"} onToggle={() => toggleAccordion("Watering & Moisture")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">
+                Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.
+              </p>
+            </AccordionRow>
+            <AccordionRow title="Light" expanded={openAccordion === "Light"} onToggle={() => toggleAccordion("Light")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Temperature" expanded={openAccordion === "Temperature"} onToggle={() => toggleAccordion("Temperature")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Humidity" expanded={openAccordion === "Humidity"} onToggle={() => toggleAccordion("Humidity")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Fertilizing" expanded={openAccordion === "Fertilizing"} onToggle={() => toggleAccordion("Fertilizing")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Repotting" expanded={openAccordion === "Repotting"} onToggle={() => toggleAccordion("Repotting")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
+            <AccordionRow title="Soil" expanded={openAccordion === "Soil"} onToggle={() => toggleAccordion("Soil")}>
+              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{loremIpsum}</p>
+            </AccordionRow>
           </div>
         </div>
 

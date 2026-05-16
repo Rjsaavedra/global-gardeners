@@ -1,19 +1,68 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import loaderAnimation from "../../../../../public/lottie/green-circle-loader.json";
 
+type IdentifyResponse = {
+  candidates: Array<{
+    commonName: string;
+    scientificName: string;
+    confidence: number;
+    sources: string[];
+  }>;
+  consensusStatus: "confirmed" | "needs_review" | "no_match";
+};
+
 export default function IdentifyLoadingPage() {
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      router.replace("/my-garden/add-plant/results");
-    }, 3000);
+    let cancelled = false;
 
-    return () => window.clearTimeout(timer);
+    const run = async () => {
+      const imageDataUrl = sessionStorage.getItem("ggPlantIdentifyPhoto")?.trim();
+      if (!imageDataUrl) {
+        if (!cancelled) router.replace("/my-garden/add-plant");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/plant-identify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageDataUrl }),
+        });
+
+        const payload = (await response.json().catch(() => null)) as IdentifyResponse | { error?: string } | null;
+
+        if (!response.ok || !payload || !("candidates" in payload)) {
+          const message = payload && "error" in payload && payload.error ? payload.error : "Unable to identify this plant right now.";
+          throw new Error(message);
+        }
+
+        sessionStorage.setItem("ggPlantIdentifyResult", JSON.stringify(payload));
+
+        if (!cancelled) {
+          if (!payload.candidates.length || payload.consensusStatus === "no_match") {
+            router.replace("/my-garden/add-plant/results?state=empty");
+          } else {
+            router.replace("/my-garden/add-plant/results");
+          }
+        }
+      } catch (error) {
+        if (cancelled) return;
+        setErrorMessage(error instanceof Error ? error.message : "Unable to identify this plant right now.");
+      }
+    };
+
+    void run();
+
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   return (
@@ -28,6 +77,7 @@ export default function IdentifyLoadingPage() {
               Finding possible matches
             </p>
             <p className="w-[268px] text-center text-[16px] font-medium leading-6 text-[#333333cc]">This may take a few seconds.</p>
+            {errorMessage ? <p className="w-[268px] text-center text-[12px] font-medium leading-4 text-[#b91c1c]">{errorMessage}</p> : null}
           </div>
         </div>
 

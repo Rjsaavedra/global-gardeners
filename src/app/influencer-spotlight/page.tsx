@@ -111,6 +111,7 @@ export default function InfluencerSpotlightPage() {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const [featuredInfluencer, setFeaturedInfluencer] = useState<{
     id: number;
+    slug?: string;
     name: string;
     shortDescription: string;
     description: string;
@@ -199,7 +200,7 @@ export default function InfluencerSpotlightPage() {
         const response = await fetch("/api/influencer-spotlight", { cache: "no-store" });
         if (!response.ok || !isMounted) return;
         const payload = (await response.json()) as {
-          featured: { id: number; name: string; shortDescription: string; description: string; avatarUrl: string | null } | null;
+          featured: { id: number; slug?: string; name: string; shortDescription: string; description: string; avatarUrl: string | null } | null;
           videos: Array<{ id: number; title: string; thumbnailUrl: string | null; durationSeconds: number; viewsCount: number; publishedAt: string | null }>;
           nominees?: Array<{ id: number; votesCount: number; percentage?: number; influencer: { id: number; slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>;
           pastCreators?: Array<{ id: number; spotlightMonth: string; influencer: { slug: string; name: string; shortDescription: string; avatarUrl: string | null } }>;

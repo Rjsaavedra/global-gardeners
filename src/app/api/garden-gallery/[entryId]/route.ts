@@ -35,11 +35,16 @@ export async function GET(request: Request, context: { params: Promise<{ entryId
     : [];
 
   const plants = Array.isArray(data.garden_gallery_entry_plants)
-    ? data.garden_gallery_entry_plants.map((link) => ({
-        plantId: link.plant_id,
-        commonName: Array.isArray(link.plants) ? link.plants[0]?.common_name ?? null : link.plants?.common_name ?? null,
-        scientificName: Array.isArray(link.plants) ? link.plants[0]?.scientific_name ?? null : link.plants?.scientific_name ?? null,
-      }))
+    ? data.garden_gallery_entry_plants.map((link) => {
+        const plantRecord = Array.isArray(link.plants)
+          ? (link.plants[0] as { common_name?: string | null; scientific_name?: string | null } | undefined)
+          : (link.plants as { common_name?: string | null; scientific_name?: string | null } | null | undefined);
+        return {
+          plantId: link.plant_id,
+          commonName: typeof plantRecord?.common_name === "string" ? plantRecord.common_name : null,
+          scientificName: typeof plantRecord?.scientific_name === "string" ? plantRecord.scientific_name : null,
+        };
+      })
     : [];
 
   const response = NextResponse.json({

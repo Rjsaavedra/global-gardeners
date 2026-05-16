@@ -301,8 +301,8 @@ export default function ProfilePage() {
     setPlants(Array.isArray(plantsData?.plants) ? (plantsData.plants as PlantCard[]) : []);
   }, [plantsData]);
   useEffect(() => {
-    setIsProgressCardHidden(Boolean(onboardingData?.dismissedAt));
-  }, [onboardingData?.dismissedAt]);
+    setIsProgressCardHidden(Boolean(onboardingStatus?.dismissedAt));
+  }, [onboardingStatus?.dismissedAt]);
 
   useEffect(() => {
     setIsLoading(isProfileLoading && !profile);
@@ -565,7 +565,7 @@ export default function ProfilePage() {
                   <button
                     type="button"
                     onClick={() => router.push("/profile/edit")}
-                    className="h-8 w-full rounded-lg bg-[#171717] text-[12px] font-semibold leading-4 text-[#fafafa]"
+                    className="w-full rounded-[100px] bg-[#171717] px-3 py-[10px] text-[14px] font-medium leading-5 text-[#fafafa]"
                   >
                     Edit profile
                   </button>

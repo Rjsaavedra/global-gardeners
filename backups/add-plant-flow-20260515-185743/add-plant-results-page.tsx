@@ -18,24 +18,14 @@ const imgSprout = "/icons/sprout-active.svg";
 type MatchOption = {
   id: string;
   score: string;
-  confidence: number;
   scoreTone: "high" | "mid" | "low";
-  commonName: string;
-  scientificName: string;
-  sources: string[];
-  imageUrls: string[];
 };
 
-type IdentifyResponse = {
-  candidates: Array<{
-    commonName: string;
-    scientificName: string;
-    confidence: number;
-    sources: string[];
-    imageUrls?: string[];
-  }>;
-  consensusStatus: "confirmed" | "needs_review" | "no_match";
-};
+const matchOptions: MatchOption[] = [
+  { id: "rattlesnake-high", score: "87%", scoreTone: "high" },
+  { id: "rattlesnake-mid", score: "60%", scoreTone: "mid" },
+  { id: "rattlesnake-low", score: "10%", scoreTone: "low" },
+];
 
 function ScorePill({ score, tone }: { score: string; tone: MatchOption["scoreTone"] }) {
   const toneClass =
@@ -58,59 +48,26 @@ function ScorePill({ score, tone }: { score: string; tone: MatchOption["scoreTon
 function IdentifyResultsPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [matchOptions] = useState<MatchOption[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const raw = sessionStorage.getItem("ggPlantIdentifyResult");
-      if (!raw) return [];
-      const parsed = JSON.parse(raw) as IdentifyResponse;
-      return (parsed.candidates ?? []).slice(0, 5).map((candidate, index) => {
-        const confidence = Math.max(0, Math.min(1, candidate.confidence ?? 0));
-        const score = `${Math.round(confidence * 100)}%`;
-        return {
-          id: `${candidate.scientificName || candidate.commonName || "candidate"}-${index}`,
-          score,
-          confidence,
-          scoreTone: confidence >= 0.75 ? "high" : confidence >= 0.5 ? "mid" : "low",
-          commonName: candidate.commonName || "Unknown plant",
-          scientificName: candidate.scientificName || "Unknown species",
-          sources: Array.isArray(candidate.sources) ? candidate.sources : [],
-          imageUrls: Array.isArray(candidate.imageUrls) ? candidate.imageUrls.filter((url) => typeof url === "string" && url.trim().length > 0) : [],
-        } satisfies MatchOption;
-      });
-    } catch {
-      return [];
-    }
-  });
-  const isNoMatchState = searchParams.get("state") === "empty" || matchOptions.length === 0;
-  const [selectedResult, setSelectedResult] = useState<string>(() => matchOptions[0]?.id ?? "");
+  const isNoMatchState = searchParams.get("state") === "empty";
+  const [selectedResult, setSelectedResult] = useState<string>("rattlesnake-high");
   const [activeSlides, setActiveSlides] = useState<Record<string, number>>({});
   const touchStartXRef = useRef<Record<string, number>>({});
   const touchEndXRef = useRef<Record<string, number>>({});
 
   const optionImages = useMemo(() => {
     const library = [imgPlant, imgPlantAlt1, imgPlantAlt2, imgPlantAlt3, imgPlantAlt4, imgPlantAlt5];
-    const capturedImage = typeof window !== "undefined" ? sessionStorage.getItem("ggPlantIdentifyPhoto")?.trim() ?? "" : "";
 
     const hashString = (value: string) => value.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const byOption: Record<string, string[]> = {};
 
     for (const option of matchOptions) {
-      if (option.imageUrls.length) {
-        byOption[option.id] = option.imageUrls;
-        continue;
-      }
-      if (capturedImage) {
-        byOption[option.id] = [capturedImage];
-        continue;
-      }
       const seed = hashString(option.id);
       const count = 2 + (seed % 4); // 2 to 5 images
       const shuffled = [...library].sort((a, b) => (hashString(option.id + a) % 11) - (hashString(option.id + b) % 11));
       byOption[option.id] = shuffled.slice(0, count);
     }
     return byOption;
-  }, [matchOptions]);
+  }, []);
 
   const moveSlide = (optionId: string, direction: "next" | "prev") => {
     const images = optionImages[optionId] ?? [];
@@ -124,25 +81,7 @@ function IdentifyResultsPageContent() {
 
   const handleConfirm = () => {
     if (!selectedResult) return;
-    const selected = matchOptions.find((option) => option.id === selectedResult);
-    if (!selected) return;
-    const captured = sessionStorage.getItem("ggPlantIdentifyPhoto")?.trim() ?? "";
-    const mergedPhotos = Array.from(
-      new Set([captured, ...selected.imageUrls].filter((value) => typeof value === "string" && value.trim().length > 0)),
-    );
-    sessionStorage.setItem("ggPlantIdentifyPhotos", JSON.stringify(mergedPhotos));
-    sessionStorage.setItem(
-      "ggPlantIdentifySelection",
-      JSON.stringify({
-        id: selected.id,
-        commonName: selected.commonName,
-        scientificName: selected.scientificName,
-        confidence: selected.confidence,
-        score: selected.score,
-        sources: selected.sources,
-        imageUrls: selected.imageUrls,
-      }),
-    );
+    sessionStorage.setItem("ggPlantIdentifySelection", selectedResult);
     router.push("/plant");
   };
 
@@ -181,23 +120,15 @@ function IdentifyResultsPageContent() {
               <div className="mt-[72px]">
                 <p className="text-[16px] font-medium leading-6 text-[#333333]">Don&apos;t worry, there are other ways to identify your plant.</p>
                 <div className="mt-6 flex flex-col gap-3">
-                  <button
-                    type="button"
-                    onClick={() => router.push("/my-garden/add-plant")}
-                    className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]"
-                  >
+                  <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
                     Try another photo
                     <img src={imgRightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => router.push("/feed")}
-                    className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]"
-                  >
+                  <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
                     Ask the community
                     <img src={imgRightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
                   </button>
-                  <button type="button" onClick={() => router.push("/my-garden/add-plant/manual")} className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
+                  <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
                     Add plant manually
                     <img src={imgRightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
                   </button>
@@ -237,7 +168,7 @@ function IdentifyResultsPageContent() {
                             moveSlide(option.id, delta > 0 ? "next" : "prev");
                           }}
                         >
-                            <img src={activeImage} alt={option.commonName} className="absolute inset-0 h-full w-full rounded-[8px] object-cover" />
+                          <img src={activeImage} alt="Rattlesnake Plant" className="absolute inset-0 h-full w-full rounded-[8px] object-cover" />
                           <div className="absolute right-2 top-2 h-8 w-8">
                             {isSelected ? (
                               <button
@@ -277,12 +208,12 @@ function IdentifyResultsPageContent() {
 
                         <div className="flex items-center justify-between">
                           <div>
-                            <p className="text-[18px] font-semibold leading-[27px] text-[#333333]">{option.commonName}</p>
+                            <p className="text-[18px] font-semibold leading-[27px] text-[#333333]">Rattlesnake Plant</p>
                             <div className="mt-1 flex items-center gap-1">
                               <span className="rounded-[3px] bg-[#f0fdf4] p-1">
                                 <img src={imgLeaf} alt="" aria-hidden="true" className="h-3 w-3" />
                               </span>
-                              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{option.scientificName}</p>
+                              <p className="text-[14px] font-medium leading-5 text-[#333333cc]">Goeppertia insignis</p>
                             </div>
                           </div>
                           <ScorePill score={option.score} tone={option.scoreTone} />
@@ -305,7 +236,7 @@ function IdentifyResultsPageContent() {
                   Ask the community
                   <img src={imgRightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
                 </button>
-                <button type="button" onClick={() => router.push("/my-garden/add-plant/manual")} className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
+                <button type="button" className="flex min-h-10 items-center justify-between rounded-[100px] border border-black/10 bg-white py-4 pl-6 pr-4 text-[14px] font-medium leading-5 text-[#333333]">
                   Add plant manually
                   <img src={imgRightIcon} alt="" aria-hidden="true" className="h-6 w-6" />
                 </button>
@@ -346,3 +277,4 @@ export default function IdentifyResultsPage() {
     </Suspense>
   );
 }
+

@@ -7,10 +7,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 type PlantOption = { id: number; name: string; species: string; image: string; identified: boolean };
 type TopicOption = { id: string; label: string };
-type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
-type ConversationMessage = { role: "user" | "assistant" | "system"; content: string };
-const DEMO_ASSISTANT_BODY =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque felis, tincidunt placerat lectus euismod, accumsan dapibus orci. Sed felis orci, consequat eget mi quis, facilisis facilisis metus.";
+type ChatMessage = { id: string; role: "user" | "assistant"; content: string; messageType?: string; images?: string[] };
+type ConversationMessage = { role: "user" | "assistant" | "system"; content: string; messageType?: string; images?: string[] };
 
 function PlusIcon() {
   return (
@@ -35,6 +33,19 @@ function SearchIcon() {
       <path d="M8.75 2.91699C5.52834 2.91699 2.91667 5.52866 2.91667 8.75033C2.91667 11.972 5.52834 14.5837 8.75 14.5837C10.2394 14.5837 11.5985 14.0259 12.6293 13.1083L16.5939 17.0729C16.838 17.317 17.2337 17.317 17.4778 17.0729C17.722 16.8288 17.722 16.433 17.4778 16.1889L13.5132 12.2243C14.4308 11.1935 14.9887 9.83442 14.9887 8.34506C14.9887 5.1234 12.377 2.51172 9.15533 2.51172H8.75Z" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
+}
+
+function renderAssistantMarkdown(content: string) {
+  const lines = content.split("\n");
+  return lines.map((line, idx) => {
+    let html = line
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    if (!html.trim()) html = "&nbsp;";
+    return <p key={`${idx}-${line.slice(0, 8)}`} dangerouslySetInnerHTML={{ __html: html }} />;
+  });
 }
 
 function MyGrowMateChatPageContent() {
@@ -68,6 +79,7 @@ function MyGrowMateChatPageContent() {
   const [attachedTopicLabel, setAttachedTopicLabel] = useState<string>("None Selected");
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [conversationPlantId, setConversationPlantId] = useState<number | null>(null);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
   const identifiedPlants = useMemo(() => plantOptions.filter((plant) => plant.identified), [plantOptions]);
   const unidentifiedPlants = useMemo(() => plantOptions.filter((plant) => !plant.identified), [plantOptions]);
   const tabPlants = activeTab === "all" ? plantOptions : activeTab === "identified" ? identifiedPlants : unidentifiedPlants;
@@ -117,31 +129,38 @@ function MyGrowMateChatPageContent() {
     return activeConversationId;
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmed = messageText.trim();
-    if (!trimmed) return;
+    if (!trimmed || isSendingMessage) return;
     const userMessage: ChatMessage = { id: `u-${Date.now()}`, role: "user", content: trimmed };
-    const assistantMessage: ChatMessage = {
-      id: `a-${Date.now() + 1}`,
-      role: "assistant",
-      content: DEMO_ASSISTANT_BODY,
-    };
+
     setMessages((prev) => [...prev, userMessage]);
     setIsConversationStarted(true);
     setMessageText("");
-    setTimeout(() => {
-      setMessages((prev) => [...prev, assistantMessage]);
-    }, 700);
-    void persistMessage(trimmed, DEMO_ASSISTANT_BODY);
+    setIsSendingMessage(true);
+
+    try {
+      const activeConversationId = await persistMessage(trimmed);
+      if (!activeConversationId) return;
+      const response = await fetch(`/api/my-grow-mate/conversations/${activeConversationId}/messages`);
+      if (!response.ok) return;
+      const payload = (await response.json()) as { messages?: Array<{ id: string; role: "user" | "assistant" | "system"; content: string; messageType?: string; images?: string[] }> };
+      const normalized = (payload.messages ?? [])
+        .filter((m): m is { id: string; role: "user" | "assistant"; content: string } => m.role === "user" || m.role === "assistant")
+        .map((m, idx) => ({ id: m.id || `${m.role}-${idx}`, role: m.role, content: m.content, messageType: m.messageType, images: m.images ?? [] }));
+      setMessages(normalized);
+    } finally {
+      setIsSendingMessage(false);
+    }
   };
 
-  const handleSaveAsLog = async (messageId: string, content: string) => {
+  const handleSaveAsLog = async (messageId: string, content: string, messageType?: string) => {
     if (savingLogByMessageId[messageId] || savedLogByMessageId[messageId]) return;
     setSavingLogByMessageId((prev) => ({ ...prev, [messageId]: true }));
     try {
       const payload = {
         title: "Care Plan",
-        topic: "Care Plan",
+        topic: messageType || "General",
         content,
         plantId: attachedPlantId,
         conversationId,
@@ -168,16 +187,20 @@ function MyGrowMateChatPageContent() {
     if (!fromLog || didHydrateFromLog) return;
     setDidHydrateFromLog(true);
     setIsConversationStarted(true);
-    setMessages([
-      { id: "seed-user", role: "user", content: "Can you summarize this saved log?" },
-      {
-        id: "seed-assistant",
-        role: "assistant",
-        content: DEMO_ASSISTANT_BODY,
-      },
-    ]);
+    setMessages([{ id: "seed-user", role: "user", content: "Can you summarize this saved log?" }]);
     setConversationName("Global Gardeners");
     setAttachedPlantName(fromLog === "2" || fromLog === "5" ? "Monstera" : "Plant name");
+    void (async () => {
+      const activeConversationId = await persistMessage("Can you summarize this saved log?");
+      if (!activeConversationId) return;
+      const response = await fetch(`/api/my-grow-mate/conversations/${activeConversationId}/messages`);
+      if (!response.ok) return;
+      const payload = (await response.json()) as { messages?: Array<{ id: string; role: "user" | "assistant" | "system"; content: string; messageType?: string; images?: string[] }> };
+      const normalized = (payload.messages ?? [])
+        .filter((m): m is { id: string; role: "user" | "assistant"; content: string } => m.role === "user" || m.role === "assistant")
+        .map((m, idx) => ({ id: m.id || `${m.role}-${idx}`, role: m.role, content: m.content, messageType: m.messageType, images: m.images ?? [] }));
+      setMessages(normalized);
+    })();
   }, [searchParams, didHydrateFromLog]);
 
   useEffect(() => {
@@ -215,7 +238,7 @@ function MyGrowMateChatPageContent() {
         message.role === "user" || message.role === "assistant";
       const normalized: ChatMessage[] = messages
         .filter(isChatMessage)
-        .map((m, idx) => ({ id: `${m.role}-${idx}`, role: m.role, content: m.content }));
+        .map((m, idx) => ({ id: `${m.role}-${idx}`, role: m.role, content: m.content, messageType: m.messageType, images: m.images ?? [] }));
       if (normalized.length > 0) setMessages(normalized);
       else if (lastUserMessage) setMessages([{ id: "fallback", role: "user", content: lastUserMessage.content }]);
     };
@@ -443,8 +466,17 @@ function MyGrowMateChatPageContent() {
                     </div>
                   ) : (
                     <div key={message.id} className="mr-auto w-[265px] rounded-br-[20px] rounded-tl-[20px] rounded-tr-[20px] border border-[#e5e5e5] bg-white p-4">
-                      <p className="mb-1 text-[14px] font-bold leading-5 text-[#333333]">Care Plan</p>
-                      <p className="text-[14px] font-medium leading-5 text-[#333333cc]">{message.content}</p>
+                      <p className="mb-1 text-[14px] font-bold leading-5 text-[#333333]">{message.messageType || "General"}</p>
+                      <div className="text-[14px] font-medium leading-5 text-[#333333cc]">{renderAssistantMarkdown(message.content)}</div>
+                      {message.images && message.images.length > 0 ? (
+                        <div className="mt-3 grid grid-cols-3 gap-2">
+                          {message.images.map((img, idx) => (
+                            <a key={`${img}-${idx}`} href={img} target="_blank" rel="noreferrer" className="block">
+                              <img src={img} alt="" className="h-16 w-full rounded-[8px] object-cover" />
+                            </a>
+                          ))}
+                        </div>
+                      ) : null}
                       <div className="mt-3 border-t border-black/10 pt-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-4">
@@ -457,7 +489,7 @@ function MyGrowMateChatPageContent() {
                           </div>
                           <button
                             type="button"
-                            onClick={() => handleSaveAsLog(message.id, message.content)}
+                            onClick={() => handleSaveAsLog(message.id, message.content, message.messageType)}
                             disabled={Boolean(savingLogByMessageId[message.id] || savedLogByMessageId[message.id])}
                             className="rounded-full bg-[#f5f5f5] px-3 py-[6px] text-[12px] font-normal leading-4 text-[#333333]"
                           >
@@ -468,6 +500,19 @@ function MyGrowMateChatPageContent() {
                     </div>
                   ),
                 )}
+                {isSendingMessage ? (
+                  <div className="mr-auto w-[265px] rounded-br-[20px] rounded-tl-[20px] rounded-tr-[20px] border border-[#e5e5e5] bg-white p-4">
+                    <p className="mb-1 text-[14px] font-bold leading-5 text-[#333333]">MyGrowMate</p>
+                    <p className="text-[14px] font-medium leading-5 text-[#333333cc]">
+                      Thinking
+                      <span className="inline-flex w-6 justify-start">
+                        <span className="animate-pulse [animation-delay:0ms]">.</span>
+                        <span className="animate-pulse [animation-delay:200ms]">.</span>
+                        <span className="animate-pulse [animation-delay:400ms]">.</span>
+                      </span>
+                    </p>
+                  </div>
+                ) : null}
               </div>
             </div>
           ) : null}
@@ -493,6 +538,7 @@ function MyGrowMateChatPageContent() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleSend();
                   }}
+                  disabled={isSendingMessage}
                   placeholder="Send a message"
                   className="w-full bg-transparent text-[14px] font-medium leading-5 text-[#333333] placeholder:text-[#33333380] outline-none"
                 />
@@ -501,7 +547,8 @@ function MyGrowMateChatPageContent() {
                 type="button"
                 aria-label="Send"
                 onClick={handleSend}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0fdf4]"
+                disabled={isSendingMessage || !messageText.trim()}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#f0fdf4] disabled:opacity-50"
               >
                 <ArrowUpIcon />
               </button>
@@ -862,18 +909,24 @@ function MyGrowMateChatPageContent() {
                     if (topic) {
                       setAttachedTopicLabel(topic.label);
                       const userMessage: ChatMessage = { id: `u-${Date.now()}`, role: "user", content: topic.label };
-                      const assistantMessage: ChatMessage = {
-                        id: `a-${Date.now() + 1}`,
-                        role: "assistant",
-                        content: DEMO_ASSISTANT_BODY,
-                      };
                       setMessages([userMessage]);
                       setConversationId(null);
-                      setTimeout(() => {
-                        setMessages((prev) => [...prev, assistantMessage]);
-                        // per-bubble save state handled by message id
-                      }, 700);
-                      void persistMessage(topic.label, DEMO_ASSISTANT_BODY, topic.label);
+                      setIsSendingMessage(true);
+                      void (async () => {
+                        try {
+                          const activeConversationId = await persistMessage(topic.label, undefined, topic.label);
+                          if (!activeConversationId) return;
+                          const response = await fetch(`/api/my-grow-mate/conversations/${activeConversationId}/messages`);
+                          if (!response.ok) return;
+                        const payload = (await response.json()) as { messages?: Array<{ id: string; role: "user" | "assistant" | "system"; content: string; messageType?: string; images?: string[] }> };
+                          const normalized = (payload.messages ?? [])
+                            .filter((m): m is { id: string; role: "user" | "assistant"; content: string } => m.role === "user" || m.role === "assistant")
+                          .map((m, idx) => ({ id: m.id || `${m.role}-${idx}`, role: m.role, content: m.content, messageType: m.messageType, images: m.images ?? [] }));
+                          setMessages(normalized);
+                        } finally {
+                          setIsSendingMessage(false);
+                        }
+                      })();
                     }
                     setMessageText("");
                     setIsConversationStarted(true);

@@ -17,6 +17,19 @@ type LogDetail = {
   body: string;
 };
 
+function renderLogMarkdown(content: string) {
+  const lines = content.split("\n");
+  return lines.map((line, idx) => {
+    let html = line
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    if (!html.trim()) html = "&nbsp;";
+    return <p key={`${idx}-${line.slice(0, 8)}`} dangerouslySetInnerHTML={{ __html: html }} />;
+  });
+}
+
 export default function LogDetailPage() {
   const router = useRouter();
   const params = useParams<{ slug: string }>();
@@ -121,9 +134,7 @@ export default function LogDetailPage() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <p className="text-[14px] font-medium leading-[1.5] text-[#333333cc]">{log?.body ?? ""}</p>
-            </div>
+            <div className="flex flex-col gap-4 text-[14px] font-medium leading-[1.5] text-[#333333cc]">{renderLogMarkdown(log?.body ?? "")}</div>
           </div>
         </div>
 

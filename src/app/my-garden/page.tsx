@@ -438,7 +438,7 @@ export default function MyGardenPage() {
                   <img src={plant.coverPhotoUrl ?? imgFrame1111} alt={plant.commonName} className="h-[153px] w-full rounded-t-[16px] object-cover shadow-[0_1px_3px_rgba(0,0,0,0.1),0_1px_2px_rgba(0,0,0,0.1)]" />
                   <div className="flex-1 rounded-b-[16px] border-x border-b border-black/5 bg-white px-3 pb-3 pt-2">
                     <p className="text-[14px] font-medium leading-5 text-[#333333]">{plant.commonName}</p>
-                    <p className="text-[12px] font-normal leading-4 text-[#333333cc]">{plant.scientificName ?? "Unknown species"}</p>
+                    <p className="text-[12px] font-normal leading-4 text-[#333333cc]">{plant.scientificName ?? "Unidentified"}</p>
                   </div>
                 </article>
               ))}

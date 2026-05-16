@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { mutate } from "swr";
 
 type ProfileMeResponse = {
   fullName: string;
@@ -191,6 +192,8 @@ export default function EditProfilePage() {
         URL.revokeObjectURL(photoPreviewUrl);
         setPhotoPreviewUrl(null);
       }
+      // Keep profile screen in sync when navigating back immediately after save.
+      await mutate("/api/profile/me", result, false);
       router.push("/profile");
     } catch {
       setSaveError("Unable to save profile.");

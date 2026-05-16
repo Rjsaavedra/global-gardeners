@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const avatar = "/images/figma/placeholder-expired.png";
 const videoThumb = "/images/figma/placeholder-expired.png";
@@ -73,7 +73,7 @@ function VideoItem({
   );
 }
 
-export default function InfluencerProfilePage() {
+function InfluencerProfilePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const slug = (searchParams.get("slug") ?? "").trim();
@@ -168,5 +168,21 @@ export default function InfluencerProfilePage() {
         ) : null}
       </section>
     </main>
+  );
+}
+
+export default function InfluencerProfilePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="client-main min-h-screen bg-[#f8f6f1] px-0">
+          <section className="client-shell relative mx-auto flex min-h-screen w-full max-w-[390px] items-center justify-center overflow-hidden border border-[#e7e0d2] bg-[#f8f6f1]">
+            <p className="text-[14px] text-[#525252]">Loading...</p>
+          </section>
+        </main>
+      }
+    >
+      <InfluencerProfilePageContent />
+    </Suspense>
   );
 }
